@@ -86,7 +86,11 @@ const Header = ({
                     {item?.SubModulos?.map((subItem: any) => (
                       <li className="cursor-pointer" key={subItem.id}>
                         <Link
-                          href={`${subItem?.Link}?SubSede=${Session?.IdSubSede}&IdRol=${Session?.usu_rol}&IdUser=${Session?.DemasInfo?.Id}&Doc=${Session?.DemasInfo?.Documento}`}
+                          href={`${subItem?.Link}?SubSede=${
+                            Session?.IdSubSede
+                          }&IdRol=${Session?.usu_rol}&IdUser=${
+                            Session?.DemasInfo?.Id
+                          }&Doc=${Session?.DemasInfo?.Documento || 0}`}
                           onClick={() => {
                             setActive(subItem?.id);
                           }}

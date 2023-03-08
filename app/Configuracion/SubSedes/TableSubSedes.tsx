@@ -53,8 +53,8 @@ const TableSubSedes = ({
             </h1>
 
             <div className="grid sm:grid-cols-3 border-t gap-x-2 max-h-48 overflow-auto scrollbar-hide">
-              {row?.SubSedes?.map((coa: any, key: any) => (
-                <div key={key} className="flex gap-x-1 ">
+              {row?.SubSedes?.map((coa: any) => (
+                <div className="flex gap-x-1 ">
                   <button
                     title="Eliminar Registro"
                     onClick={async () => {
