@@ -60,7 +60,7 @@ const BodyComponent = ({ params }: Props) => {
       // limpiar localstorage
       setIsPending(false);
     } catch (error) {
-      console.error(error);
+      console.log(error);
       setIsPending(false);
 
       alert("Error al cargar la información");

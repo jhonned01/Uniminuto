@@ -18,12 +18,13 @@ const SingInComponent = ({ setUser, setModalCambiosPass }: props) => {
   const hanlerSubimit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      // limpiar el localstorage
 
       localStorage.clear();
 
-      const response = await axios.post("/api/Login", {
-        InputValues,
+      const response = await axios("/api/Login", {
+        params: {
+          ...InputValues,
+        },
       });
 
       console.log("response", response);
@@ -57,8 +58,8 @@ const SingInComponent = ({ setUser, setModalCambiosPass }: props) => {
         });
       }
     } catch (error) {
+      console.log(error);
       alert("Usuario o contraseña incorrectos");
-      console.error(error);
     }
   };
   return (

@@ -69,8 +69,8 @@ const ModalNotifications = ({ Notification, setShowNotification }: Props) => {
             </div>
             <div className=" p-3 mt-3 bg-white rounded flex justify-around items-center ">
               <div className="pl-3 w-full space-y-4">
-                {Notification.map((item: any) => (
-                  <div>
+                {Notification.map((item: any, key: any) => (
+                  <div key={key}>
                     <Link
                       href={item.Link}
                       onClick={() => setShowNotification(false)}
