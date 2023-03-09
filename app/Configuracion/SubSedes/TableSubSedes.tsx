@@ -142,7 +142,7 @@ const TableSubSedes = ({
   };
 
   return (
-    <div className="border-l-2 border-t-2 border-r-2 border-white">
+    <div className="border-t-2 border-t-white">
       <DataTable
         title="Lista de Centro de Operaciones Académicos (COA)"
         columns={columns}

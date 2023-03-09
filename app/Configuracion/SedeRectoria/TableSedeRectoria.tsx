@@ -244,8 +244,7 @@ const TableSedeRectoria = ({
   }, [filterText]);
 
   return (
-    <div className="border-l-2 border-t-2 border-r-2 border-white">
-      {" "}
+    <div className="border-t-2 border-t-white">
       <DataTable
         title="Lista de rectorías y sedes"
         columns={columns}

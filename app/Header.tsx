@@ -50,8 +50,8 @@ const Header = ({
   return (
     <>
       <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
-        <div className="fixed flex flex-col top-0 left-0 w-14 hover:w-64 md:w-64 bg-[#070e54] dark:bg-gray-900 h-full text-white transition-all duration-300 border-none z-10 sidebar">
-          <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-24 bg-[#070e54] dark:bg-gray-800 border-none">
+        <div className="border-r-2 border-r-white fixed flex flex-col top-0 left-0 w-14 hover:w-64 md:w-64 bg-[#070e54] dark:bg-gray-900 h-full text-white transition-all duration-300 z-10 sidebar">
+          <div className="border-r-2 border-r-white flex items-center justify-start md:justify-center pl-3 w-14 md:w-64 h-24 bg-[#070e54] dark:bg-gray-800">
             <span className="w-8 my-2 h-8 md:w-16 md:h-16 mr-2 rounded-md cursor-pointer overflow-hidden">
               <Link href="/">
                 <Image
