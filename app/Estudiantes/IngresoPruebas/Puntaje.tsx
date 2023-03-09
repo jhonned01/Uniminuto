@@ -11,6 +11,7 @@ const Puntaje = ({ PreguntasResolver, setPreguntaShow }: Props) => {
         <div className="flex flex-wrap">
           {PreguntasResolver.map((item, index) => (
             <button
+              key={index}
               onClick={() => {
                 setPreguntaShow(item);
               }}
