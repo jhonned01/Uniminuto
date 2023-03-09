@@ -1,5 +1,5 @@
 "use client";
-import React, { useTransition } from "react";
+import React, { useEffect, useTransition } from "react";
 import TitleButton from "../TitleButton";
 import * as XLSX from "xlsx";
 import axios from "axios";
@@ -8,11 +8,10 @@ import TableStudiantes from "./TableStudiantes";
 import Title from "../../Title";
 import Loading from "./loading";
 import TablaIncorrectos from "./TablaIncorrectos";
+import { useSearchParams } from "next/navigation";
 
-type Props = {
-  data: Estudiante[];
-};
-const BodyComponent = ({ data }: Props) => {
+const BodyComponent = () => {
+  const [data, setData] = React.useState([] as Estudiante[]);
   const [Estudiantes, setEstudiantes] = React.useState([] as Estudiante[]);
 
   const [NameFile, setNameFile] = React.useState("");
@@ -23,6 +22,8 @@ const BodyComponent = ({ data }: Props) => {
   const [Data2, setData2] = React.useState({
     IdSubSede: localStorage.getItem("IdSubSede") || "",
   } as any);
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = React.useState(false as boolean);
 
   const handleFile = (e: any) => {
     try {
@@ -48,6 +49,26 @@ const BodyComponent = ({ data }: Props) => {
       setEstudiantes([]);
     }
   };
+
+  const getData = async () => {
+    try {
+      setIsPending(true);
+      const SubSede = searchParams.get("SubSede");
+
+      const res: any = await fetch(
+        `api/Configuracion/CargaMasiva/GetStudents?SubSede=${SubSede}`
+      ).then((res) => res.json());
+      setData(res?.estudiantes || []);
+      setIsPending(false);
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       {data?.length > 0 ? (
