@@ -7,8 +7,6 @@ export async function GET(req: NextRequest) {
   const SubSede = searchParams.get("SubSede") || "";
 
   try {
-    const { TipoModulo, ModuloPrincipal, Nombre, NombreModuloPrincipal } =
-      await req?.json();
     const [DocentesRes]: any = await connectionPool.query(`
     SELECT dcne.i as Id, concat(dcne.dcne_nom1,' ',dcne.dcne_nom2) as Nombre, concat(dcne.dcne_ape1,' ',dcne.dcne_ape2) as Apellidos,tipo_docum.codigo as DocumCodigo,tipo_docum.nombre as TipoDocumento,dcne.dcne_num_docu as Documento,dcne_email_perso as Correo,usuario.login as Usuario,usuario.pass as Pass,dcne.dcne_genero as Genero,subSedes.nombre as NombreSubSede from dcne INNER JOIN usuario on(usuario.idUsuario=dcne.i) INNER JOIN tipo_docum ON (tipo_docum.id=dcne.tipo_docu_id) INNER JOIN subSedes ON subSedes.id=usuario.subsede WHERE usuario.rol=2 ${
       SubSede && SubSede != "0" ? `and usuario.subsede = '${SubSede}'` : ""

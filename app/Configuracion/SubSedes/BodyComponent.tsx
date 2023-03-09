@@ -6,6 +6,8 @@ import axios from "axios";
 import AddSubSede from "./AddSubSede";
 import TableSubSedes from "./TableSubSedes";
 import EditSubSede from "./EditSubSede";
+import { useSearchParams } from "next/navigation";
+import Loading from "@/app/loading";
 
 type Props = {
   rectorias: {
@@ -13,18 +15,18 @@ type Props = {
   };
   subSedes: { SedesSubSedes: string[] };
 };
-const BodyComponent = ({ rectorias, subSedes }: Props) => {
+const BodyComponent = () => {
   const [ShowModal, setShowModal] = React.useState({} as VisibilidadModal);
   const [Values, setValues] = React.useState({} as any);
   const [InfoEditar, setInfoEditar] = React.useState({} as {});
 
   const [Data, setData] = React.useState({
-    rectorias: rectorias?.rectorias,
+    rectorias: [],
     SedesRectorias: [],
   });
 
-  const [SubSedes, setSubSedes] = React.useState(subSedes?.SedesSubSedes);
-
+  const [SubSedes, setSubSedes] = React.useState([] as any[]);
+  const [isPending, setIsPending] = React.useState(false as boolean);
   const getData = async (RectoriaSelected: number) => {
     const response = await axios.get(
       "/api/Configuracion/SubSedes/getSedesRectorias",
@@ -36,6 +38,7 @@ const BodyComponent = ({ rectorias, subSedes }: Props) => {
     );
 
     setData({ ...Data, SedesRectorias: response?.data?.sedesRectorias || [] });
+    setValues({ ...Values, SedeRectoriaSelected: null });
   };
 
   useEffect(() => {
@@ -44,6 +47,31 @@ const BodyComponent = ({ rectorias, subSedes }: Props) => {
     }
   }, [Values?.RectoriaSelected]);
 
+  useEffect(() => {
+    async function GetRectorias() {
+      const data = await fetch(
+        `/api/Configuracion/SedeRectoria/GetRectorias`
+      ).then((res) => res?.json());
+      setData({ ...Data, rectorias: data?.rectorias || [] });
+    }
+
+    async function GetSubSedes() {
+      setIsPending(true);
+      const dataSedesSubSedes = await fetch(
+        `/api/Configuracion/SubSedes/GetSedesSubSedes`
+      ).then((res) => res?.json());
+      setSubSedes(dataSedesSubSedes?.SedesSubSedes || []);
+      setIsPending(false);
+    }
+
+    try {
+      GetRectorias();
+      GetSubSedes();
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  }, []);
   return (
     <>
       {ShowModal?.AddVisible && (
@@ -79,6 +107,8 @@ const BodyComponent = ({ rectorias, subSedes }: Props) => {
                   getOptionLabel={(item: any) => item.Nombre}
                   getOptionValue={(item: any) => item.Id}
                   onChange={(item) => {
+                    console.log(item);
+
                     setData({ ...Data, SedesRectorias: [] });
                     setValues({ ...Values, RectoriaSelected: item?.Id });
                   }}
@@ -126,12 +156,16 @@ const BodyComponent = ({ rectorias, subSedes }: Props) => {
         </div>
       </div>
       <div className="mt-10">
-        <TableSubSedes
-          info={SubSedes}
-          setSubSedes={setSubSedes}
-          setInfoEditar={setInfoEditar}
-          setShowModal={setShowModal}
-        />
+        {isPending ? (
+          <Loading />
+        ) : (
+          <TableSubSedes
+            info={SubSedes}
+            setSubSedes={setSubSedes}
+            setInfoEditar={setInfoEditar}
+            setShowModal={setShowModal}
+          />
+        )}
       </div>
     </>
   );

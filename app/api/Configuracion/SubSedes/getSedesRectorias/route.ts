@@ -3,13 +3,10 @@ import type { NextRequest } from "next/server";
 import connectionPool from "../../../../../config/db";
 
 export async function GET(req: NextRequest) {
-  const { id } = await req?.json();
-
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get("id") || "";
   try {
     const [SedesRectorias]: any = await connectionPool.query(`
-      select id as Id, nombreSede as NombreSede from sedes where idRectoria = ${id}`);
-
-    console.log(`
       select id as Id, nombreSede as NombreSede from sedes where idRectoria = ${id}`);
 
     return NextResponse.json(

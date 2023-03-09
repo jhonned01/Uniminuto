@@ -123,10 +123,8 @@ const ModalAdd = ({ setShowModal, setPerfiles }: Props) => {
                   >
                     <option value="">Seleciona una opcion</option>
 
-                    {Tipo.map((item: any, key) => (
-                      <option key={key} value={item.value}>
-                        {item.label}
-                      </option>
+                    {Tipo.map((item) => (
+                      <option value={item.value}>{item.label}</option>
                     ))}
                   </select>
                 </div>

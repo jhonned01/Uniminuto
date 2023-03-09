@@ -1,20 +1,37 @@
 "use client";
-import React from "react";
+import Loading from "@/app/loading";
+import React, { useEffect } from "react";
 import { ModulosPerfiles, VisibilidadModal } from "../../../typings";
 import TitleButton from "../../Configuracion/TitleButton";
 import ModalEdit from "./ModadEdit";
 import ModalAdd from "./ModalAdd";
 import Table from "./Table";
 
-type Props = {
-  data: ModulosPerfiles[];
-};
-
-const BodyComponent = ({ data }: Props) => {
-  const [perfiles, setPerfiles] = React.useState(data);
+const BodyComponent = () => {
+  const [perfiles, setPerfiles] = React.useState([] as ModulosPerfiles[]);
   const [ShowModal, setShowModal] = React.useState({} as VisibilidadModal);
   const [InfoEditar, setInfoEditar] = React.useState({} as ModulosPerfiles);
+  const [isPending, setIsPending] = React.useState(false as boolean);
 
+  useEffect(() => {
+    const GetData = async () => {
+      setIsPending(true);
+
+      const data = await fetch(`/api/Seguridad/GetModulosPerfiles`).then(
+        (res) => res.json()
+      );
+      const { perfiles } = data;
+
+      setPerfiles(perfiles);
+      setIsPending(false);
+    };
+    try {
+      GetData();
+    } catch (error) {
+      console.log(error);
+      alert("Error al obtener la información");
+    }
+  }, []);
   return (
     <>
       {ShowModal.AddVisible && (
@@ -63,12 +80,16 @@ const BodyComponent = ({ data }: Props) => {
         </button>
       </TitleButton>
 
-      <Table
-        info={perfiles}
-        setPerfiles={setPerfiles}
-        setInfoEditar={setInfoEditar}
-        setShowModal={setShowModal}
-      />
+      {isPending ? (
+        <Loading />
+      ) : (
+        <Table
+          info={perfiles}
+          setPerfiles={setPerfiles}
+          setInfoEditar={setInfoEditar}
+          setShowModal={setShowModal}
+        />
+      )}
     </>
   );
 };

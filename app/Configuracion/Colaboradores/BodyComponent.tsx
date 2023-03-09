@@ -1,17 +1,20 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Administrativo, VisibilidadModal } from "../../../typings";
 import Header from "./Header";
 import TableAdministrativos from "./TableAdministrativos";
 import { Lightbox } from "react-modal-image";
+import { useSearchParams } from "next/navigation";
+import Loading from "./loading";
 
 type props = {
   data: Administrativo[];
 };
 
-const BodyComponent = ({ data }: props) => {
-  const [administrativos, setAdministrativos] =
-    useState<Administrativo[]>(data);
+const BodyComponent = () => {
+  const [administrativos, setAdministrativos] = useState<Administrativo[]>([]);
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = useState(false as boolean);
 
   const [showModal, setShowModal] = useState<VisibilidadModal>({
     AddVisible: false,
@@ -27,6 +30,27 @@ const BodyComponent = ({ data }: props) => {
     Image: "",
     Visible: false,
   });
+
+  const getData = async () => {
+    try {
+      setIsPending(true);
+      const SubSede: any = searchParams.get("SubSede");
+
+      const data: any = await fetch(
+        `/api/Configuracion/Administrativos/GetAdministrativos?SubSede=${SubSede}`
+      ).then((res) => res.json());
+      const administrativos: Administrativo[] = data.administrativos;
+      setAdministrativos(administrativos);
+      setIsPending(false);
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
@@ -49,13 +73,19 @@ const BodyComponent = ({ data }: props) => {
         showModal={showModal}
         InfoEditar={InfoEditar}
       />
-      <TableAdministrativos
-        info={administrativos}
-        setAdministrativos={setAdministrativos}
-        setShowModal={setShowModal}
-        setInfoEditar={setInfoEditar}
-        setShowImage={setShowImage}
-      />
+      {isPending ? (
+        <Loading />
+      ) : (
+        <>
+          <TableAdministrativos
+            info={administrativos}
+            setAdministrativos={setAdministrativos}
+            setShowModal={setShowModal}
+            setInfoEditar={setInfoEditar}
+            setShowImage={setShowImage}
+          />
+        </>
+      )}
     </>
   );
 };

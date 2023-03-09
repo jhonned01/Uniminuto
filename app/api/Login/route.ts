@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server";
+import { User } from "../../../typings";
 import connectionPool from "../../../config/db";
 
 export async function GET(req: any) {
-  const { searchParams } = new URL(req?.url);
+  const { searchParams } = new URL(req.url);
 
   try {
     const Usuario = searchParams?.get("Usuario");
     const Pass = searchParams?.get("Pass");
-    console.log(Usuario, Pass);
 
     let consulta = `SELECT rol, rol_nombre, idUsuario, tipo, subsede,ChangePass FROM usuario INNER JOIN rol ON usuario.rol = rol.rol_id WHERE login = '${Usuario?.toLowerCase()}' AND pass = '${Pass}'`;
 
     let DemasInfo = {};
     let Notificaciones: [] = [];
+
+    // console.log(consulta);
 
     const [user]: any = await connectionPool.query(consulta);
 
@@ -22,8 +24,8 @@ export async function GET(req: any) {
       if (user[0]?.tipo == "ADMINISTRATIVO") {
         const [Administrativo]: any = await connectionPool.query(
           `
-          SELECT concat(admco.admco_nom1,' ',admco.admco_nom2) as Nombre,concat(admco.admco_ape1,' ',admco.admco_ape2) as Apellidos,admco.documento as Documento FROM admco WHERE id = ${user[0]?.idUsuario}
-          `
+        SELECT concat(admco.admco_nom1,' ',admco.admco_nom2) as Nombre,concat(admco.admco_ape1,' ',admco.admco_ape2) as Apellidos,admco.documento as Documento FROM admco WHERE id = ${user[0]?.idUsuario}
+        `
         );
 
         DemasInfo = {
@@ -55,7 +57,7 @@ export async function GET(req: any) {
 
         const [Docente]: any = await connectionPool.query(
           `select concat(dcne.dcne_nom1,' ',dcne.dcne_nom2) as Nombre, concat(dcne.dcne_ape1,' ',dcne.dcne_ape2) as Apellidos,dcne_num_docu as Documento  from dcne
-          where dcne.i = ${user[0]?.idUsuario}`
+        where dcne.i = ${user[0]?.idUsuario}`
         );
         DemasInfo = {
           Nombre: Docente[0]?.Nombre,
@@ -69,14 +71,14 @@ export async function GET(req: any) {
       let key = 100;
 
       const [Modulos]: any = await connectionPool.query(`
-      SELECT NewModulosSygescol.mod_nombre as Nombre,NewModulosSygescol.mod_image as Icon,NewModulosSygescol.mod_link as Link ,NewModulosSygescol.mod_id as id FROM ModulosPerfilAcceso INNER JOIN NewModulosSygescol ON (ModulosPerfilAcceso.mod_id=NewModulosSygescol.mod_id) WHERE ModulosPerfilAcceso.perfil_id=${user[0]?.rol} and NewModulosSygescol.submod_id = 0 
-      `);
+    SELECT NewModulosSygescol.mod_nombre as Nombre,NewModulosSygescol.mod_image as Icon,NewModulosSygescol.mod_link as Link ,NewModulosSygescol.mod_id as id FROM ModulosPerfilAcceso INNER JOIN NewModulosSygescol ON (ModulosPerfilAcceso.mod_id=NewModulosSygescol.mod_id) WHERE ModulosPerfilAcceso.perfil_id=${user[0]?.rol} and NewModulosSygescol.submod_id = 0 
+    `);
 
       if (Modulos?.length > 0) {
         for (const Module of Modulos) {
           const [SubModulos]: any = await connectionPool.query(
             `SELECT NewModulosSygescol.mod_nombre as SubModulo,NewModulosSygescol.mod_image as Icon,NewModulosSygescol.mod_link as Link ,NewModulosSygescol.mod_id as id FROM ModulosPerfilAcceso INNER JOIN NewModulosSygescol ON (ModulosPerfilAcceso.mod_id=NewModulosSygescol.mod_id) WHERE ModulosPerfilAcceso.perfil_id=${user[0]?.rol} and NewModulosSygescol.submod_id != 0 and NewModulosSygescol.submod_id=${Module.id} order by NewModulosSygescol.mod_posicion
-            `
+          `
           );
 
           if (SubModulos?.length > 0) {
@@ -100,7 +102,7 @@ export async function GET(req: any) {
     }
 
     return NextResponse.json({
-      user: user || [],
+      user: user as User[],
       DemasInfo,
       Menu: Menu || [],
       Notificaciones: Notificaciones || [],

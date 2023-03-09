@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { VisibilidadModal } from "../../../typings";
 import TitleButton from "../TitleButton";
+import Loading from "./loading";
 import ModalAdd from "./ModalAdd";
 import ModalEdit from "./ModalEdit";
 import TableGradosGrupos from "./TableGradosGrupos";
@@ -9,14 +11,37 @@ import TableGradosGrupos from "./TableGradosGrupos";
 type Props = {
   grados: Array<any>;
 };
-const BodyGradosGrupos = ({ grados }: Props) => {
+const BodyGradosGrupos = () => {
   const [showModal, setShowModal] = useState({
     AddVisible: false,
     EditVisible: false,
   } as VisibilidadModal);
-  const [gradosGrupos, setGradosGrupos] = useState<any>(grados);
+  const [gradosGrupos, setGradosGrupos] = useState<any>([]);
   const [InfoGradoEditar, setInfoGradoEditar] = useState<any>({});
 
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = useState(false as boolean);
+
+  useEffect(() => {
+    const GetData = async () => {
+      setIsPending(true);
+      const SubSede = searchParams.get("SubSede");
+
+      const data = await fetch(
+        `/api/Configuracion/GradosGrupos/GetGradosGrupos?SubSede=${SubSede}`
+      ).then((res) => res?.json());
+
+      setGradosGrupos(data?.grados || []);
+      setIsPending(false);
+    };
+
+    try {
+      GetData();
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  }, []);
   return (
     <>
       {showModal?.AddVisible && (
@@ -60,12 +85,16 @@ const BodyGradosGrupos = ({ grados }: Props) => {
           </button>
         </div>
       </TitleButton>
-      <TableGradosGrupos
-        info={gradosGrupos}
-        setGradosGrupos={setGradosGrupos}
-        setInfoGradoEditar={setInfoGradoEditar}
-        setShowModal={setShowModal}
-      />
+      {isPending ? (
+        <Loading />
+      ) : (
+        <TableGradosGrupos
+          info={gradosGrupos}
+          setGradosGrupos={setGradosGrupos}
+          setInfoGradoEditar={setInfoGradoEditar}
+          setShowModal={setShowModal}
+        />
+      )}
     </>
   );
 };

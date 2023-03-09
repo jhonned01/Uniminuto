@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import Loading from "@/app/loading";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { VisibilidadModal } from "../../../typings";
 import TitleButton from "../TitleButton";
 import EditRectoria from "./EditRectoria";
@@ -11,15 +13,37 @@ type Props = {
   info: any;
 };
 
-const BodyComponet = ({ info }: Props) => {
+const BodyComponet = () => {
   const [ShowModal, setShowModal] = useState({
     AddVisible: false,
     EditVisible: false,
   } as VisibilidadModal);
 
-  const [Rectorias, setRectorias] = useState(Object.values(info));
+  const [Rectorias, setRectorias] = useState([]);
 
   const [InfoEditar, setInfoEditar] = useState({});
+
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = React.useState(false as boolean);
+
+  useEffect(() => {
+    const GetData = async () => {
+      setIsPending(true);
+
+      const data = await fetch(
+        `/api/Configuracion/SedeRectoria/GetRectoriaSede`
+      ).then((res) => res.json());
+      setRectorias(Object.values(data?.RectoriasSedes || []));
+      setIsPending(false);
+    };
+
+    try {
+      GetData();
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  }, []);
   return (
     <>
       {ShowModal.AddVisible && (
@@ -69,12 +93,16 @@ const BodyComponet = ({ info }: Props) => {
         </div>
       </TitleButton>
 
-      <TableSedeRectoria
-        info={Rectorias}
-        setRectorias={setRectorias}
-        setInfoEditar={setInfoEditar}
-        setShowModal={setShowModal}
-      />
+      {isPending ? (
+        <Loading />
+      ) : (
+        <TableSedeRectoria
+          info={Rectorias}
+          setRectorias={setRectorias}
+          setInfoEditar={setInfoEditar}
+          setShowModal={setShowModal}
+        />
+      )}
     </>
   );
 };

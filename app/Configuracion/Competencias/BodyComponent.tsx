@@ -1,18 +1,41 @@
 "use client";
-
-import React, { useState } from "react";
+import Loading from "@/app/loading";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { Competencia } from "../../../typings";
 import TitleButton from "../TitleButton";
 import ModalAdd from "./ModalAdd";
 import TableCompetencias from "./TableCompetencias";
 
-type props = {
-  data: Competencia[];
-};
-const BodyComponent = ({ data }: props) => {
-  const [Competencias, setCompetencias] = useState<Competencia[]>(data);
+const BodyComponent = () => {
+  const [Competencias, setCompetencias] = useState<Competencia[]>(
+    [] as Competencia[]
+  );
   const [showModal, setShowModal] = useState(false);
   const [InfoEditar, setInfoEditar] = useState<Competencia | {}>({});
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = useState(false as boolean);
+
+  const getData = async () => {
+    try {
+      setIsPending(true);
+      const SubSede = searchParams.get("SubSede");
+
+      const data: any = await fetch(
+        `/api/Configuracion/Competencias/GetCompetencias?SubSede=${SubSede}`
+      ).then((res) => res.json());
+      const competencias: Competencia[] = data.competencia;
+      setCompetencias(competencias);
+      setIsPending(false);
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
@@ -52,12 +75,16 @@ const BodyComponent = ({ data }: props) => {
           </button>
         </div>
       </TitleButton>
-      <TableCompetencias
-        info={Competencias}
-        setCompetencias={setCompetencias}
-        setInfoEditar={setInfoEditar}
-        setShowModal={setShowModal}
-      />
+      {isPending ? (
+        <Loading />
+      ) : (
+        <TableCompetencias
+          info={Competencias}
+          setCompetencias={setCompetencias}
+          setInfoEditar={setInfoEditar}
+          setShowModal={setShowModal}
+        />
+      )}
     </>
   );
 };

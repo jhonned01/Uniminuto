@@ -8,7 +8,6 @@ export async function GET(req: any) {
     const Documento = searchParams.get("Documento");
     const Id = searchParams.get("Id");
     const Rol = searchParams.get("Rol");
-    console.log(Documento, Id, Rol);
 
     if (!Documento || !Id || !Rol) {
       return NextResponse.json(

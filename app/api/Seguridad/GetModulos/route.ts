@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import connectionPool from "../../../../config/db";
 
-export async function GET(request: Request) {
-  //   return NextResponse.json({ body: "hola ivan" })
-
+export async function GET() {
   try {
+    console.log("GetModulos");
+
     const [Modulos]: any = await connectionPool.query(
       "SELECT mod_id as Id, mod_nombre as Nombre FROM NewModulosSygescol WHERE submod_id = 0"
     );
@@ -23,7 +23,12 @@ export async function GET(request: Request) {
         });
       }
     }
-    return NextResponse.json({ Modulos: Menu || [] });
+    return NextResponse.json(
+      { Modulos: Menu || [] },
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
     return NextResponse.json(
       { body: "Internal Server Error" },

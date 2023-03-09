@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Docente, VisibilidadModal } from "../../../typings";
 import TitleButton from "../TitleButton";
 import ModalAdd from "./ModalAdd";
@@ -7,21 +7,19 @@ import ModalEdit from "./ModalEdit";
 import TableDocentes from "./TableDocentes";
 import { Lightbox } from "react-modal-image";
 import AsignacionInput from "./AsignacionInput";
+import { useSearchParams } from "next/navigation";
+import Loading from "@/app/loading";
 
-type props = {
-  data: Docente[];
-};
-
-const BodyComponent = ({ data }: props) => {
+const BodyComponent = () => {
   const [showModal, setShowModal] = useState({
     AddVisible: false,
     EditVisible: false,
     ActualizarHorario: false,
   } as VisibilidadModal);
 
-  const [Docentes, setDocentes] = useState<Docente[]>(data);
+  const [Docentes, setDocentes] = useState<Docente[]>([]);
 
-  const [Horario, setHorario] = useState<Docente[]>(data);
+  const [Horario, setHorario] = useState<Docente[]>([]);
 
   const [InfoEditar, setInfoEditar] = useState({} as Docente);
 
@@ -32,6 +30,30 @@ const BodyComponent = ({ data }: props) => {
     Image: "",
     Visible: false,
   });
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = useState(false as boolean);
+
+  useEffect(() => {
+    const GetData = async () => {
+      setIsPending(true);
+      const SubSede = searchParams.get("SubSede");
+
+      const data = await fetch(
+        `/api/Configuracion/Docentes/GetDocentes?SubSede=${SubSede}`
+      ).then((res) => res.json());
+
+      setDocentes(data?.docentes || []);
+      setHorario(data?.docentes || []);
+      setIsPending(false);
+    };
+
+    try {
+      GetData();
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  }, []);
 
   return (
     <>
@@ -102,14 +124,18 @@ const BodyComponent = ({ data }: props) => {
           showRotate={false}
         />
       )}
-      <TableDocentes
-        info={Docentes}
-        setDocentes={setDocentes}
-        setShowModal={setShowModal}
-        setInfoEditar={setInfoEditar}
-        setShowImage={setShowImage}
-        setHorario={setHorario}
-      />
+      {isPending ? (
+        <Loading />
+      ) : (
+        <TableDocentes
+          info={Docentes}
+          setDocentes={setDocentes}
+          setShowModal={setShowModal}
+          setInfoEditar={setInfoEditar}
+          setShowImage={setShowImage}
+          setHorario={setHorario}
+        />
+      )}
     </>
   );
 };

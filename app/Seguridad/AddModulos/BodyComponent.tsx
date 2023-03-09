@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import Loading from "@/app/loading";
+import React, { useEffect, useState } from "react";
 import { ItemSubModulo, VisibilidadModal } from "../../../typings";
 import TitleButton from "../../Configuracion/TitleButton";
 import EditModuloItem from "./EditModuloItem";
@@ -8,21 +9,40 @@ import EditPrincipal from "./EditPrincipal";
 import ModalAdd from "./ModalAdd";
 import Table from "./Table";
 
-type Props = {
-  info: [];
-};
-
-const BodyComponent = ({ info }: Props) => {
+const BodyComponent = () => {
   const [ShowModal, setShowModal] = useState({
     AddVisible: false,
     EditVisible: false,
     Actualizar: false,
   } as VisibilidadModal);
-  const [Data, setData] = useState(info as any);
+  const [Data, setData] = useState([] as any);
 
   const [ItemModulo, setItemModulo] = useState({} as ItemSubModulo);
 
+  const [isPending, setIsPending] = useState(false as boolean);
+
   const [InfoUpdatePrincipal, setInfoUpdatePrincipal] = useState({} as any);
+
+  useEffect(() => {
+    const GetData = async () => {
+      setIsPending(true);
+
+      const data = await fetch(`/api/Seguridad/GetModulos`).then((res) =>
+        res.json()
+      );
+      const { Modulos } = data;
+
+      setData(Modulos);
+      setIsPending(false);
+    };
+    try {
+      GetData();
+    } catch (error) {
+      console.error(error);
+      alert("Error al obtener la información");
+    }
+  }, []);
+
   return (
     <>
       {ShowModal.AddVisible && (
@@ -71,13 +91,21 @@ const BodyComponent = ({ info }: Props) => {
           <span>Agregar Módulo</span>
         </button>
       </TitleButton>
-      <Table
-        info={Data}
-        setInfoEditar={setData}
-        setItemModulo={setItemModulo}
-        setShowModal={setShowModal}
-        setInfoUpdatePrincipal={setInfoUpdatePrincipal}
-      />
+      {isPending ? (
+        <>
+          <Loading />
+        </>
+      ) : (
+        <>
+          <Table
+            info={Data}
+            setInfoEditar={setData}
+            setItemModulo={setItemModulo}
+            setShowModal={setShowModal}
+            setInfoUpdatePrincipal={setInfoUpdatePrincipal}
+          />
+        </>
+      )}
     </>
   );
 };

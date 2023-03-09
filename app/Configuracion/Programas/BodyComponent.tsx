@@ -1,5 +1,7 @@
 "use client";
-import React from "react";
+import Loading from "@/app/loading";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
 import { Programa } from "../../../typings";
 import TitleButton from "../TitleButton";
 import ModalAdd from "./ModalAdd";
@@ -9,10 +11,33 @@ type props = {
   programas: Programa[];
 };
 
-const BodyComponent = ({ programas }: props) => {
+const BodyComponent = () => {
   const [showModal, setShowModal] = React.useState(false);
-  const [Programas, setProgramas] = React.useState<Programa[]>(programas);
+  const [Programas, setProgramas] = React.useState<Programa[]>([]);
   const [InfoEditar, setInfoEditar] = React.useState<Programa>({} as Programa);
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = React.useState(false as boolean);
+
+  useEffect(() => {
+    const GetData = async () => {
+      setIsPending(true);
+      const SubSede = searchParams.get("SubSede");
+
+      const data = await fetch(
+        `/api/Configuracion/Programas/GetProgramas?SubSede=${SubSede}`
+      ).then((res) => res.json());
+      setProgramas(data?.programas || []);
+
+      setIsPending(false);
+    };
+
+    try {
+      GetData();
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  }, []);
 
   return (
     <>
@@ -52,12 +77,16 @@ const BodyComponent = ({ programas }: props) => {
           </button>
         </div>
       </TitleButton>
-      <TableProgramas
-        info={Programas}
-        setProgramas={setProgramas}
-        setInfoEditar={setInfoEditar}
-        setShowModal={setShowModal}
-      />
+      {isPending ? (
+        <Loading />
+      ) : (
+        <TableProgramas
+          info={Programas}
+          setProgramas={setProgramas}
+          setInfoEditar={setInfoEditar}
+          setShowModal={setShowModal}
+        />
+      )}
     </>
   );
 };
