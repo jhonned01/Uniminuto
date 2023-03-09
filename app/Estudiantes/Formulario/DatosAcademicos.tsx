@@ -9,7 +9,7 @@ import ModalSaludEstudiante from "./Modals/ModalSaludEstudiante";
 import ModalVictimaConflicto from "./Modals/ModalVictimaConflicto";
 type Props = {
   data: {
-    documento: number;
+    documento: any;
     save?: SeccionGuardada;
     informacion: {
       seccion: string;

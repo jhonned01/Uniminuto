@@ -1,11 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Estudiante, VisibilidadModal } from "../../typings";
 import TitleButton from "../Configuracion/TitleButton";
 import ModalAddEstu from "./ModalAddEstu";
 import TableEstudiantes from "./TableEstudiantes";
 import { Lightbox } from "react-modal-image";
 import Title from "../Title";
+import { useSearchParams } from "next/navigation";
+import Loading from "../loading";
 
 type props = {
   data: Estudiante[];
@@ -30,6 +32,28 @@ const BodyComponent = ({ data, InfoUser }: props) => {
     Image: "",
     Visible: false,
   });
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = useState(false as boolean);
+
+  const getData = async () => {
+    try {
+      setIsPending(true);
+      const SubSede = searchParams.get("SubSede");
+
+      const data: any = await fetch(
+        `/api/Configuracion/CargaMasiva/GetStudents?SubSede=${SubSede}`
+      ).then((res) => res.json());
+
+      setIsPending(false);
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <>
@@ -91,14 +115,18 @@ const BodyComponent = ({ data, InfoUser }: props) => {
           showRotate={false}
         />
       )}
-      <TableEstudiantes
-        info={Estudiante}
-        setEstudiante={setEstudiante}
-        setShowModal={setShowModal}
-        setInfoEditar={setInfoEditar}
-        setShowImage={setShowImage}
-        InfoUser={InfoUser}
-      />
+      {isPending ? (
+        <Loading />
+      ) : (
+        <TableEstudiantes
+          info={Estudiante}
+          setEstudiante={setEstudiante}
+          setShowModal={setShowModal}
+          setInfoEditar={setInfoEditar}
+          setShowImage={setShowImage}
+          InfoUser={InfoUser}
+        />
+      )}
     </>
   );
 };

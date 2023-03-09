@@ -24,8 +24,7 @@ const BodyComponent = () => {
       const data: any = await fetch(
         `/api/Configuracion/Competencias/GetCompetencias?SubSede=${SubSede}`
       ).then((res) => res.json());
-      const competencias: Competencia[] = data.competencia;
-      setCompetencias(competencias);
+      setCompetencias(data?.competencia || []);
       setIsPending(false);
     } catch (error) {
       console.log(error);

@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import {
   DatosColegio,
   Parametros,
@@ -27,8 +28,12 @@ type sectionFo = {
   id: number;
   comparar: string;
 };
-const BodyComponent = ({ data, docu, InfoUrl }: Props) => {
+const BodyComponent = () => {
   const [accept, setAccept] = useState(false);
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = useState(false as boolean);
+  const [data, setData] = useState({} as any);
+  const docu = searchParams.get("Doc");
 
   const change = (e: any) => {
     const { value } = e.target;
@@ -75,6 +80,26 @@ const BodyComponent = ({ data, docu, InfoUrl }: Props) => {
       SectionFormated.push({ ...info, save: false });
     }
   });
+
+  const getData = async () => {
+    try {
+      setIsPending(true);
+      const SubSede = searchParams.get("SubSede");
+
+      const dataRes: any = await fetch(
+        `/api/Estudiantes/QueremosConocerte/Base/BaseInfoColegio?num=${docu}`
+      ).then((res) => res.json());
+      setData(dataRes);
+      setIsPending(false);
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       <div className="container max-w-6xl mx-auto bg-blue-50">
