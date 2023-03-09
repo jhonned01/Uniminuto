@@ -10,18 +10,17 @@ import { useSearchParams } from "next/navigation";
 import Loading from "../loading";
 
 type props = {
-  data: Estudiante[];
   InfoUser: {
     IdRol: number;
   };
 };
 
-const BodyComponent = ({ data, InfoUser }: props) => {
+const BodyComponent = ({ InfoUser }: props) => {
   const [ShowModal, setShowModal] = useState({
     AddVisible: false,
     EdditVisible: false,
   } as VisibilidadModal);
-  const [Estudiante, setEstudiante] = useState<Estudiante[]>(data);
+  const [Estudiante, setEstudiante] = useState<Estudiante[]>([]);
 
   const [InfoEditar, setInfoEditar] = useState({} as Estudiante);
 
@@ -43,7 +42,7 @@ const BodyComponent = ({ data, InfoUser }: props) => {
       const data: any = await fetch(
         `/api/Configuracion/CargaMasiva/GetStudents?SubSede=${SubSede}`
       ).then((res) => res.json());
-
+      setEstudiante(data?.estudiantes || []);
       setIsPending(false);
     } catch (error) {
       console.log(error);
