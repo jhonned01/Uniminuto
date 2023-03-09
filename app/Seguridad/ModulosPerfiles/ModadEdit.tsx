@@ -134,8 +134,9 @@ const ModalEdit = ({ setShowModal, setPerfiles, InfoEditar }: Props) => {
                   >
                     <option value="">Seleciona una opcion</option>
 
-                    {Tipo.map((item) => (
+                    {Tipo.map((item, key) => (
                       <option
+                        key={key}
                         selected={Values?.Tipo === item.value}
                         value={item.value}
                       >

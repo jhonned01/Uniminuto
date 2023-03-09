@@ -110,7 +110,7 @@ const TableGradosGrupos = ({
           <hr className="bg-blue-900 h-1 " />
           <div className="grid  sm:grid-cols-3 border-t gap-x-2 max-h-48 overflow-auto scrollbar-hide">
             {row?.Grupos?.map((grupo: any, key: any) => (
-              <div className="flex justify-center items-center">
+              <div key={key} className="flex justify-center items-center">
                 <div
                   onClick={(e) => {
                     e.preventDefault();
@@ -138,7 +138,7 @@ const TableGradosGrupos = ({
                     );
                     if (validate) {
                       try {
-                        const response = await fetch(
+                        const response: any = await fetch(
                           "/api/Configuracion/GradosGrupos/DeleteGrupo",
                           {
                             method: "DELETE",
