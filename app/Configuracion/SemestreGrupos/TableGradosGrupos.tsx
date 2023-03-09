@@ -108,7 +108,7 @@ const TableGradosGrupos = ({
             Nuevo Grupo
           </button>
           <hr className="bg-blue-900 h-1 " />
-          <div className="grid  sm:grid-cols-3 border-t gap-x-2 max-h-48 overflow-auto scrollbar-hide">
+          <div className="grid sm:grid-cols-3 border-t gap-x-2 max-h-48 overflow-auto scrollbar-hide">
             {row?.Grupos?.map((grupo: any, key: any) => (
               <div key={key} className="flex justify-center items-center">
                 <div
@@ -132,6 +132,7 @@ const TableGradosGrupos = ({
                   <span>{grupo?.NombreGrupo}</span>
                 </div>
                 <button
+                  title="Eliminar grupo"
                   onClick={async (e) => {
                     const validate = confirm(
                       "¿Está seguro que desea eliminar el grupo?"
@@ -174,7 +175,7 @@ const TableGradosGrupos = ({
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-5 h-5 "
+                    className="w-5 h-5 text-red-900"
                   >
                     <path
                       strokeLinecap="round"
@@ -198,7 +199,7 @@ const TableGradosGrupos = ({
       selector: (row: any) => (
         <>
           <button
-            className=" text-red-900 flex justify-center w-full mx-auto"
+            className="text-red-900 flex justify-center w-full mx-auto"
             title="Eliminar registro"
             onClick={async () => {
               const validate = confirm(
@@ -266,7 +267,7 @@ const TableGradosGrupos = ({
   };
 
   return (
-    <div className="border-l-2 border-t-2 border-r-2 border-white">
+    <div className="border-t-2 border-t-white">
       <DataTable
         title="Lista de Semestres, Cuatrimestres y Grupos"
         columns={columns}

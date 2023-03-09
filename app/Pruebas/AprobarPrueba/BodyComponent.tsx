@@ -208,11 +208,11 @@ const BodyComponent = () => {
           GetPreguntas={GetPreguntas}
         />
       )}
-      <div className="flex mt-10 flex-col sm:justify-center items-center bg-gray-100 ">
+      <div className="flex mt-10 flex-col sm:justify-center items-center">
         <div className="relative sm:max-w-sm w-full">
           <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6" />
           <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6" />
-          <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
+          <div className="border-2 border-gray-400 relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
             <form>
               {Data?.IdSubSede == "0" && (
                 <>
@@ -382,7 +382,9 @@ const BodyComponent = () => {
             setSeeQuestion={setSeeQuestion}
           />
         ) : (
-          <p className="text-center text-gray-800">No hay preguntas</p>
+          <p className="text-center text-gray-800 text-lg font-medium">
+            No hay preguntas
+          </p>
         )}
       </div>
     </>
