@@ -7,9 +7,6 @@ export async function GET(req: NextRequest) {
   const SubSede = searchParams.get("SubSede") || "";
 
   try {
-    const { TipoModulo, ModuloPrincipal, Nombre, NombreModuloPrincipal } =
-      await req?.json();
-
     const [CompetenciaRes]: any = await connectionPool.query(
       `SELECT pfc_ejes.eje_id as Id,pfc_ejes.eje_nom as Nombre,pfc_ejes.eje_abr as Abreviatura,pfc_ejes.eje_tip as TipoCompetencia,pfc_ejes.eje_cons as Orden,subSedes.nombre as NombreSubSede FROM pfc_ejes INNER JOIN subSedes ON subSedes.id=pfc_ejes.subSedeId ${
         SubSede && SubSede != "0"

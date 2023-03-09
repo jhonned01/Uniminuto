@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import connectionPool from "../../../../../config/db";
 
-export async function POST(req: any) {
+export async function GET() {
   try {
     const [TipoDocumentoRes]: any = await connectionPool.query(
       `SELECT tipo_docum.id, tipo_docum.nombre FROM tipo_docum ORDER BY tipo_docum.nombre`

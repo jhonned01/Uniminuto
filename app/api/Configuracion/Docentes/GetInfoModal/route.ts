@@ -7,8 +7,6 @@ export async function GET(req: NextRequest) {
   const SubSede = searchParams.get("SubSede") || "";
 
   try {
-    const { TipoModulo, ModuloPrincipal, Nombre, NombreModuloPrincipal } =
-      await req?.json();
     const [DocumentosRes]: any = await connectionPool.query(
       `SELECT id as Id,codigo as Codigo,nombre as Nombre FROM tipo_docum ORDER BY tipo_docum.codigo ASC`
     );
