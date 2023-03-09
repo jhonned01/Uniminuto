@@ -1,11 +1,7 @@
 import React from "react";
 import BodyComponent from "./BodyComponent";
 
-interface Props {}
-
-function Page(props: Props) {
-  const {} = props;
-
+function LoginResultados() {
   return (
     <>
       <BodyComponent />
@@ -13,4 +9,4 @@ function Page(props: Props) {
   );
 }
 
-export default Page;
+export default LoginResultados;

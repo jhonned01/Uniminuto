@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { Programa, Pruebas } from "../../../typings";
@@ -7,11 +8,7 @@ import ItemCOA from "../../ItemCOA";
 import ModalSeeQuestion from "./ModalSeeQuestion";
 import Table from "./Table";
 
-type Props = {
-  data: Programa[];
-};
-
-const BodyComponent = ({ data }: Props) => {
+const BodyComponent = () => {
   const [Values, setValues] = useState({
     IdSubSede: localStorage.getItem("IdSubSede") || "",
   } as any);
@@ -21,11 +18,11 @@ const BodyComponent = ({ data }: Props) => {
   const [Retroalimentacion, setRetro] = useState([] as []);
   const [Data, setData] = useState({
     IdSubSede: localStorage.getItem("IdSubSede") || 0,
-    Programas: data,
+    Programas: [],
     SemestreAcademico: [],
   } as {
     semestres: { Nombre: number; Id: string }[];
-    Programas: Programa[];
+    Programas: Programa[] | [];
     IdSubSede: string;
     SemestreAcademico: [];
   });
@@ -41,6 +38,9 @@ const BodyComponent = ({ data }: Props) => {
     { value: "SP", label: "Saber Pro" },
     { value: "SS", label: "SESA" },
   ];
+
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = useState(false as boolean);
 
   // console.log("values", Values);
 
@@ -178,6 +178,27 @@ const BodyComponent = ({ data }: Props) => {
     }
   }, [Values?.IdPrueba]);
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        setIsPending(true);
+        const SubSede = searchParams.get("SubSede");
+
+        const data: any = await fetch(
+          `/api/Configuracion/GradosGrupos/GetInfoModal?SubSede=${SubSede}`
+        ).then((res) => res.json());
+        setData({
+          ...Data,
+          Programas: data?.programa || [],
+        });
+        setIsPending(false);
+      } catch (error) {
+        console.log(error);
+        alert("Error al cargar los datos");
+      }
+    };
+    getData();
+  }, []);
   return (
     <>
       {SeeQuestion.Show && (
