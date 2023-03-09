@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import connectionPool from "../../../../../config/db";
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const PruebaID = searchParams.get("PruebaID") || "";
 

@@ -26,7 +26,7 @@ const PresentarPrueba = ({ setShowModal, DataSelected }: Props) => {
     }
   );
 
-  console.log("PreguntaShow---PreguntaShow", PreguntaShow);
+  console.log("PreguntaShow---PreguntaShw", PreguntaShow);
 
   const GetInfo = async () => {
     try {
