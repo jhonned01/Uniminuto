@@ -4,11 +4,8 @@ import connectionPool from "../../../../../config/db";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
-  const SubSede = searchParams.get("SubSede") || "";
 
   try {
-    const { prueba, semestre, competencia } = await req?.json();
-
     const [COARESULTS]: any = await connectionPool.query(
       `SELECT id as Id,nombre as Nombre FROM subSedes`
     );

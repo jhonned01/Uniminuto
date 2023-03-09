@@ -1,5 +1,5 @@
 "use client";
-import React, { useTransition } from "react";
+import React, { useEffect, useTransition } from "react";
 import TitleButton from "../TitleButton";
 import * as XLSX from "xlsx";
 import axios from "axios";
@@ -8,11 +8,10 @@ import TableStudiantes from "./TableStudiantes";
 import Title from "../../Title";
 import Loading from "./loading";
 import TablaIncorrectos from "./TablaIncorrectos";
+import { useSearchParams } from "next/navigation";
 
-type Props = {
-  data: Estudiante[];
-};
-const BodyComponent = ({ data }: Props) => {
+const BodyComponent = () => {
+  const [data, setData] = React.useState([] as Estudiante[]);
   const [Estudiantes, setEstudiantes] = React.useState([] as Estudiante[]);
 
   const [NameFile, setNameFile] = React.useState("");
@@ -23,6 +22,8 @@ const BodyComponent = ({ data }: Props) => {
   const [Data2, setData2] = React.useState({
     IdSubSede: localStorage.getItem("IdSubSede") || "",
   } as any);
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = React.useState(false as boolean);
 
   const handleFile = (e: any) => {
     try {
@@ -48,6 +49,26 @@ const BodyComponent = ({ data }: Props) => {
       setEstudiantes([]);
     }
   };
+
+  const getData = async () => {
+    try {
+      setIsPending(true);
+      const SubSede = searchParams.get("SubSede");
+
+      const res: any = await fetch(
+        `/api/Configuracion/CargaMasiva/GetStudents?SubSede=${SubSede}`
+      ).then((res) => res.json());
+      setData(res?.estudiantes || []);
+      setIsPending(false);
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar los datos");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       {data?.length > 0 ? (
@@ -141,69 +162,75 @@ const BodyComponent = ({ data }: Props) => {
             </button>
           </TitleButton>
 
-          {Estudiantes?.length > 0 ? (
-            <>
-              {Cargando && <Loading />}
-
-              {DatosIncorrectos?.length > 0 ? (
-                <TablaIncorrectos info={DatosIncorrectos} />
-              ) : (
-                <TableStudiantes info={Estudiantes} />
-              )}
-            </>
+          {isPending ? (
+            <Loading />
           ) : (
             <>
-              <div>
-                <div className=" max-w-2xl mx-auto ">
-                  <div className="p-4  max-w-[380px] m-auto  rounded-lg ">
-                    <div className=" bg-blue-100  border-4 border-dashed border-blue-600 rounded-lg hover:bg-blue-200">
-                      <label htmlFor="dropzone" className="w-full -full">
-                        {/* svg */}
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="text-blue-500 w-24 mx-auto mb-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                          />
-                        </svg>
+              {Estudiantes?.length > 0 ? (
+                <>
+                  {Cargando && <Loading />}
 
-                        <div className="flex flex-col w-auto mx-auto text-center  pb-4">
-                          <label className="">
-                            <input
-                              className="text-sm cursor-pointer w-36  "
-                              type="file"
-                              id="dropzone"
-                              hidden
-                              accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                              onChange={handleFile}
-                            />
-                            <div className="bg-blue-900 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-blue-500">
-                              {NameFile
-                                ? `${NameFile}`
-                                : " Click para precargar el archivo"}
-                            </div>
-                          </label>
-                          {/* <div className="text-blue-900 uppercase">
+                  {DatosIncorrectos?.length > 0 ? (
+                    <TablaIncorrectos info={DatosIncorrectos} />
+                  ) : (
+                    <TableStudiantes info={Estudiantes} />
+                  )}
+                </>
+              ) : (
+                <>
+                  <div>
+                    <div className=" max-w-2xl mx-auto ">
+                      <div className="p-4  max-w-[380px] m-auto  rounded-lg ">
+                        <div className=" bg-blue-100  border-4 border-dashed border-blue-600 rounded-lg hover:bg-blue-200">
+                          <label htmlFor="dropzone" className="w-full -full">
+                            {/* svg */}
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="text-blue-500 w-24 mx-auto mb-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                              />
+                            </svg>
+
+                            <div className="flex flex-col w-auto mx-auto text-center  pb-4">
+                              <label className="">
+                                <input
+                                  className="text-sm cursor-pointer w-36  "
+                                  type="file"
+                                  id="dropzone"
+                                  hidden
+                                  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                                  onChange={handleFile}
+                                />
+                                <div className="bg-blue-900 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-blue-500">
+                                  {NameFile
+                                    ? `${NameFile}`
+                                    : " Click para precargar el archivo"}
+                                </div>
+                              </label>
+                              {/* <div className="text-blue-900 uppercase">
                   SOLTAR ARCHIVOS AQUÍ
                 </div> */}
+                            </div>
+                          </label>
                         </div>
-                      </label>
-                    </div>
-                  </div>
-                  {/* <div className="text-center">
+                      </div>
+                      {/* <div className="text-center">
           <button className="p-4 bg-green-500 rounded-md" onClick={click}>
             enviar
           </button>
         </div> */}
-                </div>
-              </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </>
           )}
         </>

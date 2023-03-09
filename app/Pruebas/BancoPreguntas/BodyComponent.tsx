@@ -29,6 +29,10 @@ const BodyComponent = () => {
 
   const GetPreguntasCoa = async (Coa: string, Tipo: string) => {
     try {
+      console.log(
+        `/api/Pruebas/BancoPreguntas/GetBancoPreguntas?Coa=${Coa}&Tipo=${Tipo}`
+      );
+
       const data = await fetch(
         `/api/Pruebas/BancoPreguntas/GetBancoPreguntas?Coa=${Coa}&Tipo=${Tipo}`
       ).then((res) => res.json());
@@ -56,9 +60,10 @@ const BodyComponent = () => {
       setIsPending(true);
       const SubSede = searchParams.get("SubSede");
 
-      const data: any = await fetch(
-        `/api/Configuracion/Competencias/GetCompetencias?SubSede=${SubSede}`
-      ).then((res) => res.json());
+      const data: any = await fetch(`/api/Pruebas/BancoPreguntas/GetCoa`).then(
+        (res) => res?.json()
+      );
+
       setCoa(data?.Coa || []);
       setIsPending(false);
     } catch (error) {

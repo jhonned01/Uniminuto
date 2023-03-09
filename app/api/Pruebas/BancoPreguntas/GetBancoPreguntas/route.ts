@@ -2,18 +2,12 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import connectionPool from "../../../../../config/db";
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl;
   const Coa = searchParams.get("Coa") || "";
   const Tipo = searchParams.get("Tipo") || "";
 
   try {
-    const { prueba, semestre, competencia } = await req?.json();
-
-    console.log(`
-      SELECT preguntas_pruebas.id as PreguntaId,preguntas_pruebas.pregunta as Pregunta,preguntas_pruebas.opciones as opciones,preguntas_pruebas.respuesta ,subSedes.nombre as NombreCoa, pfc_programa.pro_nom as NombrePrograma,parametros_pruebas.tipo as Tipo,preguntas_pruebas.tipo as TipoPregunta,pfc_ejes.eje_id as IdCompetencia, pfc_ejes.eje_nom as NombreCompetencia,preguntas_pruebas.padre  FROM preguntas_pruebas INNER JOIN parametros_pruebas ON (parametros_pruebas.id=preguntas_pruebas.prueba) INNER JOIN subSedes ON (subSedes.id=parametros_pruebas.subSedeId) INNER JOIN pfc_programa ON (pfc_programa.pro_id= parametros_pruebas.programa) INNER JOIN pfc_ejes ON pfc_ejes.eje_id=preguntas_pruebas.competencia where parametros_pruebas.subSedeId='${Coa}' and parametros_pruebas.tipo='${Tipo}' AND preguntas_pruebas.aprobo='2'
-      `);
-
     const [Preguntas]: any = await connectionPool.query(`
       SELECT preguntas_pruebas.id as PreguntaId,preguntas_pruebas.pregunta as Pregunta,preguntas_pruebas.opciones as opciones,preguntas_pruebas.respuesta ,subSedes.nombre as NombreCoa, pfc_programa.pro_nom as NombrePrograma,parametros_pruebas.tipo as Tipo,preguntas_pruebas.tipo as TipoPregunta,pfc_ejes.eje_id as IdCompetencia, pfc_ejes.eje_nom as NombreCompetencia,preguntas_pruebas.padre,pfc_ejes.eje_tip as TipoCompetencia FROM preguntas_pruebas INNER JOIN parametros_pruebas ON (parametros_pruebas.id=preguntas_pruebas.prueba) INNER JOIN subSedes ON (subSedes.id=parametros_pruebas.subSedeId) INNER JOIN pfc_programa ON (pfc_programa.pro_id= parametros_pruebas.programa) INNER JOIN pfc_ejes ON pfc_ejes.eje_id=preguntas_pruebas.competencia  where parametros_pruebas.subSedeId='${Coa}' and parametros_pruebas.tipo='${Tipo}' AND preguntas_pruebas.aprobo='2'
       `);

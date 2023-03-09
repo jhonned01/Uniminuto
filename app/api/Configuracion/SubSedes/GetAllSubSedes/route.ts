@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import connectionPool from "../../../../../config/db";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const [SubSedesRes]: any = await connectionPool.query(`
       select id as Id, nombre as NombreSubSede from subSedes `);

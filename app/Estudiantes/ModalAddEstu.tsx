@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 // import React from "react";
 import { Estudiante, VisibilidadModal } from "../../typings";
@@ -49,6 +50,8 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
   );
 
   const [GrupoEdit, setGrupoEdit] = useState({} as any);
+  const searchParams = useSearchParams();
+  const [isPending, setIsPending] = useState(false as boolean);
 
   const hanlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -86,8 +89,14 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
             return res.json();
           }
 
+          const SubSede = searchParams.get("SubSede");
+
           // getStudents
-          fetch("/api/Configuracion/CargaMasiva/GetStudents")
+          console.log(
+            `/api/Configuracion/CargaMasiva/GetStudents?SubSede=${SubSede}`
+          );
+
+          fetch(`/api/Configuracion/CargaMasiva/GetStudents?SubSede=${SubSede}`)
             .then((res) => {
               res.json().then((data) => {
                 setEstudiante(data?.estudiantes || []);
@@ -121,9 +130,11 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
 
   const getData = async () => {
     try {
-      if (Data?.IdSubSede == "0") {
+      const SubSede = searchParams.get("SubSede");
+
+      if (SubSede == "0") {
         const InfoBase = await fetch(
-          `/api/Configuracion/Docentes/GetInfoModal`
+          `/api/Configuracion/Docentes/GetInfoModal?SubSede=${SubSede}`
         ).then((res) => res.json());
 
         setData({
@@ -132,13 +143,11 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
         });
       } else {
         const InfoBase = await fetch(
-          `/api/Configuracion/Docentes/GetInfoModal`
+          `/api/Configuracion/Docentes/GetInfoModal?SubSede=${SubSede}`
         ).then((res) => res.json());
 
         const ProgAcademico = await fetch(
-          `/api/Configuracion/Programas/GetProgramas?SubSede=${
-            Values?.IdSubSede || 0
-          }`
+          `/api/Configuracion/Programas/GetProgramas?SubSede=${SubSede || 0}`
         ).then((res) => res.json());
 
         setData({
@@ -149,7 +158,7 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
         });
         if (Object.keys(InfoEditar).length > 0) {
           const GetDemasInfo = await fetch(
-            `/api/Estudiantes/GetEditStudent?SubSede=${Values?.IdSubSede || 0}`,
+            `/api/Estudiantes/GetEditStudent?SubSede=${SubSede || 0}`,
             {
               method: "POST",
               headers: {
