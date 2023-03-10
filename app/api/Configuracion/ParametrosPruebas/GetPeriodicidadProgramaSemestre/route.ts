@@ -10,9 +10,6 @@ export async function GET(req: NextRequest) {
   const IdSubSede = searchParams.get("IdSubSede") || "";
 
   try {
-    const { TipoModulo, ModuloPrincipal, Nombre, NombreModuloPrincipal } =
-      await req?.json();
-
     const [LectivoRes]: any = await connectionPool.query(
       `SELECT DISTINCT(SemestreLectivo.Id) as IdPeriodicidad, SemestreLectivo.Nombre,SemestreLectivo.Meses,SemestreLectivo.END,SemestreLectivo.START as StartStudent FROM pfc_grados INNER JOIN SemestreLectivo ON SemestreLectivo.Id=pfc_grados.pfc_grado_sem INNER JOIN pfc_programa ON pfc_programa.pro_id=pfc_grados.pro_id WHERE pfc_grados.pro_id='${Programa}' AND pfc_grados.sem_id='${Semestre}' AND SemestreLectivo.Periodicidad= '${Periodicidad}' ${
         IdSubSede && IdSubSede != "0"

@@ -7,10 +7,17 @@ export async function PUT(req: NextRequest) {
   const SubSede = searchParams.get("SubSede") || "";
 
   try {
-    const { Id, Nombre, Abreviatura, TipoCompetencia, IdSubSede } =
+    const { Id, Abreviatura, TipoCompetencia, IdSubSede, NombreCompetencia } =
       await req?.json();
+
+    console.log(`
+    UPDATE pfc_ejes SET eje_nom='${NombreCompetencia}', eje_abr='${Abreviatura}', subSedeId='${
+      IdSubSede || ""
+    }', eje_tip='${TipoCompetencia}' WHERE eje_id='${Id}'
+    `);
+
     const [UpdateCompetencias]: any = await connectionPool.query(`
-      UPDATE pfc_ejes SET eje_nom='${Nombre}', eje_abr='${Abreviatura}', subSedeId='${
+      UPDATE pfc_ejes SET eje_nom='${NombreCompetencia}', eje_abr='${Abreviatura}', subSedeId='${
       IdSubSede || ""
     }', eje_tip='${TipoCompetencia}' WHERE eje_id='${Id}'
       `);

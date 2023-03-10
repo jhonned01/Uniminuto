@@ -5,6 +5,7 @@ import { Docente, VisibilidadModal } from "../../../typings";
 import axios from "axios";
 import EncriptarContraseña from "../../../utils/EncriptarContraseña";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
   // type props useState
@@ -31,10 +32,12 @@ const ModalUpgrade = ({ setShowModal, InfoEditar, setDocentes }: Props) => {
     { value: "M", label: "Masculino" },
     { value: "F", label: "Femenino" },
   ];
+  const searchParams: any = useSearchParams();
 
   const hanlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      const SubSede = searchParams.get("SubSede");
 
       // generar una peticion tipo put
       const sentDataRes: any = await axios.put(
@@ -45,7 +48,7 @@ const ModalUpgrade = ({ setShowModal, InfoEditar, setDocentes }: Props) => {
       );
 
       const NewDocentes = await axios.get(
-        "/api/Configuracion/Docentes/GetDocentes"
+        `/api/Configuracion/Docentes/GetDocentes?SubSede=${SubSede}`
       );
 
       setValues({
@@ -60,7 +63,7 @@ const ModalUpgrade = ({ setShowModal, InfoEditar, setDocentes }: Props) => {
       });
       alert(sentDataRes?.data?.body);
     } catch (error) {
-      console.error(error);
+      console.log(error);
       alert("Error al editar la información");
     }
   };

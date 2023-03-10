@@ -35,7 +35,7 @@ export async function DELETE(req: NextRequest) {
     DELETE FROM usuario WHERE subsede = '${id}'`);
 
     return NextResponse.json(
-      { body: "Se elimino correctamente" },
+      { body: "Se eliminó correctamente" },
       {
         status: 200,
       }

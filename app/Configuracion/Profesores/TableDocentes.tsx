@@ -123,7 +123,7 @@ const TableDocentes = ({
             title="Eliminar Registro"
             onClick={async () => {
               const validate = confirm(
-                "¿Está seguro de eliminar este administrativo?"
+                "¿Está seguro de eliminar este profesor?"
               );
               if (validate) {
                 // fecha de eliminación

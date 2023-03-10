@@ -25,7 +25,7 @@ export async function DELETE(req: NextRequest) {
       DELETE FROM sedes WHERE id = '${id}'`);
 
     return NextResponse.json(
-      { body: "Se elimino correctamente" },
+      { body: "Se eliminó correctamente" },
       {
         status: 200,
       }

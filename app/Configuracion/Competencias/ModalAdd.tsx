@@ -48,6 +48,9 @@ const ModalAdd = ({ setShowModal, setCompetencias, InfoEditar }: Props) => {
           alert("Selecciona un COA ");
           return;
         }
+
+        console.log("values ---", Values);
+
         const sentDataRes = await fetch(
           "/api/Configuracion/Competencias/UpdateCompetencia",
           {
@@ -78,7 +81,7 @@ const ModalAdd = ({ setShowModal, setCompetencias, InfoEditar }: Props) => {
         }
 
         const sentDataRes = await fetch(
-          "/api/Configuracion/Competencias/AddCompetencia",
+          `/api/Configuracion/Competencias/AddCompetencia`,
           {
             method: "POST",
             headers: {
@@ -87,8 +90,11 @@ const ModalAdd = ({ setShowModal, setCompetencias, InfoEditar }: Props) => {
             body: JSON.stringify(Values),
           }
         ).then((res) => res.json());
+
+        const SubSede = searchParams.get("SubSede");
+
         const NewCompetencias = await fetch(
-          `/api/Configuracion/Competencias/GetCompetencias?SubSede=${Values?.IdSubSede}`
+          `/api/Configuracion/Competencias/GetCompetencias?SubSede=${SubSede}`
         ).then((res) => res.json());
 
         setCompetencias(NewCompetencias?.competencia);

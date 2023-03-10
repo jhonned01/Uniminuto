@@ -35,7 +35,7 @@ export async function PUT(req: NextRequest) {
     }
 
     return NextResponse.json(
-      { body: "Profesor actualizado" },
+      { body: "Profesor actualizado con éxito" },
       {
         status: 200,
       }

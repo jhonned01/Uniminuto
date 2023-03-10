@@ -69,7 +69,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     return NextResponse.json(
-      { body: "Se elimino correctamente" },
+      { body: "Se eliminó correctamente" },
       {
         status: 200,
       }
