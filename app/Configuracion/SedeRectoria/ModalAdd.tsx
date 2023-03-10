@@ -76,8 +76,8 @@ const ModalAdd = ({ setShowModal, setRectorias }: Props) => {
 
         setData(res?.data);
       } catch (error: any) {
-        console.error(error);
-        alert(error.response?.data?.body);
+        console.log(error);
+        alert("Error al cargar las Rectorías");
       }
     };
 

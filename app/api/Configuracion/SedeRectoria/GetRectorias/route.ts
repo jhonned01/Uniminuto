@@ -1,8 +1,7 @@
+import connectionPool from "@/config/db";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import connectionPool from "../../../../../config/db";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const [GetRectorias]: any = await connectionPool.query(
       `
@@ -13,7 +12,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(
       { rectorias: GetRectorias },
       {
-        status: 500,
+        status: 200,
       }
     );
   } catch (error) {

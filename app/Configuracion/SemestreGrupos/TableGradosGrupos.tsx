@@ -132,6 +132,7 @@ const TableGradosGrupos = ({
                   <span>{grupo?.NombreGrupo}</span>
                 </div>
                 <button
+                  title={`Eliminar grupo ${grupo?.NombreGrupo}`}
                   onClick={async (e) => {
                     const validate = confirm(
                       "¿Está seguro que desea eliminar el grupo?"
