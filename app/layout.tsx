@@ -2,6 +2,15 @@ import "./globals.css";
 import Main from "./Main";
 
 export const metadata = {
+  icons: {
+    icon: "/EscudoUniminuto.webp",
+    shortcut: "/EscudoUniminuto.webp",
+    apple: "/EscudoUniminuto.webp",
+    other: {
+      rel: "shortcut icon",
+      url: "/EscudoUniminuto.webp",
+    },
+  },
   title: "SYGESAUNIV",
 
   description:

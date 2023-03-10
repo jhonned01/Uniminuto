@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import Title from "../Title";
 import SvgMapaColombia from "./SvgMapaColombia";
 
 function BodyComponent() {
@@ -19,11 +20,12 @@ function BodyComponent() {
 
   return (
     <div className="flex flex-col">
-      <div className="border-x-2 border-t-2 border-white bg-[#070E54] p-4">
+      <Title title="Mapa UNIMINUTO" />
+      {/* <div className="border-x-2 border-t-2 border-white bg-[#070E54] p-4">
         <h2 className="text-center lg:text-[1.9rem] leading-normal font-bold text-white mr-4">
           Mapa UNIMINUTO
         </h2>
-      </div>
+      </div> */}
       <div className="lg:flex lg:flex-row lg:justify-between p-4 gap-4">
         <div className="map-container w-full h-auto">
           <SvgMapaColombia setShowInfo={setShowInfo} />

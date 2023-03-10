@@ -125,7 +125,7 @@ const Table = ({ info, setPerfiles, setInfoEditar, setShowModal }: Props) => {
 
   return (
     <>
-      <div className="border-l-2 border-t-2 border-r-2 border-white">
+      <div className="border-t-2 border-t-white">
         <DataTable
           title="Lista de Módulos por Perfil"
           columns={columns}

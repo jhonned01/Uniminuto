@@ -155,7 +155,7 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
           <div className="relative sm:max-w-lg w-full">
             <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6" />
             <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6" />
-            <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md">
+            <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md border-2 border-gray-400">
               <form>
                 <div className="mb-2">
                   {Data?.IdSede == "0" && (

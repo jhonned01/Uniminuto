@@ -23,11 +23,11 @@ const TableCompetencias = ({
     let nombre = `${item?.Nombre?.toLowerCase()}`;
     console.log(`${nombre} &&
     ${nombre
-        .toString()
-        .replace(/\s+/g, " ")
-        .toLowerCase()
-        .includes(filterText.toLowerCase())}
-    `)
+      .toString()
+      .replace(/\s+/g, " ")
+      .toLowerCase()
+      .includes(filterText.toLowerCase())}
+    `);
     return (
       nombre &&
       nombre
@@ -173,7 +173,7 @@ const TableCompetencias = ({
   }, [filterText]);
 
   return (
-    <div className="border-l-2 border-t-2 border-r-2 border-white">
+    <div className="border-t-2 border-t-white">
       {" "}
       <DataTable
         title="Lista de Competencias"

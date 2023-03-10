@@ -5,7 +5,6 @@ const ParametrosPruebas = () => {
   return (
     <>
       <Title title="Parametrización de pruebas" />
-
       <BodyComponent />
     </>
   );
