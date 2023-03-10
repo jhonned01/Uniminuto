@@ -23,20 +23,7 @@ export async function DELETE(req: NextRequest) {
 
     if (IdMatricula.length === 0) {
       return NextResponse.json(
-        { body: "No se puedo eliminar el grupo" },
-        {
-          status: 400,
-        }
-      );
-    }
-
-    const [PfcGrupo]: any = await connectionPool.query(`
-    DELETE FROM pfc_matr_grup WHERE matri_id = ${IdMatricula[0]?.MatriId}
-    `);
-
-    if (PfcGrupo?.affectedRows === 0) {
-      return NextResponse.json(
-        { body: "No se pudo eliminar el grupo" },
+        { body: "No se puedo eliminar la matrícula" },
         {
           status: 400,
         }
@@ -57,7 +44,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     const [UsuarioDelete]: any = await connectionPool.query(`
-    DELETE FROM usuario WHERE usu_fk = ${id}
+    DELETE FROM usuario WHERE idUsuario = ${id}
     `);
     if (UsuarioDelete?.affectedRows === 0) {
       return NextResponse.json(

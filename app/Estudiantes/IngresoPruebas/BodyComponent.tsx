@@ -26,6 +26,8 @@ const BodyComponent = () => {
       const data = await fetch(
         `/api/Estudiantes/GetPruebasEstudiante?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&Doc=${Doc}`
       ).then((res) => res.json());
+      console.log("datadatadata", data);
+
       setData(data?.pruebas || []);
       setIsPending(false);
     };

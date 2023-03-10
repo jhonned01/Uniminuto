@@ -18,7 +18,7 @@ export async function DELETE(req: NextRequest) {
       );
     }
     const [UsuarioDelete]: any = await connectionPool.query(`
-      DELETE FROM usuario WHERE usu_fk = ${id}
+      DELETE FROM usuario WHERE idUsuario = ${id}
       `);
     if (UsuarioDelete.affectedRows === 0) {
       return NextResponse.json(

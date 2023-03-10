@@ -58,8 +58,10 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
       e.preventDefault();
 
       if (Object.keys(InfoEditar).length > 0) {
+        console.log("Values", Values);
+
         const UpdateRes = await axios.put("/api/Estudiantes/UpdateStudents", {
-          Values,
+          ...Values,
         });
         fetch("/api/Configuracion/CargaMasiva/GetStudents")
           .then((res) => {

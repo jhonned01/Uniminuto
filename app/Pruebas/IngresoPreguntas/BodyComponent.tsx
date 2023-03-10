@@ -114,9 +114,14 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
     try {
       setIsPending(true);
       const SubSede = searchParams.get("SubSede");
+      const IdRol = searchParams.get("IdRol");
+      const IdUser = searchParams.get("IdUser");
+      const IdPrueba = searchParams.get("IdPrueba");
 
       const data: any = await fetch(
-        `/api/Configuracion/Competencias/GetCompetencias?SubSede=${SubSede}`
+        `/api/Pruebas/GetPruebasUser?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&IdPrueba=${
+          IdPrueba || ""
+        }`
       ).then((res) => res.json());
       setPruebas(data?.pruebas || []);
       setIsPending(false);

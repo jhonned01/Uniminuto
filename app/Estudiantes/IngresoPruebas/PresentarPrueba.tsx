@@ -38,7 +38,7 @@ const PresentarPrueba = ({ setShowModal, DataSelected }: Props) => {
           },
         }
       );
-      console.log(res?.data?.Preguntas);
+      console.log("DataSelected", DataSelected);
 
       setPreguntas(res?.data?.Preguntas || []);
     } catch (error) {

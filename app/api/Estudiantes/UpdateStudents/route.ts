@@ -19,6 +19,16 @@ export async function PUT(req: NextRequest) {
       Id,
     } = await req?.json();
 
+    console.log(`
+    UPDATE pfc_alumno SET tipo_docu_id='${TipoDocumento}', alumno_num_docu='${NumeroDocumento}', alumno_ape1='${Apellidos?.split(
+      " "
+    )[0]?.toUpperCase()}', alumno_ape2='${
+      Apellidos?.split(" ")[1]?.toUpperCase() || ""
+    }', alumno_nom1='${Nombre?.split(" ")[0]?.toUpperCase()}', alumno_nom2='${
+      Nombre?.split(" ")[1]?.toUpperCase() || ""
+    }', alumno_celular='${Telefono}', alumno_email='${Email}' WHERE alumno_id='${Id}'
+    `);
+
     const [UpdateAlumno]: any = await connectionPool.query(`
       UPDATE pfc_alumno SET tipo_docu_id='${TipoDocumento}', alumno_num_docu='${NumeroDocumento}', alumno_ape1='${Apellidos?.split(
       " "

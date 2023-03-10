@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     // if (Usuario != "soporte") {
     //   consulta = `SELECT usu_rol, rol_nombre FROM usuario
     //                     INNER JOIN rol ON usuario.usu_rol = rol.rol_id
-    //                     INNER JOIN admco ON usuario.usu_fk = admco.id
+    //                     INNER JOIN admco ON usuario.idUsuario = admco.id
     //                     WHERE usu_login = '${Usuario}' AND usu_password = '${Pass}' `;
     // } else {
     //   consulta = `SELECT usu_rol, rol_nombre FROM usuario
