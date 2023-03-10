@@ -25,7 +25,7 @@ const MenuPruebas = ({
   return (
     <>
       <div className="shadow-md shadow-white rounded-md h-[98%] w-full bg-[#070e54] dark:bg-gray-900  text-white transition-all duration-300 border-none z-10 sidebar">
-        <div className="flex items-center justify-start md:justify-center pl-3 w-14 md:w-24 h-24 bg-[#070e54] dark:bg-gray-800 border-none">
+        <div className="flex items-center justify-start md:justify-center pl-3 w-full h-28 bg-[#070e54] dark:bg-gray-800 border-none">
           <span className="text-center">
             {/* <Link href="/">
               <Image
