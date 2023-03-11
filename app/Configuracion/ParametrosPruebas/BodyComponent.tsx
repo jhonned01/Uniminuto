@@ -152,11 +152,11 @@ const BodyComponent = () => {
     }
   }, [Values?.Programa, Values?.Periodicidad]);
 
-  useEffect(() => {
-    if (Values?.Programa && Values?.SemestreAcademico) {
-      GetPeriodicidad(Values?.Periodicidad);
-    }
-  }, [Values?.Programa, Values?.SemestreAcademico]);
+  // useEffect(() => {
+  //   if (Values?.Programa && Values?.SemestreAcademico) {
+  //     GetPeriodicidad(Values?.Periodicidad);
+  //   }
+  // }, [Values?.Programa, Values?.SemestreAcademico]);
 
   useEffect(() => {
     const getData = async () => {
@@ -258,7 +258,7 @@ const BodyComponent = () => {
                       placeholder="Seleccione una Opción"
                     />
                   </div>
-                  <div className="mb-2">
+                  {/* <div className="mb-2">
                     {(Values?.Periodicidad == "C" && (
                       <>
                         <label
@@ -319,7 +319,7 @@ const BodyComponent = () => {
                           </>
                         </>
                       ))}
-                  </div>
+                  </div> */}
                   <div className="mb-2">
                     <label
                       htmlFor="Nombre"
@@ -339,8 +339,7 @@ const BodyComponent = () => {
                   </div>
                   {Values?.Programa &&
                     Values.SemestreAcademico &&
-                    Values?.TipoPrueba &&
-                    Values?.SemestreLectivo && (
+                    Values?.TipoPrueba && (
                       <div className="mt-7">
                         <button
                           onClick={(e) => {

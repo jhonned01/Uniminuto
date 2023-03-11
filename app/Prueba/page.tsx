@@ -1,41 +1,32 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 
 const Prueba = () => {
-  const [saludo, setsetsaludo] = useState("");
-  const [show, setshow] = useState(false);
-
-  const mostrarSaludi = () => (
-    <div
-      className={` ${
-        show ? "block" : "hidden"
-      } bg-[#000236]/40  transition duration-150 ease-in-out z-10 fixed top-0 right-0 bottom-0 left-0 `}
-    >
-      <div className="container mx-auto  w-11/12 md:w-2/3 max-w-2xl">
-        <div className="relative overflow-auto  max-h-screen  py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
-          <h1>hola</h1>
-
-          <button onClick={() => setshow(false)}>cerrar modal</button>
-        </div>
+  return (
+    <div className="mt-2 p-5 w-40  bg-white rounded-lg shadow-xl">
+      <div className="flex">
+        <select
+          name="hours"
+          className="w-40 text-center bg-transparent text-xl appearance-none outline-none"
+        >
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+          <option value={6}>6</option>
+        </select>
+        <span className=" text-xl mr-3">:</span>
+        <select
+          name="minutes"
+          className="w-40 text-center bg-transparent text-xl appearance-none outline-none mr-4"
+        >
+          <option value={0}>00</option>
+          <option value={15}>15</option>
+          <option value={30}>30</option>
+          <option value={45}>45</option>
+        </select>
       </div>
     </div>
-  );
-
-  return (
-    <>
-      {mostrarSaludi()}
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-
-          setshow(!show);
-          setsetsaludo("adios");
-        }}
-      >
-        {" "}
-        open
-      </button>
-    </>
   );
 };
 

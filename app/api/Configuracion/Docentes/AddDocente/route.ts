@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
       NumeroDocumento,
       Genero,
       Correo,
+      Programa,
     } = await req?.json();
 
     const [VerificarExistencia]: any = await connectionPool.query(
@@ -36,13 +37,15 @@ export async function POST(req: NextRequest) {
     }
 
     const [ProfesorAdd]: any = await connectionPool.query(`
-      INSERT INTO dcne (dcne_ape1, dcne_ape2, dcne_nom1, dcne_nom2, dcne_num_docu, tipo_docu_id,dcne_genero,dcne_email_perso,subSedeId) values ('${
+      INSERT INTO dcne (dcne_ape1, dcne_ape2, dcne_nom1, dcne_nom2, dcne_num_docu, tipo_docu_id,dcne_genero,dcne_email_perso,subSedeId,ProgramaId) values ('${
         Apellidos?.split(" ")[0]?.toUpperCase() || ""
       }', '${Apellidos?.split(" ")[1]?.toUpperCase() || ""}', '${
       Nombre?.split(" ")[0]?.toUpperCase() || ""
     }', '${
       Nombre?.split(" ")[1]?.toUpperCase() || ""
-    }','${NumeroDocumento}','${TipoDocumento}','${Genero}','${Correo}','${IdSubSede}')
+    }','${NumeroDocumento}','${TipoDocumento}','${Genero}','${Correo}','${IdSubSede}','${
+      Programa || 0
+    }')
       `);
 
     if (ProfesorAdd.affectedRows === 0) {

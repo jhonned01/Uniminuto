@@ -26,6 +26,12 @@ const TableDocentes = ({
 }: props) => {
   const columns: any = [
     {
+      name: "COA",
+      selector: (row: any) => row.NombreSubSede,
+      sortable: true,
+      wrap: true,
+    },
+    {
       name: "Nombre de usuario",
       selector: (row: any) => (
         <div className=" block  lg:flex lg:gap-3 px-6 py-4 font-normal text-gray-900">
@@ -40,19 +46,6 @@ const TableDocentes = ({
               });
             }}
           >
-            {/* <img
-              className="h-full w-full rounded-full object-cover object-center"
-              src={`https://sygescol.uniminuto.sistemasivhorsnet.com/sygescol2023/images/fotos/administrativos/${
-                row?.Imagen || "SinFotoAdmin.png"
-              }`}
-            /> */}
-            {/* <span>
-              <ModalImage
-                small={"/EnConstruccion.webp"}
-                large={"/EnConstruccion.webp"}
-                alt="Hello World!"
-              />
-            </span> */}
             <Image
               src={`https://sygescol.uniminuto.sistemasivhorsnet.com/sygescol2023/images/fotos/administrativos/${
                 row?.Imagen || "SinFotoAdmin.png"
@@ -82,14 +75,12 @@ const TableDocentes = ({
       wrap: true,
       grow: 2.4,
     },
-
     {
-      name: "COA",
-      selector: (row: any) => row.NombreSubSede,
+      name: "Programa",
+      selector: (row: any) => `${row?.NombrePrograma || ""} (${row?.Sigla})`,
       sortable: true,
       wrap: true,
     },
-
     {
       name: "Documento",
       selector: (row: any) => `${row?.DocumCodigo || ""} - ${row?.Documento}`,

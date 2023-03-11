@@ -6,8 +6,6 @@ const ParametrosPruebas = () => {
     <>
       <Title title="Parametrización de pruebas" />
       <BodyComponent />
-
-      <input type="time" name="" id="" />
     </>
   );
 };

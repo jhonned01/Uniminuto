@@ -108,6 +108,7 @@ export type Docente = {
   Correo: string;
   Pass: string;
   IdSubSede?: string;
+  Programa?: string;
 };
 
 export type Pruebas = {

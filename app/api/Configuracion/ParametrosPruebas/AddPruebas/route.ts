@@ -19,6 +19,8 @@ export async function POST(req: NextRequest) {
       },
     } = await req?.json();
 
+    console.log(CompetenciasGenericas);
+
     let sqlParametrosPruebasBase = `INSERT INTO parametros_pruebas (subSedeId,tipo,semestre,programa,DateDocentesInicio,DateDocentesFin,DateEstudiantesInicio,DateEstudiantesFin) VALUES `;
 
     let sqlAsignacionPruebaBase = `INSERT INTO asignacionPrueba (competencia,docente,prueba) VALUES`;

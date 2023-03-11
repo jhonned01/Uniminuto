@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Docente, VisibilidadModal } from "../../../typings";
-import EncriptarContraseña from "../../../utils/EncriptarContraseña";
+
 import Select, { StylesConfig } from "react-select";
 import ItemCOA from "../../ItemCOA";
 import { useSearchParams } from "next/navigation";
@@ -14,6 +14,8 @@ type Props = {
 const ModalAdd = ({ setShowModal, setDocentes }: Props) => {
   const [Values, setValues] = useState({} as Docente);
   const [Data, setData] = useState({} as any);
+
+  const [Programas, setProgramas] = useState<any>([]);
   const searchParams: any = useSearchParams();
 
   const Genero = [
@@ -24,7 +26,7 @@ const ModalAdd = ({ setShowModal, setDocentes }: Props) => {
   const handerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (Object.keys(Values)?.length != 7) {
+    if (Object.keys(Values)?.length != 8) {
       alert("por favor, llene todos los campos");
       return;
     }
@@ -40,10 +42,7 @@ const ModalAdd = ({ setShowModal, setDocentes }: Props) => {
     const ResDocentes = await fetch(
       `/api/Configuracion/Docentes/GetDocentes?SubSede=${
         Values?.IdSubSede || 0
-      }`,
-      {
-        cache: "no-store",
-      }
+      }`
     ).then((res) => res.json());
 
     setDocentes(ResDocentes?.docentes);
@@ -60,20 +59,23 @@ const ModalAdd = ({ setShowModal, setDocentes }: Props) => {
 
   const getData = async () => {
     try {
+      const SubSede = searchParams.get("SubSede");
       const InfoBase = await fetch(
         `/api/Configuracion/Docentes/GetInfoModal`
       ).then((res) => res.json());
 
-      console.log("InfoBase", InfoBase);
-
+      const ResProgramas = await fetch(
+        `/api/Configuracion/Programas/GetProgramas?SubSede=${SubSede}`
+      ).then((res) => res?.json());
+      setProgramas(ResProgramas?.programas);
       setData({
         ...Data,
         ...InfoBase,
-        IdSubSede: searchParams.get("SubSede") || 0,
+        IdSubSede: SubSede || 0,
       });
       setValues({
         ...Values,
-        IdSubSede: searchParams.get("SubSede") || 0,
+        IdSubSede: SubSede || 0,
       });
     } catch (error) {
       console.error(error);
@@ -87,8 +89,8 @@ const ModalAdd = ({ setShowModal, setDocentes }: Props) => {
 
   return (
     <div className="bg-[#000236]/100 transition duration-150 ease-in-out z-10 fixed top-0 right-0 bottom-0 left-0">
-      <div className="container mx-auto   w-11/12 md:w-2/3 max-w-2xl ">
-        <div className="relative overflow-auto  max-h-screen  py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+      <div className="container mx-auto    w-11/12 md:w-2/3 max-w-2xl ">
+        <div className="max-h-screen  overflow-auto   py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
           <h1 className="text-center text-lg tracking-normal leading-tight mb-4 bg-[#151A8B] w-full text-white p-4 rounded-lg font-bold ">
             Agregar Profesor
           </h1>
@@ -99,6 +101,26 @@ const ModalAdd = ({ setShowModal, setDocentes }: Props) => {
                 <ItemCOA setValues={setValues} Values={Values} />
               </>
             )}
+            <div className="">
+              <div className="mb-2">
+                <label
+                  htmlFor="Usuario"
+                  className="mb-3 block text-base font-medium text-gray-800"
+                >
+                  Programa <span className="text-red-900">(*)</span>
+                </label>
+                <Select
+                  options={Programas}
+                  getOptionLabel={(item: any) => item.Nombre}
+                  getOptionValue={(item: any) => item.Id}
+                  onChange={(item: any) => {
+                    setValues({ ...Values, Programa: item.Id });
+                  }}
+                  placeholder="Seleccione programa"
+                  required
+                />
+              </div>
+            </div>
             <div className="grid sm:grid-cols-2 gap-2">
               <div className="mb-2">
                 <label
@@ -188,7 +210,7 @@ const ModalAdd = ({ setShowModal, setDocentes }: Props) => {
                 <input
                   autoComplete="off"
                   autoFocus
-                  type="text"
+                  type="email"
                   name="Correo"
                   id="Correo"
                   required
@@ -214,45 +236,7 @@ const ModalAdd = ({ setShowModal, setDocentes }: Props) => {
                 />
               </div>
             </div>
-            {/* <div className="grid sm:grid-cols-2 gap-2">
-              <div className="mb-2">
-                <label
-                  htmlFor="Usuario"
-                  className="mb-3 block text-base font-medium text-gray-800"
-                >
-                  Usuario <span className="text-red-900">(*)</span>
-                </label>
-                <input
-                  type="text"
-                  name="Usuario"
-                  id="Usuario"
-                  disabled
-                  value={`${Values?.Nombre?.split(" ")[0] || ""}${
-                    Values?.Apellidos?.split(" ")[0] || ""
-                  }`}
-                  onChange={hanlerChange}
-                  className="InputStyle"
-                />
-              </div>
-              <div className="mb-2">
-                <label
-                  htmlFor="Password"
-                  className="mb-3 block text-base font-medium text-gray-800"
-                >
-                  Contraseña <span className="text-red-900">(*)</span>
-                </label>
-                <input
-                  type="text"
-                  name="Password"
-                  id="Password"
-                  disabled
-                  onChange={hanlerChange}
-                  value={Values?.Password || ""}
-                  placeholder="Ingrese Numero de Documento"
-                  className="InputStyle"
-                />
-              </div>
-            </div> */}
+
             <div className="flex justify-around mt-3 gap-2">
               <button
                 type="submit"
