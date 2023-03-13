@@ -142,7 +142,7 @@ const BodyComponent = () => {
 
       setPeriodicidadItem(PeriodicidadRes?.semestreLectivo);
     } catch (error) {
-      console.error(error);
+      console.log(error);
       alert("Error al cargar la información");
     }
   };

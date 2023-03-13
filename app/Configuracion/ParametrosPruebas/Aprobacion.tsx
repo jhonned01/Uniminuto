@@ -67,7 +67,8 @@ const Aprobacion = ({
               Docentes: true,
               Aprobacion: false,
               Estudiantes: false,
-              Competencias: false,
+              Genericas: false,
+              Especificas: false,
             });
           }}
           className="block w-full max-w-xs mx-auto bg-[#151a8b] hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"
@@ -80,7 +81,8 @@ const Aprobacion = ({
               Docentes: false,
               Aprobacion: false,
               Estudiantes: true,
-              Competencias: false,
+              Genericas: false,
+              Especificas: false,
             });
           }}
           className="block w-full max-w-xs mx-auto bg-[#151a8b] hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"

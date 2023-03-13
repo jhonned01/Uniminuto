@@ -92,6 +92,9 @@ export type Competencia = {
   Orden: int;
   Abreviatura: string;
   TipoCompetencia: string;
+  DocenteAsignado?: Docente;
+  Hora?: string;
+  Minutos?: string;
 };
 
 export type Docente = {

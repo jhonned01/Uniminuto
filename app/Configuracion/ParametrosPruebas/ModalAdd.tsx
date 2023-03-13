@@ -1,16 +1,12 @@
 "use client";
-import axios from "axios";
 import { useEffect, useState } from "react";
-
-import Select from "react-select";
 import { Competencia, Docente } from "../../../typings";
-
-import { DateRange } from "react-date-range";
-import { es } from "date-fns/locale";
 import Docentes from "./Docentes";
 import Estudiantes from "./Estudiantes";
-import Competencias from "./Competencias";
 import Aprobacion from "./Aprobacion";
+import CompetenciasGenericas from "./CompetenciasGenericas";
+import { useSearchParams } from "next/navigation";
+import CompetenciasEspecificas from "./CompetenciasEspecificas";
 
 type ShowModalType = {
   Visible: boolean;
@@ -130,8 +126,18 @@ const ModalAdd = ({
     Docentes: true,
     Aprobacion: false,
     Estudiantes: false,
-    Competencias: false,
+    Genericas: false,
+    Especificas: false,
   });
+
+  const [Asignacion, setAsignacion] = useState({
+    Show: false,
+  } as any);
+
+  const [CompetenciaGenerica, setCompetenciaGenerica] = useState([] as any[]);
+
+  const [DocentesDb, setDocentesDb] = useState([] as any[]);
+  const searchParams = useSearchParams();
 
   // const handerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   //   try {
@@ -195,6 +201,55 @@ const ModalAdd = ({
   // const resetInput = () => {
   //   setSearchInput("");
   // };
+
+  const getCompetencias = async () => {
+    try {
+      const SubSede = searchParams.get("SubSede");
+
+      const response = await fetch(
+        `/api/Configuracion/Competencias/GetCompetencias?SubSede=${SubSede}`
+      ).then((res) => res.json());
+
+      const ResDocentes = await fetch(
+        `/api/Configuracion/Docentes/GetDocentes?SubSede=${SubSede}`
+      ).then((res) => res.json());
+
+      // const Fechas = await fetch(
+      //   `/api/Configuracion/ParametrosPruebas/GetFechasProgramaSemestre?SubSede=${ValuesInfo.IdSubSede}&Programa=${Values.Programa}&Semestre=${Values.SemestreAcademico}`
+      // ).then((res) => res.json());
+
+      // console.log("Fechas", Fechas);
+
+      const TipoCompetencias = response?.competencia?.reduce(
+        (acc: any, el: Competencia) => {
+          const key = el?.TipoCompetencia;
+          if (!acc[key]) {
+            acc[key] = [];
+          }
+          acc[key].push(el);
+          return acc;
+        },
+        {}
+      );
+
+      setDocentesDb(ResDocentes?.docentes || []);
+      setCompetenciaGenerica(TipoCompetencias?.G);
+      // setData({
+      //   ...Data,
+      //   Especifica: TipoCompetencias?.E,
+      //   Docentes: ,
+      //   // Semestre: ResSemestre?.semestreAcademico,
+      // });
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar las competencias");
+    }
+  };
+
+  useEffect(() => {
+    getCompetencias();
+  }, []);
+
   return (
     <div className="bg-[#000236]/100 transition duration-150 ease-in-out z-10 fixed top-0 right-0 bottom-0 left-0">
       <div className="container mx-auto  w-11/12 md:w-2/3 max-w-5xl">
@@ -223,7 +278,7 @@ const ModalAdd = ({
             </button>
           </section>
 
-          <div style={{ borderBottom: "2px solid #eaeaea" }}>
+          <div style={{ borderBottom: "2px solid #151a8b" }}>
             <ul className="flex cursor-pointer justify-center">
               <li
                 onClick={() => {
@@ -231,11 +286,14 @@ const ModalAdd = ({
                     Docentes: true,
                     Aprobacion: false,
                     Estudiantes: false,
-                    Competencias: false,
+                    Genericas: false,
+                    Especificas: false,
                   });
                 }}
                 className={`py-2 px-6 rounded-t-lg ${
-                  Menu.Docentes ? " bg-white" : "bg-gray-200 text-gray-500"
+                  Menu.Docentes
+                    ? " bg-[#151a8b] text-white"
+                    : " bg-[#151a8b]/40 text-white"
                 }`}
               >
                 Docentes
@@ -246,11 +304,14 @@ const ModalAdd = ({
                     Docentes: false,
                     Aprobacion: true,
                     Estudiantes: false,
-                    Competencias: false,
+                    Genericas: false,
+                    Especificas: false,
                   });
                 }}
                 className={`py-2 px-6 rounded-t-lg ${
-                  Menu.Aprobacion ? " bg-white" : "bg-gray-200 text-gray-500"
+                  Menu.Aprobacion
+                    ? " bg-[#151a8b] text-white"
+                    : " bg-[#151a8b]/40 text-white"
                 }`}
               >
                 Aprobación
@@ -261,11 +322,14 @@ const ModalAdd = ({
                     Docentes: false,
                     Aprobacion: false,
                     Estudiantes: true,
-                    Competencias: false,
+                    Genericas: false,
+                    Especificas: false,
                   });
                 }}
                 className={`py-2 px-6 rounded-t-lg ${
-                  Menu.Estudiantes ? " bg-white" : "bg-gray-200 text-gray-500"
+                  Menu.Estudiantes
+                    ? " bg-[#151a8b] text-white"
+                    : " bg-[#151a8b]/40 text-white"
                 }`}
               >
                 Estudiantes
@@ -276,14 +340,35 @@ const ModalAdd = ({
                     Docentes: false,
                     Aprobacion: false,
                     Estudiantes: false,
-                    Competencias: true,
+                    Genericas: true,
+                    Especificas: false,
                   });
                 }}
                 className={`py-2 px-6 rounded-t-lg ${
-                  Menu.Competencias ? " bg-white" : "bg-gray-200 text-gray-500"
+                  Menu.Genericas
+                    ? " bg-[#151a8b] text-white"
+                    : " bg-[#151a8b]/40 text-white"
                 }`}
               >
-                Competencias
+                Competencias Genéricas{" "}
+              </li>
+              <li
+                onClick={() => {
+                  setMenu({
+                    Docentes: false,
+                    Aprobacion: false,
+                    Estudiantes: false,
+                    Genericas: false,
+                    Especificas: true,
+                  });
+                }}
+                className={`py-2 px-6 rounded-t-lg ${
+                  Menu.Especificas
+                    ? " bg-[#151a8b] text-white"
+                    : " bg-[#151a8b]/40 text-white"
+                }`}
+              >
+                Competencias Específicas{" "}
               </li>
             </ul>
           </div>
@@ -325,9 +410,19 @@ const ModalAdd = ({
                 EndDateAprobacion={EndDateAprobacion}
               />
             )}
-            {Menu?.Competencias && (
-              <Competencias ShowModal={ShowModal} setMenu={setMenu} />
+            {Menu?.Genericas && (
+              <CompetenciasGenericas
+                ShowModal={ShowModal}
+                setMenu={setMenu}
+                Asignacion={Asignacion}
+                setAsignacion={setAsignacion}
+                setCompetenciaGenerica={setCompetenciaGenerica}
+                CompetenciaGenerica={CompetenciaGenerica}
+                DocentesDb={DocentesDb}
+                setDocentesDb={setDocentesDb}
+              />
             )}
+            {Menu?.Especificas && <CompetenciasEspecificas />}
           </div>
         </div>
       </div>

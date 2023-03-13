@@ -62,14 +62,15 @@ const Estudiantes = ({
           </div>
         )}
       </section>
-      <div className="flex justify-around mt-3 gap-2">
+      {/* <div className="flex justify-around mt-3 gap-2">
         <button
           onClick={() => {
             setMenu({
               Docentes: false,
               Aprobacion: true,
               Estudiantes: false,
-              Competencias: false,
+              Genericas: false,
+              Especificas: false,
             });
           }}
           className="block w-full max-w-xs mx-auto bg-[#151a8b] hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"
@@ -82,7 +83,39 @@ const Estudiantes = ({
               Docentes: false,
               Aprobacion: false,
               Estudiantes: false,
-              Competencias: true,
+              Genericas: true,
+              Especificas: false,
+            });
+          }}
+          className="block w-full max-w-xs mx-auto bg-[#151a8b] hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"
+        >
+          Siguiente
+        </button>
+      </div> */}
+
+      <div className="flex justify-around mt-3 gap-2">
+        <button
+          onClick={() => {
+            setMenu({
+              Docentes: false,
+              Aprobacion: true,
+              Estudiantes: false,
+              Genericas: false,
+              Especificas: false,
+            });
+          }}
+          className="block w-full max-w-xs mx-auto bg-[#151a8b] hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"
+        >
+          Devolver
+        </button>
+        <button
+          onClick={() => {
+            setMenu({
+              Docentes: false,
+              Aprobacion: false,
+              Estudiantes: false,
+              Genericas: true,
+              Especificas: false,
             });
           }}
           className="block w-full max-w-xs mx-auto bg-[#151a8b] hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"
