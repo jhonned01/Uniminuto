@@ -30,6 +30,8 @@ const Estudiantes = ({
   setEndDateEstudiantes,
   EndDateAprobacion,
 }: Props) => {
+  console.log("EndDateAprobacion", EndDateAprobacion);
+
   const handleSelectEstudiantes = (ranges: any) => {
     setStartDateEstudiantes(ranges.selection.startDate);
     setEndDateEstudiantes(ranges.selection.endDate);

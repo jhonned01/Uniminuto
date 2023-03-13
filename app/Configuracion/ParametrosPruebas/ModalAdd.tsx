@@ -115,11 +115,11 @@ const ModalAdd = ({
   const [EndDateAprobacion, setEndDateAprobacion] = useState(new Date());
 
   const [startDateEstudiantes, setStartDateEstudiantes] = useState(
-    Values.MinStrudent
+    Values.MinStrudent || new Date()
   );
 
   const [endDateEstudiantes, setEndDateEstudiantes] = useState(
-    Values.MinStrudent
+    Values.MinStrudent || new Date()
   );
 
   const [Menu, setMenu] = useState({

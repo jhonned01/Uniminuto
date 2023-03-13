@@ -239,7 +239,7 @@ const BodyComponent = () => {
                       htmlFor="Nombre"
                       className="mb-3 block text-base font-medium text-gray-800"
                     >
-                      Seleccione un periodo académico
+                      Semestre académico
                       <span className="text-red-900">(*)</span>
                     </label>
 
