@@ -62,7 +62,7 @@ function ModalDatosAcademicos({ setVisible, Documento }: Props) {
     e.preventDefault();
     try {
       const res = await axios.put(
-        "/api/Estudiantes/QueremosConocerte/Save/SaveDatosAcademicos",
+        "/api/Estudiantes/QueremosConocerte/DatosAcademicos",
         {
           Value,
           Documento: searchParams?.get("Doc"),
@@ -91,7 +91,7 @@ function ModalDatosAcademicos({ setVisible, Documento }: Props) {
   const getData = async () => {
     try {
       const res = await axios(
-        `/api/Estudiantes/QueremosConocerte/Base/DatosAcademicos`,
+        `/api/Estudiantes/QueremosConocerte/DatosAcademicos`,
         {
           params: {
             Documento: searchParams?.get("Doc"),
@@ -100,7 +100,7 @@ function ModalDatosAcademicos({ setVisible, Documento }: Props) {
           },
         }
       );
-      // console.log("res", res?.data);
+      console.log("res", res?.data);
 
       setDataEstudiantes(res?.data?.InfoDatos || {});
       setValue({

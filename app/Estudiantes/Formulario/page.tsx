@@ -1,9 +1,11 @@
 import BodyComponent from "./BodyComponent";
 
-async function Formulario() {
+async function Formulario({ searchParams }: any) {
+  const docum = searchParams?.Doc;
+
   return (
     <>
-      <BodyComponent />
+      <BodyComponent docu={docum} InfoUrl={searchParams} />
     </>
   );
 }

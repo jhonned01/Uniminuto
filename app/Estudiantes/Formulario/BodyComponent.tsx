@@ -1,39 +1,26 @@
 "use client";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import {
-  DatosColegio,
-  Parametros,
-  SeccionGuardada,
-  visibleFormulario,
-} from "../../../typings";
 
 import DatosAcademicos from "./DatosAcademicos";
 
 type Props = {
-  data: {
-    info: DatosColegio;
-    save: SeccionGuardada;
-    conf: Parametros;
-    insc: visibleFormulario;
-    jor: [];
-  };
   docu: number;
 
-  InfoUrl: {};
+  InfoUrl: {
+    SubSede: string;
+  };
 };
 type sectionFo = {
   seccion: string;
   id: number;
   comparar: string;
 };
-const BodyComponent = () => {
+const BodyComponent = ({ docu, InfoUrl }: Props) => {
   const [accept, setAccept] = useState(false);
-  const searchParams = useSearchParams();
-  const [isPending, setIsPending] = useState(false as boolean);
-  const [data, setData] = useState({} as any);
-  const docu = searchParams.get("Doc");
+  const [data, setData] = useState({
+    info: {},
+  } as any);
 
   const change = (e: any) => {
     const { value } = e.target;
@@ -81,25 +68,24 @@ const BodyComponent = () => {
     }
   });
 
-  const getData = async () => {
-    try {
-      setIsPending(true);
-      const SubSede = searchParams.get("SubSede");
-
-      const dataRes: any = await fetch(
-        `/api/Estudiantes/QueremosConocerte/Base/BaseInfoColegio?num=${docu}`
-      ).then((res) => res.json());
-      setData(dataRes);
-      setIsPending(false);
-    } catch (error) {
-      console.log(error);
-      alert("Error al cargar los datos");
-    }
-  };
-
   useEffect(() => {
-    getData();
+    const GetData = async () => {
+      const res = await fetch(
+        `/api/Estudiantes/QueremosConocerte/BaseInfoColegio?SubSede=${InfoUrl?.SubSede}`
+      ).then((res) => res.json());
+      console.log("res", res);
+
+      setData(res?.DatosUniversidad);
+    };
+
+    try {
+      GetData();
+    } catch (error) {
+      console.log("error", error);
+      alert("Error al cargar la información del colegio");
+    }
   }, []);
+
   return (
     <>
       <div className="container max-w-6xl mx-auto bg-blue-50">
@@ -113,17 +99,17 @@ const BodyComponent = () => {
                 alt="Uniminuto"
                 width={250}
                 height={250}
-                objectFit="cover"
+                className="object-cover"
               />
             </figure>
-            {data?.info && (
+            {data && (
               <>
                 <div className="text-sm sm:text-lg  flex flex-col items-center justify-center lg:text-xl font-bold">
-                  <h1 className=" uppercase">{data?.info?.Nombre || ""}.</h1>
+                  <h1 className=" uppercase">{data?.nombre || ""}.</h1>
                   <h3 className="">
-                    {`Telefonos: ${data?.info?.Telefono1} - ${data?.info.Telefono2}`}
+                    {`Telefonos: ${data?.telefono1} - ${data.telefono2}`}
                   </h3>
-                  <h3 className="">{`${data?.info.Direccion}`}</h3>
+                  <h3 className="">{`${data.direccion}`}</h3>
                 </div>
               </>
             )}

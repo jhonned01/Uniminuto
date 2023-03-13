@@ -97,8 +97,11 @@ const ModalInfEstudiante = ({ setVisible, Documento }: Props) => {
   const getData = async () => {
     try {
       const InfoBase = await fetch(
-        `/api/Estudiantes/QueremosConocerte/Base/BaseInfoEstudiante?num=${Documento}`
+        `/api/Estudiantes/QueremosConocerte/InformacionEstudiante?num=${Documento}`
       ).then((res) => res.json());
+
+      console.log("InfoBase", InfoBase);
+
       setData(InfoBase);
       const DptoExpedicion = InfoBase?.Departamentos?.filter(
         (dpto: any) => dpto.id == InfoBase?.DataSave.depa_exp_id
@@ -159,7 +162,7 @@ const ModalInfEstudiante = ({ setVisible, Documento }: Props) => {
   const handerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const sentDataRes = await fetch(
-      "/api/Estudiantes/QueremosConocerte/Save/SaveInfoEstudiante",
+      "/api/Estudiantes/QueremosConocerte/InformacionEstudiante",
       {
         method: "POST",
         headers: {
@@ -191,14 +194,14 @@ const ModalInfEstudiante = ({ setVisible, Documento }: Props) => {
 
                 <form onSubmit={handerSubmit}>
                   <div className="grid lg:grid-cols-4 ">
-                    <div className="lg:col-span-4">
+                    {/* <div className="lg:col-span-4">
                       <label className="block text-sm md:text-lg font-medium text-gray-900 text-center">
                         Nombre y Apellidos
                       </label>
-                      <p className="text-center text-4xl uppercase font-bold mb-2">{`${data?.selectCupo?.cupo_nom1} ${data?.selectCupo?.cupo_nom2} ${data?.selectCupo?.cupo_ape1} ${data?.selectCupo?.cupo_ape2}`}</p>
-                    </div>
+                      <p className="text-center text-4xl uppercase font-bold mb-2">{`${data?.DataSave?.Nombre}`}</p>
+                    </div> */}
                   </div>
-                  <div className="grid gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-4">
+                  {/* <div className="grid gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-4">
                     <div>
                       <label className="block font-medium text-sm  text-gray-900 ">
                         Tipo de Documento
@@ -208,7 +211,7 @@ const ModalInfEstudiante = ({ setVisible, Documento }: Props) => {
                         className="w-full p-[0.5rem] bg-gray-200 mt-2  rounded border-2 border-slate-200 "
                         type="text"
                         disabled={true}
-                        // placeholder={data?.TiposDocumento?.nombre}
+                        placeholder={data?.TiposDocumento?.nombre}
                       />
                     </div>
                     <div>
@@ -220,7 +223,7 @@ const ModalInfEstudiante = ({ setVisible, Documento }: Props) => {
                         className="w-full p-[0.5rem] bg-gray-200 mt-2  rounded border-2 border-slate-200 "
                         type="text"
                         disabled={true}
-                        placeholder={data?.selectCupo?.cupo_num_docu}
+                        placeholder={Documento}
                         required
                       />
                     </div>
@@ -254,6 +257,10 @@ const ModalInfEstudiante = ({ setVisible, Documento }: Props) => {
                               getOptionLabel={(e: any) => {
                                 return e.municipio_nombre;
                               }}
+                              value={(e: any) =>
+                                e == data?.Municipios[0]?.municipio_nombre ||
+                                "Seleccione uno"
+                              }
                               options={data?.Municipios}
                               onChange={(e: any) =>
                                 setInputData({
@@ -261,17 +268,13 @@ const ModalInfEstudiante = ({ setVisible, Documento }: Props) => {
                                   MunExpedicion: e,
                                 })
                               }
-                              placeholder={
-                                InputData?.MunExpedicion[0]?.municipio_nombre ||
-                                "Seleccione uno"
-                              }
                             />
                           </>
                         </div>
                       </>
                     )}
-                  </div>
-                  <div className="grid gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-4">
+                  </div> */}
+                  {/* <div className="grid gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-900 ">
                         Fecha Nacimiento
@@ -330,6 +333,10 @@ const ModalInfEstudiante = ({ setVisible, Documento }: Props) => {
                               getOptionLabel={(e: any) => {
                                 return e.municipio_nombre;
                               }}
+                              value={(e: any) =>
+                                e == data?.Municipios[0]?.municipio_nombre ||
+                                "Seleccione uno"
+                              }
                               options={data?.Municipios}
                               onChange={(e: any) =>
                                 setInputData({
@@ -337,16 +344,12 @@ const ModalInfEstudiante = ({ setVisible, Documento }: Props) => {
                                   MunNacimiento: e,
                                 })
                               }
-                              placeholder={
-                                InputData?.MunNacimiento[0]?.municipio_nombre ||
-                                "Seleccione uno"
-                              }
                             />
                           </>
                         </div>
                       </>
                     )}
-                  </div>
+                  </div> */}
                   <div className="grid gap-4 mb-6 sm:grid-cols-2 lg:grid-cols-4">
                     <div>
                       <label className="block pb-2 text-sm font-medium text-gray-900 ">
