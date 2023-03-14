@@ -17,9 +17,9 @@ const BodyComponent = () => {
       <Tabla1PdfF />
       <Tabla2Pdfh />
       <Tabla2PdfF />
-      <Resultados />
+      {/* <Resultados />
       <ResultadosContent />
-      <ResultadoContent2 />
+      <ResultadoContent2 /> */}
     </>
   );
 };

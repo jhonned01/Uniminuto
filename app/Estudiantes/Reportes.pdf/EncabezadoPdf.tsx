@@ -74,7 +74,7 @@ const EncabezadoPdf = () => {
 
       <Text style={styles.title}>RESULTADO DE LOS MODULOS </Text>
       <Text style={styles.title}>
-        Tenga en cuenta que el puntaje maximo es de 200 pts
+        Tenga en cuenta que el puntaje maximo es de 300 pts
       </Text>
       <Document>
         <Page size="A4" style={styles.page1}>
