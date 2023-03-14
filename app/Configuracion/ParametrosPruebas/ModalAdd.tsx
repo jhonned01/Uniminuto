@@ -15,6 +15,7 @@ type ShowModalType = {
   SemestreAcademico?: string;
   MaxSemestre?: any;
   StartStudents?: any;
+  Periodicidad?: String;
 };
 type Props = {
   // type props useState
@@ -26,6 +27,7 @@ type Props = {
     IdSubSede: any;
   };
   setPruebas: React.Dispatch<React.SetStateAction<any>>;
+  getData: Function;
 };
 
 type ValuesType = {
@@ -69,6 +71,7 @@ const ModalAdd = ({
   ShowModal,
   ValuesInfo,
   setPruebas,
+  getData,
 }: Props) => {
   function lastDayOfMonth(date: Date, fecha: any) {
     return new Date(date.getFullYear(), fecha, 0).getDate();
@@ -444,6 +447,7 @@ const ModalAdd = ({
                 endDateEstudiantes={endDateEstudiantes}
                 CompetenciaGenerica={CompetenciaGenerica}
                 setShowModal={setShowModal}
+                getData={getData}
               />
             )}
           </div>

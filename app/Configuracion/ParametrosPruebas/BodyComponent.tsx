@@ -191,6 +191,7 @@ const BodyComponent = () => {
           setShowModal={setShowModal}
           ValuesInfo={Values}
           setPruebas={setPruebas}
+          getData={getData}
         />
       )}
       {isPending ? (

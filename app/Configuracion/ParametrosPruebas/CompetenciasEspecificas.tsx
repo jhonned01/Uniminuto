@@ -3,9 +3,17 @@ import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 import ModalAsignarDocente from "./ModalAsignarDocente";
-
+type ShowModalType = {
+  Visible?: boolean;
+  TypeTest?: string;
+  Programa?: number | null;
+  SemestreAcademico?: string;
+  MaxSemestre?: string;
+  Periodicidad?: String;
+  StartStudents?: string;
+};
 type Props = {
-  ShowModal: any;
+  ShowModal: ShowModalType;
   setMenu: React.Dispatch<React.SetStateAction<any>>;
   Asignacion: any;
   setCompetenciaEspecifica: React.Dispatch<React.SetStateAction<any>>;
@@ -21,6 +29,7 @@ type Props = {
   CompetenciaGenerica: Competencia[];
   CompetenciaEspecifica: Competencia[];
   setShowModal: React.Dispatch<React.SetStateAction<any>>;
+  getData: Function;
 };
 const CompetenciasEspecificas = ({
   ShowModal,
@@ -39,10 +48,12 @@ const CompetenciasEspecificas = ({
   CompetenciaGenerica,
   CompetenciaEspecifica,
   setShowModal,
+  getData,
 }: Props) => {
   const searchParams = useSearchParams();
 
-  const hanlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const hanlerSubmit = async (e: any) => {
+    e.preventDefault();
     try {
       const SubSede = searchParams.get("SubSede");
 
@@ -61,8 +72,14 @@ const CompetenciasEspecificas = ({
           InfoPrueba: ShowModal,
         }
       );
-      console.log(res);
 
+      console.log(ShowModal);
+
+      getData(
+        ShowModal.Programa,
+        ShowModal.SemestreAcademico,
+        ShowModal.TypeTest
+      );
       setShowModal((prev: any) => ({ ...prev, Visible: false }));
 
       alert(res?.data?.body);
@@ -135,7 +152,7 @@ const CompetenciasEspecificas = ({
         </button>
         {
           <button
-            onClick={(e) => hanlerSubmit(e)}
+            onClick={hanlerSubmit}
             className="block w-full max-w-xs mx-auto bg-[#151a8b] hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold"
           >
             Crear Prueba
