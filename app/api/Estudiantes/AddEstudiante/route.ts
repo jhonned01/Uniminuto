@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     } = await req?.json();
 
     const [ExistenciaAlumno]: any = await connectionPool.query(`
-        SELECT * FROM pfc_alumno WHERE alumno_num_docu = ${NumeroDocumento}
+        SELECT alumno_num_docu FROM pfc_alumno WHERE alumno_num_docu = '${NumeroDocumento}'
     `);
     if (ExistenciaAlumno?.length > 0) {
       return NextResponse.json(
@@ -41,6 +41,17 @@ export async function POST(req: NextRequest) {
 
     const [MaxIdAlumno]: any = await connectionPool.query(`
    SELECT MAX(alumno_id) AS MaxIdAlumno FROM pfc_alumno`);
+
+    console.log(`
+   INSERT INTO pfc_alumno (alumno_rum, tipo_docu_id, alumno_num_docu, alumno_ape1, alumno_ape2, alumno_nom1,alumno_nom2, alumno_celular, alumno_email) values  ('${
+     MaxIdAlumno[0].MaxIdAlumno + 1
+   }', '${TipoDocumento}', '${NumeroDocumento}', '${Apellidos?.split(
+      " "
+    )[0]?.toUpperCase()}', '${
+      Apellidos?.split(" ")[1]?.toUpperCase() || ""
+    }', '${Nombre?.split(" ")[0]?.toUpperCase()}', '${
+      Nombre?.split(" ")[1]?.toUpperCase() || ""
+    }', '${Telefono}', '${Email}')`);
 
     const [InsertAlumno]: any = await connectionPool.query(`
    INSERT INTO pfc_alumno (alumno_rum, tipo_docu_id, alumno_num_docu, alumno_ape1, alumno_ape2, alumno_nom1,alumno_nom2, alumno_celular, alumno_email) values  ('${

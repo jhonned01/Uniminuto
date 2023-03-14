@@ -405,15 +405,16 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
                   </label>
                   <input
                     autoComplete="off"
-                    type="number"
+                    type="text"
                     name="NumeroDocumento"
                     id="NumeroDocumento"
                     required
                     onChange={hanlerChange}
                     placeholder="Ingrese Numero de Documento"
                     className="InputStyle"
-                    pattern="/^[0-9]+$/"
-                    title="Espacion Unicamente para Numero de Documento"
+                    // validar longitud de caracteres min 8
+                    pattern=".{8,}"
+                    title="Complete Este Campo con minimo 8 caracteres"
                     defaultValue={InfoEditar?.Documento}
                   />
                 </div>
@@ -544,7 +545,7 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
                   </label>
                   <input
                     autoComplete="off"
-                    type="text"
+                    type="email"
                     name="Email"
                     id="email"
                     required
