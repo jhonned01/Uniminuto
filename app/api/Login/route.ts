@@ -53,7 +53,23 @@ export async function GET(req: any) {
         const [NotificacionesRes]: any = await connectionPool.query(
           `SELECT id, Rol,message,date_range_start,date_range_end,Link,date_created FROM notifications WHERE Rol='${user[0]?.rol}' AND user_id='${user[0]?.idUsuario}' AND status='0' ORDER BY date_created DESC`
         );
-        Notificaciones = NotificacionesRes;
+
+        if (NotificacionesRes?.length > 0) {
+          const NewNotifications = NotificacionesRes.filter((item: any) => {
+            if (item.date_range_start) {
+              const date = new Date();
+              const date2 = new Date(item.date_range_start);
+              if (date2.getTime() < date.getTime()) {
+                return {
+                  ...item,
+                  status: "1",
+                };
+              }
+            }
+          });
+
+          Notificaciones = NewNotifications;
+        }
 
         const [Docente]: any = await connectionPool.query(
           `select concat(dcne.dcne_nom1,' ',dcne.dcne_nom2) as Nombre, concat(dcne.dcne_ape1,' ',dcne.dcne_ape2) as Apellidos,dcne_num_docu as Documento  from dcne
