@@ -200,11 +200,6 @@ const ModalAsignarDocente = ({
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    console.log(
-                      "xd",
-                      CompetenciaGenerica[Asignacion?.Competencia?.index]
-                        .DocenteAsignado
-                    );
 
                     if (
                       !CompetenciaGenerica[Asignacion?.Competencia?.index]

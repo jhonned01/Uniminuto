@@ -135,6 +135,9 @@ const ModalAdd = ({
   } as any);
 
   const [CompetenciaGenerica, setCompetenciaGenerica] = useState([] as any[]);
+  const [CompetenciaEspecifica, setCompetenciaEspecifica] = useState(
+    [] as any[]
+  );
 
   const [DocentesDb, setDocentesDb] = useState([] as any[]);
   const searchParams = useSearchParams();
@@ -234,6 +237,7 @@ const ModalAdd = ({
 
       setDocentesDb(ResDocentes?.docentes || []);
       setCompetenciaGenerica(TipoCompetencias?.G);
+      setCompetenciaEspecifica(TipoCompetencias?.E);
       // setData({
       //   ...Data,
       //   Especifica: TipoCompetencias?.E,
@@ -422,7 +426,26 @@ const ModalAdd = ({
                 setDocentesDb={setDocentesDb}
               />
             )}
-            {Menu?.Especificas && <CompetenciasEspecificas />}
+            {Menu?.Especificas && (
+              <CompetenciasEspecificas
+                ShowModal={ShowModal}
+                setMenu={setMenu}
+                Asignacion={Asignacion}
+                setAsignacion={setAsignacion}
+                setCompetenciaEspecifica={setCompetenciaEspecifica}
+                CompetenciaEspecifica={CompetenciaEspecifica}
+                DocentesDb={DocentesDb}
+                setDocentesDb={setDocentesDb}
+                startDateDocentes={startDateDocentes}
+                endDateDocentes={endDateDocentes}
+                StartDateAprobacion={StartDateAprobacion}
+                EndDateAprobacion={EndDateAprobacion}
+                startDateEstudiantes={startDateEstudiantes}
+                endDateEstudiantes={endDateEstudiantes}
+                CompetenciaGenerica={CompetenciaGenerica}
+                setShowModal={setShowModal}
+              />
+            )}
           </div>
         </div>
       </div>

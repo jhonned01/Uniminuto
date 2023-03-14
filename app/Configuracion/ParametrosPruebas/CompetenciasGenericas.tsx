@@ -31,6 +31,7 @@ const CompetenciasGenericas = ({
         return item;
       }
     });
+
     if (newArray.length === CompetenciaGenerica.length) {
       setShowBotton(true);
     }
@@ -81,7 +82,7 @@ const CompetenciasGenericas = ({
             )}
           </div>
         )}
-      </section>{" "}
+      </section>
       <div className="flex justify-around mt-3 gap-2">
         <button
           onClick={() => {
@@ -103,7 +104,7 @@ const CompetenciasGenericas = ({
               setMenu({
                 Docentes: false,
                 Aprobacion: false,
-                Estudiantes: true,
+                Estudiantes: false,
                 Genericas: false,
                 Especificas: true,
               });
