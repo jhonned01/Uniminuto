@@ -5,7 +5,7 @@ import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 const styles = StyleSheet.create({
   table: {
     display: "table" as any,
-    width: "auto",
+    width: 100,
     marginBottom: 10,
     marginTop: 5,
     marginLeft: 100,
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#999",
     padding: 5,
-    overflow: "hidden",
   },
 
   // bodyText: {
