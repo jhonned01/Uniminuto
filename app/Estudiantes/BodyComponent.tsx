@@ -16,8 +16,6 @@ type props = {
 };
 
 const BodyComponent = ({ InfoUser }: props) => {
-  console.log("InfoUser", InfoUser);
-
   const [ShowModal, setShowModal] = useState({
     AddVisible: false,
     EdditVisible: false,

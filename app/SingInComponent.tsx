@@ -27,8 +27,6 @@ const SingInComponent = ({ setUser, setModalCambiosPass }: props) => {
         },
       });
 
-      console.log("response", response);
-
       if (response?.status == 200) {
         localStorage.setItem("rol_nombre", response?.data?.user[0]?.rol_nombre);
         localStorage.setItem("usu_rol", response?.data?.user[0]?.rol);

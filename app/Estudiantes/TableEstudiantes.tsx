@@ -85,9 +85,16 @@ const TableEstudiantes = ({
       ),
       sortable: true,
       wrap: true,
-      grow: 2.8,
+      grow: 2.5,
     },
 
+    {
+      name: "Programa",
+      selector: (row: any) => row.NombrePrograma,
+      sortable: true,
+      wrap: true,
+      //   maxWidth: "150px",
+    },
     {
       name: "Documento Identidad",
       selector: (row: any) => row.Documento,
