@@ -32,6 +32,7 @@ type addPregunta = {
   id: number;
   competencia: string;
   IdClick: number;
+  DemasInfo: {};
 };
 const BodyComponent = ({ Programas, urlInfo }: Props) => {
   const [Pruebas, setPruebas] = useState([] as []);
@@ -150,6 +151,7 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
           data={dataEnvia}
           Prueba={Values?.PruebasId}
           Semestre={Values.Semestre}
+          DemasInfo={dataEnvia?.DemasInfo}
         />
       )}
       <Title title="Ingreso de Preguntas" />
@@ -223,10 +225,13 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
                             <div className="flex justify-center items-center">
                               <svg
                                 onClick={() => {
+                                  console.log("item--", item);
+
                                   setDataEnvia({
                                     ...dataEnvia,
                                     competencia: item?.Nombre,
                                     id: item?.Id,
+                                    DemasInfo: item,
                                   });
                                   setShowModal({
                                     AddVisible: true,
@@ -255,6 +260,7 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
                                     competencia: item?.idCompetencia,
                                     id: Values?.PruebasId || 0,
                                     IdClick: item?.Id,
+                                    DemasInfo: item,
                                   });
                                   setShowModal({
                                     EditVisible: true,
@@ -320,6 +326,7 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
                                     ...dataEnvia,
                                     competencia: item.Nombre,
                                     id: item.Id,
+                                    DemasInfo: item,
                                   });
                                   setShowModal({
                                     AddVisible: true,

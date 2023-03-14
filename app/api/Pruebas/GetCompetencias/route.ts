@@ -5,12 +5,13 @@ import connectionPool from "../../../../config/db";
 export async function POST(req: NextRequest) {
   try {
     const { Values } = await req?.json();
+    console.log("Values", Values);
 
     let competencias = {};
 
     if (Values?.TipoPrueba == "SP" && Values?.IdRol == "2") {
       const [competenciasRes]: any = await connectionPool.query(`
-      SELECT asignacionPrueba.id as Id,pfc_ejes.eje_tip as Tipo,pfc_ejes.eje_nom as Nombre, asignacionPrueba.competencia AS idCompetencia FROM asignacionPrueba INNER JOIN parametros_pruebas ON (asignacionPrueba.prueba=parametros_pruebas.id) INNER JOIN pfc_ejes on (asignacionPrueba.competencia=pfc_ejes.eje_id) WHERE parametros_pruebas.id = '${Values?.PruebasId}' AND parametros_pruebas.tipo ='${Values?.TipoPrueba}' AND parametros_pruebas.programa='${Values?.IdPrograma}' AND parametros_pruebas.semestre = '${Values?.Semestre}' AND parametros_pruebas.subSedeId ='${Values?.CoaId}' AND asignacionPrueba.docente = '${Values?.IdUser}' 
+      SELECT asignacionPrueba.id as Id,pfc_ejes.eje_tip as Tipo,pfc_ejes.eje_nom as Nombre, asignacionPrueba.competencia AS idCompetencia , asignacionPrueba.Hora, asignacionPrueba.Minutos FROM asignacionPrueba INNER JOIN parametros_pruebas ON (asignacionPrueba.prueba=parametros_pruebas.id) INNER JOIN pfc_ejes on (asignacionPrueba.competencia=pfc_ejes.eje_id) WHERE parametros_pruebas.id = '${Values?.PruebasId}' AND parametros_pruebas.tipo ='${Values?.TipoPrueba}' AND parametros_pruebas.programa='${Values?.IdPrograma}' AND parametros_pruebas.semestre = '${Values?.Semestre}' AND parametros_pruebas.subSedeId ='${Values?.CoaId}' AND asignacionPrueba.docente = '${Values?.IdUser}' 
       `);
 
       const competenciaFormated = [{}];
@@ -35,7 +36,7 @@ export async function POST(req: NextRequest) {
       }, {});
     } else {
       const [competenciasRes]: any = await connectionPool.query(`
-      SELECT asignacionPrueba.id as Id,pfc_ejes.eje_tip as Tipo,pfc_ejes.eje_nom as Nombre FROM asignacionPrueba INNER JOIN parametros_pruebas ON (asignacionPrueba.prueba=parametros_pruebas.id) INNER JOIN pfc_ejes on (asignacionPrueba.competencia=pfc_ejes.eje_id) WHERE parametros_pruebas.id = '${Values?.Prueba}' AND parametros_pruebas.tipo='${Values?.TipoPrueba}' AND parametros_pruebas.programa='${Values?.Programa}' AND parametros_pruebas.semestre='${Values.Semestre}'
+      SELECT asignacionPrueba.id as Id,pfc_ejes.eje_tip as Tipo,pfc_ejes.eje_nom as Nombre, asignacionPrueba.competencia AS idCompetencia , asignacionPrueba.Hora, asignacionPrueba.Minutos FROM asignacionPrueba INNER JOIN parametros_pruebas ON (asignacionPrueba.prueba=parametros_pruebas.id) INNER JOIN pfc_ejes on (asignacionPrueba.competencia=pfc_ejes.eje_id) WHERE parametros_pruebas.id = '${Values?.Prueba}' AND parametros_pruebas.tipo='${Values?.TipoPrueba}' AND parametros_pruebas.programa='${Values?.Programa}' AND parametros_pruebas.semestre='${Values.Semestre}'
       `);
 
       competencias = competenciasRes?.reduce((acc: any, item: any) => {

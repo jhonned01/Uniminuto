@@ -19,6 +19,7 @@ type Props = {
   data: any;
   Semestre: any;
   Prueba: any;
+  DemasInfo: any;
 };
 const FroalaEditor = dynamic(
   async () => {
@@ -43,8 +44,9 @@ const ModalAdd = ({
   Prueba,
   setContador,
 }: Props) => {
+  console.log("data", data);
+
   const [Values, setValues] = useState({} as preguntaIngreso);
-  const [Data, setData] = useState({} as any);
 
   const preguntas = [
     {
@@ -86,6 +88,11 @@ const ModalAdd = ({
           <h1 className="text-center text-lg tracking-normal leading-tight mb-4 bg-[#151A8B] w-full text-white p-4 rounded-lg font-bold ">
             Agregar Preguntas para la competencia {data?.competencia || ""}
           </h1>
+
+          <p>
+            El tiempo designado para esta competencia es : Hora:{" "}
+            {data?.DemasInfo?.Hora} - Minutos: {data?.DemasInfo?.Minutos}
+          </p>
           <div className="space-y-2">
             <span>¿Tipo de Pregunta?</span>
             <Select
