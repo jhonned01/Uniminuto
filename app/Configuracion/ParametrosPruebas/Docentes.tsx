@@ -19,8 +19,6 @@ type Props = {
   startDateDocentes: any;
   endDateDocentes: any;
   setMenu: React.Dispatch<React.SetStateAction<any>>;
-  setStartDateAprobacion: React.Dispatch<React.SetStateAction<any>>;
-  setEndDateAprobacion: React.Dispatch<React.SetStateAction<any>>;
 };
 
 const Docentes = ({
@@ -30,14 +28,10 @@ const Docentes = ({
   startDateDocentes,
   endDateDocentes,
   setMenu,
-  setStartDateAprobacion,
-  setEndDateAprobacion,
 }: Props) => {
   const handleSelectDocentes = (ranges: any) => {
     setStartDateDocentes(ranges.selection.startDate);
     setEndDateDocentes(ranges.selection.endDate);
-    setStartDateAprobacion(ranges.selection.endDate);
-    setEndDateAprobacion(ranges.selection.endDate);
   };
   const selectionRangeDocentes = {
     startDate: startDateDocentes,
