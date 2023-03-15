@@ -1,5 +1,4 @@
 import Title from "../../Title";
-import BodyComponent from "./BodyComponent";
 import NewBody from "./NewBody";
 
 const AprobarPrueba = () => {
