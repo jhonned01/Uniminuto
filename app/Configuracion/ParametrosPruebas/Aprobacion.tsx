@@ -9,9 +9,8 @@ type Props = {
   ShowModal: any;
   setStartDateAprobacion: React.Dispatch<React.SetStateAction<any>>;
   setEndDateAprobacion: React.Dispatch<React.SetStateAction<any>>;
-  endDateDocentes: any;
-  StartDateAprobacion: any;
   EndDateAprobacion: any;
+  StartDateAprobacion: any;
   setStartDateEstudiantes: React.Dispatch<React.SetStateAction<any>>;
   setEndDateEstudiantes: React.Dispatch<React.SetStateAction<any>>;
 };
@@ -23,7 +22,7 @@ const Aprobacion = ({
   setEndDateAprobacion,
   StartDateAprobacion,
   EndDateAprobacion,
-  endDateDocentes,
+
   setStartDateEstudiantes,
   setEndDateEstudiantes,
 }: Props) => {
@@ -51,7 +50,7 @@ const Aprobacion = ({
             </label>
             <DateRange
               ranges={[selectionRangeDocentes]}
-              minDate={endDateDocentes}
+              minDate={new Date()}
               rangeColors={["#3b82f6"]}
               onChange={handleSelectAprobacion}
               locale={es}

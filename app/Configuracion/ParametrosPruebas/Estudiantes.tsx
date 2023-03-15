@@ -59,7 +59,6 @@ const Estudiantes = ({
               rangeColors={["#3b82f6"]}
               onChange={handleSelectEstudiantes}
               locale={es}
-              // maxDate={Values.MaxSemestre}
             />
           </div>
         )}

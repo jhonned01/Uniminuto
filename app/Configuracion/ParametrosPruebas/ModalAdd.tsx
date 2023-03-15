@@ -117,13 +117,9 @@ const ModalAdd = ({
 
   const [EndDateAprobacion, setEndDateAprobacion] = useState(new Date());
 
-  const [startDateEstudiantes, setStartDateEstudiantes] = useState(
-    Values.MinStrudent || new Date()
-  );
+  const [startDateEstudiantes, setStartDateEstudiantes] = useState(new Date());
 
-  const [endDateEstudiantes, setEndDateEstudiantes] = useState(
-    Values.MinStrudent || new Date()
-  );
+  const [endDateEstudiantes, setEndDateEstudiantes] = useState(new Date());
 
   const [Menu, setMenu] = useState({
     Docentes: true,
@@ -389,15 +385,12 @@ const ModalAdd = ({
                 startDateDocentes={startDateDocentes}
                 endDateDocentes={endDateDocentes}
                 setMenu={setMenu}
-                setStartDateAprobacion={setStartDateAprobacion}
-                setEndDateAprobacion={setEndDateAprobacion}
               />
             )}
             {Menu?.Aprobacion && (
               <Aprobacion
                 ShowModal={ShowModal}
                 setMenu={setMenu}
-                endDateDocentes={endDateDocentes}
                 setStartDateAprobacion={setStartDateAprobacion}
                 setEndDateAprobacion={setEndDateAprobacion}
                 StartDateAprobacion={StartDateAprobacion}
