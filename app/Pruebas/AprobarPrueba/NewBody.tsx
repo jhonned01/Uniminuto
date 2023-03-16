@@ -13,9 +13,11 @@ const NewBody = () => {
   const [ShowModal, setShowModal] = React.useState({
     Show: false,
     Questions: [],
+    TipoPreguntas: "",
   } as {
     Show: boolean;
     Questions: any[];
+    TipoPreguntas: string;
   });
 
   console.log(ShowModal);

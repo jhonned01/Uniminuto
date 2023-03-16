@@ -31,6 +31,7 @@ export const ItemCompetencia = ({
               }
 
               setShowModal({
+                TipoPreguntas: "Aprobadas",
                 Show: true,
                 Questions: Competencias?.Aprobadas?.Preguntas || [],
               });
@@ -79,6 +80,7 @@ export const ItemCompetencia = ({
               }
 
               setShowModal({
+                TipoPreguntas: "Pendientes",
                 Show: true,
                 Questions: Competencias?.Pendientes?.Preguntas || [],
               });
@@ -121,6 +123,8 @@ export const ItemCompetencia = ({
               }
 
               setShowModal({
+                TipoPreguntas: "NoAprobadas",
+
                 Show: true,
                 Questions: Competencias?.NoAprobadas?.Preguntas || [],
               });
@@ -143,7 +147,7 @@ export const ItemCompetencia = ({
               </svg>
             </div>
             <div className="ml-4">
-              <h2 className="font-semibold">Rechazo</h2>
+              <h2 className="font-semibold">No Aprobadas</h2>
               <p className="mt-2 text-sm text-gray-500">
                 {Competencias?.NoAprobadas?.Preguntas?.length || 0}
               </p>
