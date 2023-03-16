@@ -83,7 +83,8 @@ const NewModalQuestion = ({ ShowModal, setShowModal }: Props) => {
                     </div>
                     <div className="flex items-center justify-between text-gray-800 w-full">
                       <p className="text-sm">
-                        {question?.NombreUno || ""} {question?.NombreDos || ""}{" "}
+                        Profesor: {question?.NombreUno || ""}{" "}
+                        {question?.NombreDos || ""}{" "}
                         {question?.ApellidoUno || ""}{" "}
                         {question?.ApellidoDos || ""}
                       </p>
