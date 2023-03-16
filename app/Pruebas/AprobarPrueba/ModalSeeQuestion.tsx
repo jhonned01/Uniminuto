@@ -58,8 +58,6 @@ const ModalSeeQuestion = ({
     SeeQuestion?.Pregunta?.opciones?.split("@")
   );
 
-  console.log("SeeQuestion", SeeQuestion);
-
   const [Question, setQuestion] = React.useState<any>(
     SeeQuestion?.Pregunta?.pregunta
   );
