@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     const { competencia, prueba, IdUser } = await req?.json();
 
     const [informacion]: any = await connectionPool.query(
-      `SELECT preguntas_pruebas.id as Id,preguntas_pruebas.tipo as TipoPregunta,preguntas_pruebas.padre, preguntas_pruebas.pregunta as Pregunta,preguntas_pruebas.opciones,preguntas_pruebas.respuesta,preguntas_pruebas.punto, preguntas_pruebas.aprobo FROM preguntas_pruebas  INNER JOIN asignacionPrueba ON asignacionPrueba.prueba=preguntas_pruebas.prueba WHERE asignacionPrueba.docente='${IdUser}' AND asignacionPrueba.prueba='${prueba}' and asignacionPrueba.competencia='${competencia}'`
+      `SELECT preguntas_pruebas.id as Id,preguntas_pruebas.tipo as TipoPregunta,preguntas_pruebas.padre, preguntas_pruebas.pregunta as Pregunta,preguntas_pruebas.opciones,preguntas_pruebas.respuesta,preguntas_pruebas.punto, preguntas_pruebas.aprobo,preguntas_pruebas.MsnRechazo FROM preguntas_pruebas  INNER JOIN asignacionPrueba ON asignacionPrueba.prueba=preguntas_pruebas.prueba WHERE asignacionPrueba.docente='${IdUser}' AND asignacionPrueba.prueba='${prueba}' and asignacionPrueba.competencia='${competencia}'`
     );
     const [retro]: any = await connectionPool.query(
       "SELECT * FROM retroalimentacionPregunta"

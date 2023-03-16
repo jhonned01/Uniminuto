@@ -64,7 +64,7 @@ const BodyComponent = () => {
                   <Select
                     options={data}
                     getOptionLabel={(item: any) =>
-                      `${item.tipo} - ${item.NombrePrograma} `
+                      `${item.tipo} - ${item.NombrePrograma} (#${item.IdPrueba})`
                     }
                     getOptionValue={(item) => item.IdPrueba}
                     onChange={(item) => {

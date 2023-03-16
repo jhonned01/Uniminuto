@@ -1,6 +1,13 @@
 "use client";
 import React from "react";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  Canvas,
+} from "@react-pdf/renderer";
 import Tabla1 from "./Tabla1";
 import Tabla2 from "./Tabla2";
 import Encabezado from "./Encabezado";
@@ -43,7 +50,7 @@ const MyDocument = () => (
         <Text style={styles.subtitle}>Modulo Competencias Genéricas</Text>
         <Tabla1 />
         <Tabla2 />
-        <Grafica />
+        {/* <Grafica /> */}
       </View>
     </Page>
   </Document>
