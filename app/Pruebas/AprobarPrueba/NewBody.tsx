@@ -20,20 +20,47 @@ const NewBody = () => {
     TipoPreguntas: string;
   });
 
-  console.log(ShowModal);
+  const getData = async () => {
+    setLoadingData(true);
+    const SubSede = searchParams?.get("SubSede");
+
+    const res = await fetch(
+      `/api/Pruebas/GetAllPreguntas?SubSede=${SubSede}`
+    ).then((res) => res.json());
+    setData(res);
+    setLoadingData(false);
+
+    console.log("-------------res", res);
+
+    console.log("-------------ShowModal", ShowModal);
+
+    if (ShowModal?.Show && ShowModal?.TipoPreguntas == "Aprobadas") {
+      setShowModal({
+        ...ShowModal,
+        Questions: res?.Genericas?.Aprobadas?.Preguntas,
+      });
+    }
+
+    if (ShowModal?.Show && ShowModal?.TipoPreguntas == "Pendientes") {
+      console.log(
+        "res?.Genericas?.Pendientes?.Preguntas",
+        res?.Genericas?.Pendientes?.Preguntas
+      );
+
+      setShowModal({
+        ...ShowModal,
+        Questions: res?.Genericas?.Pendientes?.Preguntas,
+      });
+    }
+    if (ShowModal?.Show && ShowModal?.TipoPreguntas == "NoAprobadas") {
+      setShowModal({
+        ...ShowModal,
+        Questions: res?.Genericas?.NoAprobadas?.Preguntas,
+      });
+    }
+  };
 
   useEffect(() => {
-    const getData = async () => {
-      setLoadingData(true);
-      const SubSede = searchParams?.get("SubSede");
-
-      const res = await fetch(
-        `/api/Pruebas/GetAllPreguntas?SubSede=${SubSede}`
-      ).then((res) => res.json());
-      setData(res);
-      setLoadingData(false);
-    };
-
     try {
       getData();
     } catch (error) {
@@ -45,7 +72,11 @@ const NewBody = () => {
   return (
     <div className="space-y-3 mt-3 px-8">
       {ShowModal.Show && (
-        <NewModalQuestion ShowModal={ShowModal} setShowModal={setShowModal} />
+        <NewModalQuestion
+          ShowModal={ShowModal}
+          setShowModal={setShowModal}
+          getData={getData}
+        />
       )}
       {LoadingData ? (
         <Loading />

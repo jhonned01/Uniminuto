@@ -70,10 +70,6 @@ export const ItemCompetencia = ({
             }`}
             onClick={(e) => {
               e.preventDefault();
-              console.log(
-                "Competencias?.Pendientes?.Preguntas?.length",
-                Competencias?.Pendientes
-              );
 
               if (!Competencias?.Pendientes?.Preguntas) {
                 return;
@@ -105,7 +101,6 @@ export const ItemCompetencia = ({
             <div className="ml-4">
               <h2 className="font-semibold">Pendientes</h2>
               <p className="mt-2 text-sm text-gray-500">
-                {" "}
                 {Competencias?.Pendientes?.Preguntas?.length || 0}
               </p>
             </div>
