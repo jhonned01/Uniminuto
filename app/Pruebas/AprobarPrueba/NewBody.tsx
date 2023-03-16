@@ -25,14 +25,10 @@ const NewBody = () => {
     const SubSede = searchParams?.get("SubSede");
 
     const res = await fetch(
-      `/api/Pruebas/GetAllPreguntas?SubSede=${SubSede}`
+      `/api/Pruebas/GetAllPreguntas?SubSede=${SubSede || 0}`
     ).then((res) => res.json());
     setData(res);
     setLoadingData(false);
-
-    console.log("-------------res", res);
-
-    console.log("-------------ShowModal", ShowModal);
 
     if (ShowModal?.Show && ShowModal?.TipoPreguntas == "Aprobadas") {
       setShowModal({
@@ -83,15 +79,15 @@ const NewBody = () => {
       ) : (
         <>
           <ItemCompetencia
-            Title="Genericas"
+            Title="Genéricas"
             Competencias={Data?.Genericas || []}
             setShowModal={setShowModal}
           />
-          <ItemCompetencia
+          {/* <ItemCompetencia
             Title="Espeficifica"
             Competencias={Data?.Espeficificas || []}
             setShowModal={setShowModal}
-          />
+          /> */}
         </>
       )}
     </div>

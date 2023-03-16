@@ -3,23 +3,25 @@ import type { NextRequest } from "next/server";
 import connectionPool from "../../../../../config/db";
 
 export async function POST(req: NextRequest) {
-  const { searchParams } = req.nextUrl;
-  const SubSede = searchParams.get("SubSede") || "";
-
   try {
-    const { Pregunta, idPregunta, idPrueba, idDocente, TipoPreguntas } =
-      await req?.json();
+    const {
+      Pregunta,
+      idPregunta,
+
+      TipoPreguntas,
+      MsnRechazo,
+    } = await req?.json();
 
     if (TipoPreguntas == 3) {
       const [UpdateAprobacionPrueba]: any = await connectionPool.query(
-        `UPDATE preguntas_pruebas SET aprobo = '1',pregunta = '${Pregunta}' WHERE id = '${idPregunta}'`
+        `UPDATE preguntas_pruebas SET aprobo = '1',pregunta = '${Pregunta}', MsnRechazo='${MsnRechazo}' WHERE id = '${idPregunta}'`
       );
       const [UpdateSubPreguntas]: any = await connectionPool.query(
-        `UPDATE preguntas_pruebas SET aprobo = '1' WHERE padre = '${idPregunta}'`
+        `UPDATE preguntas_pruebas SET aprobo = '1',MsnRechazo='${MsnRechazo}' WHERE padre = '${idPregunta}'`
       );
     } else {
       const [UpdateAprobacionPrueba]: any = await connectionPool.query(
-        `UPDATE preguntas_pruebas SET aprobo = '1',pregunta = '${Pregunta}' WHERE id = '${idPregunta}'`
+        `UPDATE preguntas_pruebas SET aprobo = '1',pregunta = '${Pregunta}',MsnRechazo='${MsnRechazo}' WHERE id = '${idPregunta}'`
       );
     }
 

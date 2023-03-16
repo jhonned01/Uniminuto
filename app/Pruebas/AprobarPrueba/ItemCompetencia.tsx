@@ -1,5 +1,3 @@
-import React from "react";
-
 type Props = {
   Title?: string;
   Competencias?: any;
@@ -119,7 +117,6 @@ export const ItemCompetencia = ({
 
               setShowModal({
                 TipoPreguntas: "NoAprobadas",
-
                 Show: true,
                 Questions: Competencias?.NoAprobadas?.Preguntas || [],
               });

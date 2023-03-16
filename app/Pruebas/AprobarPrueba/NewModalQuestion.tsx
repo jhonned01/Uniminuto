@@ -189,9 +189,6 @@ const NewModalQuestion = ({ ShowModal, setShowModal, getData }: Props) => {
             </div>
 
             <div className="flex justify-around mt-3 gap-2">
-              <button className="block w-full max-w-xs mx-auto bg-[#151a8b] hover:bg-blue-700 focus:bg-blue-700 text-white rounded-lg px-3 py-3 font-semibold">
-                Aceptar
-              </button>
               <button
                 onClick={() => {
                   setShowModal({
