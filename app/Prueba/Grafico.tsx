@@ -39,8 +39,8 @@ const options = {
     },
   },
 };
-const Prueba = () => {
+const Grafico = () => {
   return <Bar data={data} options={options} />;
 };
 
-export default Prueba;
+export default Grafico;
