@@ -3,7 +3,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Programa, VisibilidadModal } from "../../../typings";
 import MenuPruebas from "./MenuPruebas";
-import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 import PreguntasTipo1 from "./PreguntasTipo1";
 
 type Props = {
@@ -64,11 +63,7 @@ const PresentarPrueba = ({ setShowModal, DataSelected }: Props) => {
         (preguntas) => preguntas.PreguntaId !== ResponseStudent.Pregunta
       );
 
-      console.log("ResponseStudent", ResponseStudent);
-
       setPreguntasResolver(NewArray);
-
-      console.log("Preguntas*******", Preguntas);
 
       if (NewArray.length == 0) {
         alert("Competencia finalizada");

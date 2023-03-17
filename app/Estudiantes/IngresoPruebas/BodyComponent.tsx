@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Pruebas, VisibilidadModal } from "../../../typings";
+import { VisibilidadModal } from "../../../typings";
 import Select from "react-select";
 import PresentarPrueba from "./PresentarPrueba";
 import { useSearchParams } from "next/navigation";

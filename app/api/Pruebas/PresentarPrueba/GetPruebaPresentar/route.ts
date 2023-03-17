@@ -8,8 +8,8 @@ export async function GET(req: NextRequest) {
 
   try {
     console.log(`
-SELECT preguntas_pruebas.id as PreguntaId,preguntas_pruebas.tipo as TipoPregunta,preguntas_pruebas.padre,pfc_ejes.eje_id idCompetencia, pfc_ejes.eje_nom CompetenciaNombre,pregunta,opciones,punto,pfc_ejes.eje_tip as TipoCompetencia,preguntas_pruebas.respuesta,preguntas_pruebas.prueba as IdPrueba FROM preguntas_pruebas INNER JOIN pfc_ejes ON pfc_ejes.eje_id=preguntas_pruebas.competencia WHERE preguntas_pruebas.prueba='${PruebaID}' and preguntas_pruebas.aprobo=2 ORDER BY TipoCompetencia,RAND() desc
-`);
+    SELECT preguntas_pruebas.id as PreguntaId,preguntas_pruebas.tipo as TipoPregunta,preguntas_pruebas.padre,pfc_ejes.eje_id idCompetencia, pfc_ejes.eje_nom CompetenciaNombre,pregunta,opciones,punto,pfc_ejes.eje_tip as TipoCompetencia,preguntas_pruebas.respuesta,preguntas_pruebas.prueba as IdPrueba FROM preguntas_pruebas INNER JOIN pfc_ejes ON pfc_ejes.eje_id=preguntas_pruebas.competencia WHERE preguntas_pruebas.prueba='${PruebaID}' and preguntas_pruebas.aprobo=2 ORDER BY TipoCompetencia,RAND() desc
+    `);
 
     const [competenciasRes]: any = await connectionPool.query(`
     SELECT preguntas_pruebas.id as PreguntaId,preguntas_pruebas.tipo as TipoPregunta,preguntas_pruebas.padre,pfc_ejes.eje_id idCompetencia, pfc_ejes.eje_nom CompetenciaNombre,pregunta,opciones,punto,pfc_ejes.eje_tip as TipoCompetencia,preguntas_pruebas.respuesta,preguntas_pruebas.prueba as IdPrueba FROM preguntas_pruebas INNER JOIN pfc_ejes ON pfc_ejes.eje_id=preguntas_pruebas.competencia WHERE preguntas_pruebas.prueba='${PruebaID}' and preguntas_pruebas.aprobo=2 ORDER BY TipoCompetencia,RAND() desc
