@@ -51,6 +51,7 @@ const MyDocument = () => (
         <Tabla1 />
         <Tabla2 />
         {/* <Grafica /> */}
+        
       </View>
     </Page>
   </Document>

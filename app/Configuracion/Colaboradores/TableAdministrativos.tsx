@@ -23,6 +23,13 @@ const TableAdministrativos = ({
 }: Props) => {
   const columns: any = [
     {
+      name: "COA",
+      selector: (row: any) => row.NombreSubSede,
+      sortable: true,
+      wrap: true,
+      maxWidth: "150px",
+    },
+    {
       name: "Nombre de Usuario",
       selector: (row: any) => (
         <div className=" block  lg:flex lg:gap-3 px-6 py-4 font-normal text-gray-900">
@@ -62,13 +69,7 @@ const TableAdministrativos = ({
       wrap: true,
       grow: 2.4,
     },
-    {
-      name: "COA",
-      selector: (row: any) => row.NombreSubSede,
-      sortable: true,
-      wrap: true,
-      maxWidth: "150px",
-    },
+
     {
       name: "Documento",
       selector: (row: any) => row.Documento,

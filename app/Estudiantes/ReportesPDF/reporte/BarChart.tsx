@@ -39,8 +39,8 @@ const options = {
     },
   },
 };
-const Prueba = () => {
-  return <Bar data={data} options={options} />;
+const BarChar = ({ chartRef }: any) => {
+  return <Bar ref={chartRef} data={data} options={options} />;
 };
 
-export default Prueba;
+export default BarChar;

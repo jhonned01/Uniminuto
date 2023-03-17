@@ -1,9 +1,9 @@
 import BodyComponent from "./BodyComponent";
 
-const IngresoPreguntas = ({ searchParams }: any) => {
+const IngresoPreguntas = () => {
   return (
     <>
-      <BodyComponent urlInfo={searchParams} />
+      <BodyComponent />
     </>
   );
 };
