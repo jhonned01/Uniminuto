@@ -1,8 +1,7 @@
-"use client";
 import React from "react";
 
 function BodyComponent() {
-  return <>BodyComponent</>;
+  return <div>CONTENIDO</div>;
 }
 
 export default BodyComponent;
