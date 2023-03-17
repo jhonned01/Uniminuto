@@ -34,11 +34,13 @@ type addPregunta = {
   IdClick: number;
   DemasInfo: {};
 };
-const BodyComponent = ({ Programas, urlInfo }: Props) => {
+const BodyComponent = () => {
+  const searchParams = useSearchParams();
+
   const [Pruebas, setPruebas] = useState([] as []);
   const [Data, setData] = React.useState({
-    Programas: Programas,
-    IdSede: localStorage.getItem("IdSubSede") || 0,
+    Programas: null,
+    IdSede: "",
   } as {
     semestres?: SemestreAcademico[];
     Pruebas?: [];
@@ -46,17 +48,17 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
     IdSede?: any;
   });
   const [Values, setValues] = React.useState({
-    IdSubSede: localStorage.getItem("IdSubSede") || 0,
-    IdUser: urlInfo?.IdUser || 0,
-    IdRol: urlInfo?.IdRol || 0,
+    IdSubSede: "",
+    IdUser: "",
+    IdRol: "",
   } as {
     IdSubSede?: string;
     Programa?: number;
     TipoPrueba?: string | undefined;
     Semestre?: SemestreAcademico;
     PruebasId?: number;
-    IdUser?: number;
-    IdRol?: number;
+    IdUser?: string;
+    IdRol?: string;
   });
   const [actualizador, setActualiza] = useState({} as Revisiones);
   const [Competencias, setCompetencias] = React.useState({} as Competencias);
@@ -65,7 +67,6 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
     AddVisible: false,
     EditVisible: false,
   } as VisibilidadModal);
-  const searchParams = useSearchParams();
   const [isPending, setIsPending] = useState(false as boolean);
 
   const fetchData = async () => {
@@ -103,10 +104,12 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
       Values,
     });
 
+    console.log("result?.data?.competencias", result?.data?.competencias);
+
     setCompetencias(result?.data?.competencias);
   };
   useEffect(() => {
-    if (Values?.PruebasId) {
+    if (Values.PruebasId) {
       fetchCompetencias();
     }
   }, [Values?.PruebasId, actualizador?.Contador]);
@@ -133,6 +136,16 @@ const BodyComponent = ({ Programas, urlInfo }: Props) => {
   };
 
   useEffect(() => {
+    setValues({
+      ...Values,
+      IdSubSede: searchParams.get("SubSede") || "",
+      IdUser: searchParams.get("IdUser") || "",
+      IdRol: searchParams.get("IdRol") || "",
+    });
+    setData({
+      ...Data,
+      IdSede: searchParams.get("SubSede") || "",
+    });
     getData();
   }, []);
   return (

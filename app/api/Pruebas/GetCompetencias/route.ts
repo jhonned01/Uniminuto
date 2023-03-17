@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       SELECT asignacionPrueba.id as Id,pfc_ejes.eje_tip as Tipo,pfc_ejes.eje_nom as Nombre, asignacionPrueba.competencia AS idCompetencia , asignacionPrueba.Hora, asignacionPrueba.Minutos FROM asignacionPrueba INNER JOIN parametros_pruebas ON (asignacionPrueba.prueba=parametros_pruebas.id) INNER JOIN pfc_ejes on (asignacionPrueba.competencia=pfc_ejes.eje_id) WHERE parametros_pruebas.id = '${Values?.PruebasId}' AND parametros_pruebas.tipo ='${Values?.TipoPrueba}' AND parametros_pruebas.programa='${Values?.IdPrograma}' AND parametros_pruebas.semestre = '${Values?.Semestre}' AND parametros_pruebas.subSedeId ='${Values?.CoaId}' AND asignacionPrueba.docente = '${Values?.IdUser}' 
       `);
 
-      const competenciaFormated = [{}];
+      const competenciaFormated = [];
       for (const competencia of competenciasRes) {
         const [preguntas]: any = await connectionPool.query(
           `SELECT * FROM preguntas_pruebas WHERE competencia = ${competencia?.idCompetencia} AND prueba = ${Values.PruebasId} AND tipo != 100`
@@ -48,6 +48,8 @@ export async function POST(req: NextRequest) {
         return acc;
       }, {});
     }
+
+    console.log("competencias", competencias);
 
     return NextResponse.json(
       { competencias: competencias },
