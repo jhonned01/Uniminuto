@@ -1,43 +1,63 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import CompSelect from "./CompSelect";
 import ReactSelect from "react-select";
+import Loading from "@/app/loading";
 
-let programa = [
-  {
-    value: 1,
-    label: "INGENIERIA DE SISTEMAS",
-  },
-];
 let semestre = [
   {
     value: 1,
     label: "Semestral",
   },
+  {
+    value: 2,
+    label: "Cuatrimestral",
+  },
 ];
 
 function BodyComponent() {
+  const searchParams = useSearchParams();
+
+  const [Data, setData] = useState({} as any);
+  const [IsLoading, setIsLoading] = useState(false as boolean);
+
+  console.log(Data, "data");
+
+  const GetData = async () => {
+    setIsLoading(true);
+    const SubSede = searchParams.get("SubSede");
+    const IdRol = searchParams.get("IdRol");
+    const IdUser = searchParams.get("IdUser");
+    const Doc = searchParams.get("Doc");
+
+    const Pruebas = await fetch(
+      `/api/Estudiantes/GetPruebasEstudiante?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&Doc=${Doc}`
+    ).then((res) => res.json());
+    // console.log("Pruebas", Pruebas);
+
+    setData({
+      Prueba: Pruebas?.pruebas || [],
+    });
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    GetData();
+  }, []);
+
   return (
     <>
-      <div className="flex mt-10 flex-col sm:justify-center items-center">
-        <div className="relative sm:max-w-sm w-full">
-          <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6" />
-          <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6" />
-          <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md border-2 border-gray-400">
-            <form>
-              <div className="mb-3">
-                <label className="mb-2 block text-base font-medium text-gray-800">
-                  Seleccione el Programa{" "}
-                  <span className="text-red-900">(*)</span>
-                </label>
-                <ReactSelect
-                  className="dark:text-black"
-                  options={programa}
-                  placeholder="Seleccione una Opción"
-                />
-              </div>
-              <div className="mb-3">
-                <label className="mb-2 block text-base font-medium text-gray-800">
+      <div className="flex flex-col mt-10 sm:justify-center items-center p-8">
+        {IsLoading ? (
+          <Loading />
+        ) : (
+          <div className="relative sm:max-w-sm w-full">
+            <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6" />
+            <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6" />
+            <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md border-2 border-gray-400">
+              <form>
+                {/* <div className="mb-3">
+                <label className="mb-2 block lg:text-base font-medium text-gray-800">
                   Seleccione el Semestre{" "}
                   <span className="text-red-900">(*)</span>
                 </label>
@@ -46,13 +66,35 @@ function BodyComponent() {
                   options={semestre}
                   placeholder="Seleccione una Opción"
                 />
-              </div>
-              <button className="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105">
-                Ver Reporte
-              </button>
-            </form>
+              </div> */}
+                <div className="mb-3">
+                  <label className="mb-2 block lg:text-base font-medium text-gray-800">
+                    Seleccione una Prueba{" "}
+                    <span className="text-red-900">(*)</span>
+                  </label>
+                  <ReactSelect
+                    className="dark:text-black"
+                    options={Data?.Prueba}
+                    getOptionLabel={(item: any) =>
+                      `${item.NombrePrograma} Prueba (# ${item.IdPrueba})`
+                    }
+                    placeholder="Seleccione una Opción"
+                  />
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    alert("Generated PDF ...");
+                  }}
+                  title="Download Pdf"
+                  className="bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+                >
+                  Ver Reporte
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* select primero */}
