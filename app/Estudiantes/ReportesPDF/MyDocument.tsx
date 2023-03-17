@@ -12,6 +12,7 @@ import Tabla1 from "./Tabla1";
 import Tabla2 from "./Tabla2";
 import Encabezado from "./Encabezado";
 import Grafica from "./Grafica";
+import BarChar from "./reporte/BarChart";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -51,7 +52,7 @@ const MyDocument = () => (
         <Tabla1 />
         <Tabla2 />
         {/* <Grafica /> */}
-        
+        <BarChar />
       </View>
     </Page>
   </Document>
