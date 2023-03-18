@@ -47,8 +47,7 @@ const BodyComponent = () => {
   const GetPrueba = async (
     programa: number,
     SemestreAcademico: number,
-    tipo: string,
-    SemestreLectivo: number
+    tipo: string
   ) => {
     try {
       const response = await axios.post(
@@ -57,7 +56,6 @@ const BodyComponent = () => {
           programa,
           SemestreAcademico,
           tipo,
-          SemestreLectivo,
         }
       );
 
@@ -150,25 +148,10 @@ const BodyComponent = () => {
     }
   }, [Values?.Programa, Values?.Periodicidad]);
   useEffect(() => {
-    if (
-      Values?.Programa &&
-      Values?.SemestreAcademico &&
-      Values?.TipoPrueba &&
-      Values?.SemestreLectivo
-    ) {
-      GetPrueba(
-        Values.Programa,
-        Values.SemestreAcademico,
-        Values.TipoPrueba,
-        Values?.SemestreLectivo
-      );
+    if (Values?.Programa && Values?.SemestreAcademico && Values?.TipoPrueba) {
+      GetPrueba(Values.Programa, Values.SemestreAcademico, Values.TipoPrueba);
     }
-  }, [
-    Values.Programa,
-    Values.SemestreAcademico,
-    Values.TipoPrueba,
-    Values?.SemestreLectivo,
-  ]);
+  }, [Values.Programa, Values.SemestreAcademico, Values.TipoPrueba, ,]);
 
   useEffect(() => {
     if (Values?.IdPrueba) {
@@ -269,7 +252,7 @@ const BodyComponent = () => {
                   placeholder="Seleccione una Opción"
                 />
               </div>
-              <div className="mb-2">
+              {/* <div className="mb-2">
                 {(Values?.Periodicidad == "C" && (
                   <>
                     <label
@@ -327,7 +310,7 @@ const BodyComponent = () => {
                       </>
                     </>
                   ))}
-              </div>
+              </div> */}
               <div className="mb-2">
                 <label
                   htmlFor="Nombre"

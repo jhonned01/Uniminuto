@@ -2,6 +2,7 @@
 import Loading from "@/app/loading";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
+import BodyComponent from "./BodyComponent";
 import { ItemCompetencia } from "./ItemCompetencia";
 import NewModalQuestion from "./NewModalQuestion";
 
@@ -88,6 +89,10 @@ const NewBody = () => {
             Competencias={Data?.Espeficificas || []}
             setShowModal={setShowModal}
           /> */}
+
+          <h2 className=" text-2xl font-bold pb-2">Especificas</h2>
+
+          <BodyComponent />
         </>
       )}
     </div>
