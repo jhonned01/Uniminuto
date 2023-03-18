@@ -30,7 +30,7 @@ const Temporizador = ({ Time }: Props) => {
       <div style={{ textAlign: "center" }}>
         <div
           style={{ fontSize: "100px" }}
-          className={`${Tardanza && "text-yellow-900"}`}
+          className={`${Tardanza && "text-red-900"}`}
         >
           <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
         </div>
