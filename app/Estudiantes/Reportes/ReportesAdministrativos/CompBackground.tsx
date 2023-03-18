@@ -20,8 +20,8 @@ function CompBackground() {
       </div>
       <style jsx>{`
         .area {
-          background: #4e54c8;
-          background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+          background: #0c1790;
+          background: -webkit-linear-gradient(to left, #8f94fb, #0c1790);
         }
 
         .circles {

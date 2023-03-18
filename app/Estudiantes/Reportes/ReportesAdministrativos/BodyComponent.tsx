@@ -57,7 +57,7 @@ function BodyComponent() {
 
   return (
     <>
-      <div className="flex flex-col mt-10 sm:justify-center items-center p-8">
+      <div className="flex flex-col mt-10 sm:justify-center items-center p-8 mx-4">
         {IsLoading ? (
           <Loading />
         ) : (
