@@ -1,3 +1,4 @@
+import CompBackground from "./Estudiantes/Reportes/ReportesAdministrativos/CompBackground";
 import "./globals.css";
 import Main from "./Main";
 

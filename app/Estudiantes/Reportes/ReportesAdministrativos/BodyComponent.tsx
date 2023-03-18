@@ -1,17 +1,37 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import CompSelect from "./CompSelect";
 import ReactSelect from "react-select";
 import Loading from "@/app/loading";
 
 function BodyComponent() {
+  let semestre = [
+    {
+      value: 1,
+      label: "semestral",
+    },
+  ];
+
+  let competencia = [
+    {
+      value: 1,
+      label: "RAZONAMIENTO CUANTITATIVO",
+    },
+  ];
+
+  let estudiante = [
+    {
+      value: 1,
+      label: "john",
+    },
+  ];
+
   const searchParams = useSearchParams();
 
   const [Data, setData] = useState({} as any);
   const [IsLoading, setIsLoading] = useState(false as boolean);
 
-  console.log(Data, "data");
+  console.log(Data, "data============");
 
   const GetData = async () => {
     setIsLoading(true);
@@ -23,6 +43,7 @@ function BodyComponent() {
     const Pruebas = await fetch(
       `/api/Estudiantes/GetPruebasEstudiante?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&Doc=${Doc}`
     ).then((res) => res.json());
+
     // console.log("Pruebas", Pruebas);
 
     setData({
@@ -47,7 +68,7 @@ function BodyComponent() {
               <form>
                 <div className="mb-3">
                   <label className="mb-2 block lg:text-base font-medium text-gray-800">
-                    Seleccione una Prueba{" "}
+                    Seleccione un programa{" "}
                     <span className="text-red-900">(*)</span>
                   </label>
                   <ReactSelect
@@ -56,6 +77,39 @@ function BodyComponent() {
                     getOptionLabel={(item: any) =>
                       `${item.NombrePrograma} Prueba (# ${item.IdPrueba})`
                     }
+                    placeholder="Seleccione una Opción"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="mb-2 block lg:text-base font-medium text-gray-800">
+                    Seleccione un Semestre y Grupo{" "}
+                    <span className="text-red-900">(*)</span>
+                  </label>
+                  <ReactSelect
+                    className="dark:text-black"
+                    options={semestre}
+                    placeholder="Seleccione una Opción"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="mb-2 block lg:text-base font-medium text-gray-800">
+                    Seleccione una Competencia{" "}
+                    <span className="text-red-900">(*)</span>
+                  </label>
+                  <ReactSelect
+                    className="dark:text-black"
+                    options={competencia}
+                    placeholder="Seleccione una Opción"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="mb-2 block lg:text-base font-medium text-gray-800">
+                    Seleccione un Estudiante{" "}
+                    <span className="text-red-900">(*)</span>
+                  </label>
+                  <ReactSelect
+                    className="dark:text-black"
+                    options={estudiante}
                     placeholder="Seleccione una Opción"
                   />
                 </div>

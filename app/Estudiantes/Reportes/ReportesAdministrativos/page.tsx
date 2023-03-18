@@ -2,14 +2,17 @@ import Title from "@/app/Title";
 import React from "react";
 import { FaArrowCircleDown } from "react-icons/fa";
 import BodyComponent from "./BodyComponent";
+import CompBackground from "./CompBackground";
 
 function page() {
   return (
     <>
-      <Title title="Reporte Resultados Prueba Saber para Estudiantes" />
-      <div className="md:w-[60%] lg:w-[40%] flex flex-col justify-center items-center bg-[#0c1790] mt-4 text-center p-3 rounded-lg gap-2 mx-4 md:mx-auto">
+      <Title title="Reporte Resultados Prueba Saber para Administrativos" />
+      <CompBackground />
+      <div className="z-50 md:w-[60%] lg:w-[40%] flex flex-col justify-center items-center bg-[#0c1790] mt-4 text-center p-3 rounded-lg gap-2 mx-4 md:mx-auto">
         <h1 className="text-white lg:text-2xl font-medium">
-          Seleccione Prueba para ver el reporte
+          Seleccione Programa, Semestre, Grupo, Competencia y Estudiante para
+          ver el Reporte
         </h1>
         <FaArrowCircleDown className="text-white text-2xl animate-bounce" />
       </div>
