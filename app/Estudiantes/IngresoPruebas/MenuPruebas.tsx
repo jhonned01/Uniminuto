@@ -16,36 +16,13 @@ const MenuPruebas = ({
   setPreguntasResolver,
   setPreguntaShow,
 }: Props) => {
-  const [Session, setSession] = useState({} as any);
-
-  console.log(Preguntas);
-
-  const [active, setActive] = useState(0 as number);
+  const [Time, setTime] = useState(null as any);
 
   return (
     <>
       <div className="shadow-md shadow-white rounded-md h-[98%] w-full bg-[#070e54] dark:bg-gray-900  text-white transition-all duration-300 border-none z-10 sidebar">
         <div className="flex items-center justify-start md:justify-center pl-3 w-full h-28 bg-[#070e54] dark:bg-gray-800 border-none">
-          <span className="text-center">
-            {/* <Link href="/">
-              <Image
-                src={`/EscudoUniminuto.webp`}
-                width={200}
-                height={200}
-                alt="Inicio"
-                title="Escudo Uniminuto"
-              />
-            </Link> */}
-            <Temporizador />
-          </span>
-
-          {/* <p className="hidden md:block md:break-normal	">
-            {Session?.DemasInfo?.Nombre
-              ? `${Session?.DemasInfo?.Nombre || ""} ${
-                  Session?.DemasInfo?.Apellidos || ""
-                }`
-              : Session?.rol_nombre}
-          </p> */}
+          <span className="text-center">{<Temporizador Time={Time} />}</span>
         </div>
 
         <div>
@@ -63,15 +40,22 @@ const MenuPruebas = ({
                     e.preventDefault();
                     setPreguntaShow(pregunta?.Preguntas[0]);
                     setPreguntasResolver(pregunta?.Preguntas);
+                    setTime({
+                      Hora: pregunta?.Hora,
+                      Minutos: pregunta?.Minutos,
+                    });
                   }}
                   className="px-8 cursor-pointer"
                 >
                   <div
                     className={` flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6`}
                   >
-                    <span className="inline-flex justify-center items-center mr-4">
-                      {pregunta?.CompetenciaNombre}{" "}
-                    </span>
+                    <div className="inline-flex justify-between items-center mr-4 w-full">
+                      <span> {pregunta?.CompetenciaNombre}</span>
+                      <span>
+                        {pregunta?.Hora} : {pregunta?.Minutos} : 00
+                      </span>
+                    </div>
                   </div>
                 </li>
               </ul>
