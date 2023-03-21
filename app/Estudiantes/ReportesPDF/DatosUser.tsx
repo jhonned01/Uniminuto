@@ -49,49 +49,42 @@ const styles = StyleSheet.create({
 
 const data = [
   {
-    mod: "Comunicación Escrita",
-    desemp: "4",
-    carct:
-      "•Muestran diferentes perspectivas sobre el tema, complican el planteamiento y permiten cumplir satisfactoriamente con el propósito comunicativo propuesto en la pregunta",
-  },
-  {
-    mod: "Inglés",
-    desemp: "B1",
-    carct:
-      "•El estudiante es capaz de comprender los puntos principales de textos claros y en lengua estándar, si tratan cuestiones que le son conocidas, ya sea en situaciones de trabajo, de estudio o de ocio",
+    nombre: "Brahian Andres Orozco Salguero",
+    document: "1005813582",
+    regist: " EK202032310951",
   },
 ];
 
-const Tabla2 = () => {
+const DatosUser = () => {
   return (
     <View style={styles.table}>
       <View style={styles.tableRow}>
         {/* <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>Product</Text>
-        </View> */}
+            <Text style={styles.tableCell}>Product</Text>
+          </View> */}
         <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>MÓDULOS POR COMPETENCIA</Text>
+          <Text style={styles.tableCell}>NOMBRE Y APELLIDO</Text>
         </View>
         <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>NIVEL DE DESEMPEÑO</Text>
+          <Text style={styles.tableCell}>DOCUMENTO DE IDENTIDAD</Text>
         </View>
         <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>CARACTERISTICAS</Text>
+          <Text style={styles.tableCell}>NÚMERO DE REGISTRO</Text>
         </View>
       </View>
       {data.map((item, index) => (
         <View key={index} style={styles.tableRow}>
           {/* <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.product}</Text>
-          </View> */}
+              <Text style={styles.tableCell}>{item.product}</Text>
+            </View> */}
           <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.mod}</Text>
+            <Text style={styles.tableCell}>{item.nombre}</Text>
           </View>
           <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.desemp}</Text>
+            <Text style={styles.tableCell}>{item.document}</Text>
           </View>
           <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.carct}</Text>
+            <Text style={styles.tableCell}>{item.regist}</Text>
           </View>
         </View>
       ))}
@@ -99,4 +92,4 @@ const Tabla2 = () => {
   );
 };
 
-export default Tabla2;
+export default DatosUser;

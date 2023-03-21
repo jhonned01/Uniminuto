@@ -12,7 +12,9 @@ import Tabla1 from "./Tabla1";
 import Tabla2 from "./Tabla2";
 import Encabezado from "./Encabezado";
 import Grafica from "./Grafica";
-import BarChar from "./reporte/BarChart";
+import DatosUser from "./DatosUser";
+import Interpretacion from "./Interpretacion";
+import ReporteResult from "./ReporteResult";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -24,13 +26,33 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     margin: "2%",
-    marginLeft: "30%",
+    marginLeft: "42%",
+  },
+
+  title2: {
+    fontSize: 24,
+    margin: "2%",
+    marginLeft: "38%",
   },
 
   subtitle: {
     fontSize: 16,
     margin: "0.5%",
     marginLeft: "32%",
+    marginTop: "5%",
+  },
+
+  subtitle2: {
+    fontSize: 16,
+    margin: "0.5%",
+    marginLeft: "32%",
+    marginTop: "5%",
+  },
+
+  subtitle3: {
+    fontSize: 16,
+    margin: "0.5%",
+    marginLeft: "29%",
   },
 
   marginDocument: {
@@ -47,12 +69,23 @@ const MyDocument = () => (
     <Page size="A4" style={styles.page}>
       <View style={styles.marginDocument}>
         <Encabezado />
-        <Text style={styles.title}>Resultados por Módulos</Text>
-        <Text style={styles.subtitle}>Modulo Competencias Genéricas</Text>
+        <Text style={styles.title2}>Datos del Usuario</Text>
+        <DatosUser />
+        <Text style={styles.title}>Resultados</Text>
+        <ReporteResult />
+        <Text style={styles.subtitle2}>Módulo Competencias Genéricas</Text>
         <Tabla1 />
         <Tabla2 />
-        {/* <Grafica /> */}
-        <BarChar />
+      </View>
+    </Page>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.marginDocument}>
+        <Encabezado />
+        <Text style={styles.title}>Porcentaje </Text>
+        <Text style={styles.subtitle3}>Módulo de Competencias Genéricas</Text>
+        <Grafica />
+        <Text style={styles.subtitle}>¿Como Interpretar la Prueba?</Text>
+        <Interpretacion />
       </View>
     </Page>
   </Document>

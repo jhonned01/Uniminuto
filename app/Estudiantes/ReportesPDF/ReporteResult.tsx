@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   tableCol: {
-    width: "33.3%",
+    width: "50%",
     borderStyle: "solid",
     borderWidth: 1,
     borderLeftWidth: 0,
@@ -49,49 +49,29 @@ const styles = StyleSheet.create({
 
 const data = [
   {
-    mod: "Comunicación Escrita",
-    desemp: "4",
-    carct:
-      "•Muestran diferentes perspectivas sobre el tema, complican el planteamiento y permiten cumplir satisfactoriamente con el propósito comunicativo propuesto en la pregunta",
-  },
-  {
-    mod: "Inglés",
-    desemp: "B1",
-    carct:
-      "•El estudiante es capaz de comprender los puntos principales de textos claros y en lengua estándar, si tratan cuestiones que le son conocidas, ya sea en situaciones de trabajo, de estudio o de ocio",
+    mod: "220",
+    porcent: "91%",
   },
 ];
 
-const Tabla2 = () => {
+const ReporteResult = () => {
   return (
     <View style={styles.table}>
       <View style={styles.tableRow}>
-        {/* <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>Product</Text>
-        </View> */}
         <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>MÓDULOS POR COMPETENCIA</Text>
+          <Text style={styles.tableCell}>PUNTAJE GLOBAL</Text>
         </View>
         <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>NIVEL DE DESEMPEÑO</Text>
-        </View>
-        <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>CARACTERISTICAS</Text>
+          <Text style={styles.tableCell}>PERCENTIL GLOBAL</Text>
         </View>
       </View>
       {data.map((item, index) => (
         <View key={index} style={styles.tableRow}>
-          {/* <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.product}</Text>
-          </View> */}
           <View style={styles.tableCol}>
             <Text style={styles.tableCell}>{item.mod}</Text>
           </View>
           <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.desemp}</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.carct}</Text>
+            <Text style={styles.tableCell}>{item.porcent}</Text>
           </View>
         </View>
       ))}
@@ -99,4 +79,4 @@ const Tabla2 = () => {
   );
 };
 
-export default Tabla2;
+export default ReporteResult;

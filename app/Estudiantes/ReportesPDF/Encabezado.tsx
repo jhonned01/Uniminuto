@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     padding: "1%",
   },
 
-  //
   table: {
     display: "table" as any,
     width: "auto",
@@ -88,14 +87,12 @@ const Encabezado = () => (
         </View>
         <View style={styles.tableColText}>
           <Text style={styles.tableCell}>
-            Corporacion Universitaria Minuto de Dios
+            CORPORACIÓN UNIVERSITARIA MINUTO DE DIOS
           </Text>
           <Text style={styles.tableCell}>
             Resolución de aprobación es 00002629 de 09 de noviembre de 2016
           </Text>
-          <Text style={styles.tableCell}>
-            NIT. 890706831-4 DANE: 173001001088
-          </Text>
+          <Text style={styles.tableCell}>NIT. 8001162172</Text>
         </View>
       </View>
     </View>

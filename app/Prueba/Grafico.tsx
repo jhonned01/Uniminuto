@@ -23,7 +23,7 @@ const data = {
   labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo"],
   datasets: [
     {
-      label: "Ventas",
+      label: "mes",
       data: [12, 19, 3, 5, 2],
       backgroundColor: "rgba(255, 99, 132, 0.2)",
       borderColor: "rgba(255, 99, 132, 1)",

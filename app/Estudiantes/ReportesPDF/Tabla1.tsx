@@ -49,32 +49,32 @@ const styles = StyleSheet.create({
 
 const data = [
   {
-    porcent: "De 200 puntos posibles, su puntaje es",
+    porcent: "De 300 puntos posibles, su puntaje es:",
   },
   {
-    mod: "1 User",
-    porcent: "2019-02-20 - 2020-02-19",
-    percent: "5€",
+    mod: "Comunicación Escrita",
+    porcent: "128",
+    percent: "89%",
   },
   {
-    mod: "2 User",
-    porcent: "2020-01-01 - 2021-01-01",
-    percent: "10€",
+    mod: "Razonamiento Cuantitativo",
+    porcent: "104",
+    percent: "76%",
   },
   {
-    mod: "3 User",
-    porcent: "2021-03-01 - 2022-03-01",
-    percent: "15€",
+    mod: "Lectura Crítica",
+    porcent: "116",
+    percent: "83%",
   },
   {
-    mod: "4 User",
-    porcent: "2021-03-01 - 2022-03-01",
-    percent: "20€",
+    mod: "Competencias Ciudadanasanas",
+    porcent: "126",
+    percent: "86%",
   },
   {
-    mod: "5 User",
-    porcent: "2021-03-01 - 2022-03-01",
-    percent: "25€",
+    mod: "Inglés",
+    porcent: "126",
+    percent: "85%",
   },
 ];
 
@@ -86,13 +86,13 @@ const Tabla1 = () => {
           <Text style={styles.tableCell}>Product</Text>
         </View> */}
         <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>Módulos</Text>
+          <Text style={styles.tableCell}>MÓDULOS</Text>
         </View>
         <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>Porcentaje por Módulo</Text>
+          <Text style={styles.tableCell}>PUNTAJE POR MÓDULO</Text>
         </View>
         <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>¿En que percentil se encuentra?</Text>
+          <Text style={styles.tableCell}>% POR PERCENTIL</Text>
         </View>
       </View>
       {data.map((item, index) => (
