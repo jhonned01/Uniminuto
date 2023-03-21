@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import CompSelect from "./CompSelect";
+
 import ReactSelect from "react-select";
 import Loading from "@/app/loading";
 
