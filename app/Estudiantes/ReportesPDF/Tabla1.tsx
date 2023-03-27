@@ -53,28 +53,28 @@ const data = [
   },
   {
     mod: "Comunicación Escrita",
-    porcent: "128",
-    percent: "89%",
+    porcent: "0",
+    percent: "0%",
   },
   {
     mod: "Razonamiento Cuantitativo",
-    porcent: "104",
-    percent: "76%",
+    porcent: "150",
+    percent: "25%",
   },
   {
     mod: "Lectura Crítica",
-    porcent: "116",
-    percent: "83%",
+    porcent: "190",
+    percent: "45%",
   },
   {
-    mod: "Competencias Ciudadanasanas",
-    porcent: "126",
-    percent: "86%",
+    mod: "Competencias Ciudadanas",
+    porcent: "225",
+    percent: "63%",
   },
   {
     mod: "Inglés",
-    porcent: "126",
-    percent: "85%",
+    porcent: "225",
+    percent: "80%",
   },
 ];
 

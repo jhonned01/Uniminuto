@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
 });
 
 const data = [
-  //   {
-  //     porcent: "De 300 puntos posibles, su puntaje es:",
-  //   },
+  // {
+  //   porcent: "De 300 puntos posibles, su puntaje es:",
+  // },
   {
     mod: "Comunicación Escrita",
     porcent: "CE",
@@ -64,7 +64,7 @@ const data = [
     porcent: "LC",
   },
   {
-    mod: "Competencias Ciudadanasanas",
+    mod: "Competencias Ciudadanas",
     porcent: "CC",
   },
   {

@@ -15,6 +15,7 @@ import Grafica from "./Grafica";
 import DatosUser from "./DatosUser";
 import Interpretacion from "./Interpretacion";
 import ReporteResult from "./ReporteResult";
+import Grafica2 from "./Grafica2";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -83,8 +84,8 @@ const MyDocument = () => (
         <Encabezado />
         <Text style={styles.title}>Porcentaje </Text>
         <Text style={styles.subtitle3}>Módulo de Competencias Genéricas</Text>
-        <Grafica />
-        <Text style={styles.subtitle}>¿Como Interpretar la Prueba?</Text>
+        <Grafica2 />
+        <Text style={styles.subtitle}>Cómo Interpretar la Prueba</Text>
         <Interpretacion />
       </View>
     </Page>

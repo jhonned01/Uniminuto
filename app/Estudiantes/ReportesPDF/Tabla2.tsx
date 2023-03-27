@@ -49,16 +49,16 @@ const styles = StyleSheet.create({
 
 const data = [
   {
-    mod: "Comunicación Escrita",
+    mod: "Competencias Ciudadanas",
     desemp: "4",
     carct:
-      "•Muestran diferentes perspectivas sobre el tema, complican el planteamiento y permiten cumplir satisfactoriamente con el propósito comunicativo propuesto en la pregunta",
+      "Establece relaciones que hay entre dimensiones (política, económica, ambiental, cultural) presentes en una situación problemática e identifica conflictos entre estas dimensiones.",
   },
   {
     mod: "Inglés",
-    desemp: "B1",
+    desemp: "B2",
     carct:
-      "•El estudiante es capaz de comprender los puntos principales de textos claros y en lengua estándar, si tratan cuestiones que le son conocidas, ya sea en situaciones de trabajo, de estudio o de ocio",
+      "Comprende información en textos complejos que presentan hechos y opiniones, los cuales pueden ser de orden académico, profesional o de otra índole, haciendo un amplio uso del lenguaje. ",
   },
 ];
 

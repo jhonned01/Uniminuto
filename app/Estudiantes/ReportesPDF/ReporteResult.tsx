@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 const data = [
   {
     mod: "220",
-    porcent: "91%",
+    porcent: "81%",
   },
 ];
 

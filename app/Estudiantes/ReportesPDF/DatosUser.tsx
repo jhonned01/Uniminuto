@@ -51,7 +51,7 @@ const data = [
   {
     nombre: "Brahian Andres Orozco Salguero",
     document: "1005813582",
-    regist: " EK202032310951",
+    regist: " 31/03/2023",
   },
 ];
 
@@ -69,7 +69,7 @@ const DatosUser = () => {
           <Text style={styles.tableCell}>DOCUMENTO DE IDENTIDAD</Text>
         </View>
         <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>NÚMERO DE REGISTRO</Text>
+          <Text style={styles.tableCell}>FECHA DE LA PRUEBA</Text>
         </View>
       </View>
       {data.map((item, index) => (
