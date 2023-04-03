@@ -60,8 +60,8 @@ const CompetenciasEspecificas = ({
       const res = await axios.post(
         "/api/Configuracion/ParametrosPruebas/AddPruebas",
         {
-          CompetenciaEspecifica,
-          CompetenciaGenerica,
+          CompetenciaEspecifica: CompetenciaEspecifica || [],
+          CompetenciaGenerica: CompetenciaGenerica || [],
           startDateDocentes,
           endDateDocentes,
           StartDateAprobacion,

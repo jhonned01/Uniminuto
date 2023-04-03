@@ -56,14 +56,13 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
   const hanlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      const SubSede = searchParams.get("SubSede");
 
       if (Object.keys(InfoEditar).length > 0) {
-        console.log("Values", Values);
-
         const UpdateRes = await axios.put("/api/Estudiantes/UpdateStudents", {
           ...Values,
         });
-        fetch("/api/Configuracion/CargaMasiva/GetStudents")
+        fetch(`/api/Configuracion/CargaMasiva/GetStudents?SubSede=${SubSede}`)
           .then((res) => {
             res.json().then((data) => {
               setEstudiante(data?.estudiantes || []);
@@ -90,13 +89,6 @@ const ModalAddEstu = ({ setShowModal, setEstudiante, InfoEditar }: Props) => {
           if (res?.status !== 200) {
             return res.json();
           }
-
-          const SubSede = searchParams.get("SubSede");
-
-          // getStudents
-          console.log(
-            `/api/Configuracion/CargaMasiva/GetStudents?SubSede=${SubSede}`
-          );
 
           fetch(`/api/Configuracion/CargaMasiva/GetStudents?SubSede=${SubSede}`)
             .then((res) => {

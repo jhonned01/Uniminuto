@@ -51,8 +51,14 @@ export async function GET(req: NextRequest) {
 
         const isDateDocentesInicio =
           DateNowMilisegundos >= DateDocentesInicioMilisegundos;
+
+        console.log("isDateDocentesInicio", isDateDocentesInicio);
+
         const isDateDocentesFin =
           DateNowMilisegundos <= DateDocentesFinMilisegundos;
+
+        console.log("isDateDocentesFin", isDateDocentesFin);
+        console.log("DateNowMilisegundos", DateNowMilisegundos);
 
         const isDateDocentes = isDateDocentesInicio && isDateDocentesFin;
 

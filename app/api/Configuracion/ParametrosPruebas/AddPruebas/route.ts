@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
       InfoPrueba,
     } = await req?.json();
 
-    console.log(InfoPrueba);
+    console.log(CompetenciaEspecifica);
 
     let sqlParametrosPruebasBase = `INSERT INTO parametros_pruebas (subSedeId,tipo,semestre,programa,DateDocentesInicio,DateDocentesFin,DateEstudiantesInicio,DateEstudiantesFin,DataAprobacionInicio,DataAprobacionEnd) VALUES `;
 
@@ -60,8 +60,8 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      if (CompetenciaGenerica.length) {
-        CompetenciaGenerica.forEach((element: any) => {
+      if (CompetenciaGenerica?.length) {
+        CompetenciaGenerica?.forEach((element: any) => {
           if (element?.DocenteAsignado?.Id) {
             sqlAsignacionPruebaBase += `('${element?.Id || ""}', '${
               element?.DocenteAsignado?.Id
@@ -86,8 +86,8 @@ export async function POST(req: NextRequest) {
         });
       }
 
-      if (CompetenciaEspecifica.length) {
-        CompetenciaEspecifica.forEach((element: any) => {
+      if (CompetenciaEspecifica?.length) {
+        CompetenciaEspecifica?.forEach((element: any) => {
           if (element?.DocenteAsignado?.Id) {
             sqlAsignacionPruebaBase += `('${element?.Id || ""}', '${
               element?.DocenteAsignado?.Id
