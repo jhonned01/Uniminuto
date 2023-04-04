@@ -10,7 +10,6 @@ const Temporizador = ({ Time }: Props) => {
 
   const { seconds, minutes, hours, days, isRunning, start, pause, reset } =
     useStopwatch({ autoStart: false });
-  console.log("Time", Time);
 
   useEffect(() => {
     if (Time?.Hora || Time?.Minutos) {

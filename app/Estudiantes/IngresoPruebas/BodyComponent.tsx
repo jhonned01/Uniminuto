@@ -15,6 +15,10 @@ const BodyComponent = () => {
   const [isPending, setIsPending] = useState(false as boolean);
   const [data, setData] = useState([] as any[]);
 
+  const [IdPruebaSelected, setIdPruebaSelected] = useState(
+    null as number | null
+  );
+
   useEffect(() => {
     const GetData = async () => {
       setIsPending(true);
@@ -26,7 +30,6 @@ const BodyComponent = () => {
       const data = await fetch(
         `/api/Estudiantes/GetPruebasEstudiante?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&Doc=${Doc}`
       ).then((res) => res.json());
-      console.log("datadatadata", data);
 
       setData(data?.pruebas || []);
       setIsPending(false);
@@ -39,10 +42,15 @@ const BodyComponent = () => {
       alert("Error al cargar los datos");
     }
   }, []);
+
   return (
     <>
       {ShowModal?.AddVisible && (
-        <PresentarPrueba setShowModal={setShowModal} DataSelected={Values} />
+        <PresentarPrueba
+          setShowModal={setShowModal}
+          DataSelected={Values}
+          IdPruebaSelected={IdPruebaSelected}
+        />
       )}
 
       {isPending ? (
@@ -63,12 +71,15 @@ const BodyComponent = () => {
                   </label>
                   <Select
                     options={data}
+                    isDisabled={data?.length === 0}
                     getOptionLabel={(item: any) =>
                       `${item.tipo} - ${item.NombrePrograma} (#${item.IdPrueba})`
                     }
                     getOptionValue={(item) => item.IdPrueba}
                     onChange={(item) => {
                       setValues({ ...Values, PruebaID: item?.IdPrueba });
+
+                      setIdPruebaSelected(item?.IdPrueba);
                     }}
                     placeholder="Seleccione una Opción"
                   />
@@ -77,11 +88,45 @@ const BodyComponent = () => {
                 {Values?.PruebaID && (
                   <div>
                     <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setShowModal({
-                          AddVisible: true,
-                        });
+                      onClick={async (e) => {
+                        try {
+                          e.preventDefault();
+                          setShowModal({
+                            AddVisible: true,
+                          });
+
+                          const SubSede: any = searchParams.get("SubSede");
+                          const IdRol: any = searchParams.get("IdRol");
+                          const IdUser: any = searchParams.get("IdUser");
+                          const Doc: any = searchParams.get("Doc");
+                          const RegistrarAsistencia = await fetch(
+                            "/api/Estudiantes/RegisterAsistencia",
+                            {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json",
+                              },
+                              body: JSON.stringify({
+                                IdPrueba: Values?.PruebaID,
+                                SubSede,
+                                IdRol,
+                                IdUser,
+                                Doc,
+                              }),
+                            }
+                          ).then((res) => res.json());
+                          alert(RegistrarAsistencia?.body);
+                          setValues({} as any);
+
+                          setData((prev) =>
+                            prev.filter(
+                              (item) => item.IdPrueba !== Values?.PruebaID
+                            )
+                          );
+                        } catch (error) {
+                          console.log(error);
+                          alert("Error al registrar la asistencia");
+                        }
                       }}
                       className="BtnHeader ml-20 mt-5 hover:shadow-inner focus:outline-none transition duration-500 ease-in-out text-black transform hover:-translate-x hover:scale-105"
                     >

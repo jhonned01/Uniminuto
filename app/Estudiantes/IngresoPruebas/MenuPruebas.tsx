@@ -9,12 +9,14 @@ type Props = {
   Preguntas: any;
   setPreguntasResolver: React.Dispatch<React.SetStateAction<any>>;
   setPreguntaShow: React.Dispatch<React.SetStateAction<any>>;
+  PreguntasResolver: any;
 };
 
 const MenuPruebas = ({
   Preguntas,
   setPreguntasResolver,
   setPreguntaShow,
+  PreguntasResolver,
 }: Props) => {
   const [Time, setTime] = useState(null as any);
 
@@ -38,17 +40,19 @@ const MenuPruebas = ({
                 <li
                   onClick={(e) => {
                     e.preventDefault();
-                    setPreguntaShow(pregunta?.Preguntas[0]);
-                    setPreguntasResolver(pregunta?.Preguntas);
-                    setTime({
-                      Hora: pregunta?.Hora,
-                      Minutos: pregunta?.Minutos,
-                    });
+                    if (PreguntasResolver.length == 0) {
+                      setPreguntaShow(pregunta?.Preguntas[0]);
+                      setPreguntasResolver(pregunta?.Preguntas);
+                      setTime({
+                        Hora: pregunta?.Hora,
+                        Minutos: pregunta?.Minutos,
+                      });
+                    }
                   }}
                   className="px-8 cursor-pointer"
                 >
                   <div
-                    className={` flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6`}
+                    className={` flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800  text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500  pr-6 `}
                   >
                     <div className="inline-flex justify-between items-center mr-4 w-full">
                       <span> {pregunta?.CompetenciaNombre}</span>
