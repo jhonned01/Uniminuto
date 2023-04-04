@@ -9,19 +9,32 @@ export async function GET(req: NextRequest) {
   const IdRol = searchParams.get("IdRol") || "";
   const IdUser = searchParams.get("IdUser") || "";
   const Doc = searchParams.get("Doc") || "";
+  const PruebaID = searchParams.get("PruebaID") || "";
 
   try {
     if (IdRol == "3") {
       const [InfoMatriculaEstudiante]: any = await connectionPool.query(
-        `SELECT programa,semestre FROM pfc_matricula WHERE alumno_id='${IdUser}' and subSedeId='${SubSede}'`
+        `SELECT programa,semestre,matri_id FROM pfc_matricula WHERE alumno_id='${IdUser}' and subSedeId='${SubSede}'`
       );
 
       if (InfoMatriculaEstudiante?.length == 1) {
-        const { programa, semestre } = InfoMatriculaEstudiante[0];
+        const { programa, semestre, matri_id } = InfoMatriculaEstudiante[0];
 
         const [PruebasResult]: any = await connectionPool.query(
-          `SELECT parametros_pruebas.tipo,parametros_pruebas.DateEstudiantesInicio,parametros_pruebas.DateEstudiantesFin, pfc_programa.pro_nom as NombrePrograma,parametros_pruebas.id as IdPrueba FROM parametros_pruebas INNER JOIN pfc_programa ON pfc_programa.pro_id=parametros_pruebas.programa WHERE parametros_pruebas.programa='${programa}' and parametros_pruebas.semestre='${semestre}' and parametros_pruebas.subSedeId='${SubSede}'`
+          `SELECT parametros_pruebas.tipo,parametros_pruebas.DateEstudiantesInicio,parametros_pruebas.DateEstudiantesFin, pfc_programa.pro_nom as NombrePrograma,parametros_pruebas.id as IdPrueba FROM parametros_pruebas INNER JOIN pfc_programa ON pfc_programa.pro_id=parametros_pruebas.programa WHERE parametros_pruebas.id NOT IN(SELECT respuestas_estudiante.prueba FROM respuestas_estudiante WHERE respuestas_estudiante.estudiante = '${matri_id}' ) and parametros_pruebas.programa='${programa}' and parametros_pruebas.semestre='${semestre}' and parametros_pruebas.subSedeId='${SubSede}'`
         );
+
+        if (PruebasResult.length == 0) {
+          return NextResponse.json(
+            { pruebas: [] },
+            {
+              status: 200,
+            }
+          );
+        }
+
+        for (const pruebas of PruebasResult) {
+        }
 
         const Pruebas: [] = PruebasResult?.filter((prueba: any) => {
           const {

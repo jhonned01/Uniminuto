@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 type Props = {
   pregunta: {
@@ -20,9 +20,16 @@ type Props = {
       NombreCompetencia: string;
     }>
   >;
+  setResetChecked: React.Dispatch<React.SetStateAction<number | null>>;
+  ResetChecked: number | null;
 };
 
-const PreguntasTipo1 = ({ pregunta, setResponseStudent }: Props) => {
+const PreguntasTipo1 = ({
+  pregunta,
+  setResponseStudent,
+  setResetChecked,
+  ResetChecked,
+}: Props) => {
   const [OptionsQuestion, setOptionsQuestion] = React.useState<any>(
     pregunta?.opciones?.split("@")
   );
@@ -35,7 +42,13 @@ const PreguntasTipo1 = ({ pregunta, setResponseStudent }: Props) => {
     return { __html: `${pregunta}` };
   }
 
-  console.log(pregunta);
+  useEffect(() => {
+    setOptionsQuestion(pregunta?.opciones?.split("@"));
+  }, [pregunta?.opciones]);
+
+  const handleOptionChange = (index: number) => {
+    setResetChecked(index);
+  };
 
   return (
     <>
@@ -70,18 +83,20 @@ const PreguntasTipo1 = ({ pregunta, setResponseStudent }: Props) => {
                     {option?.split("~")[1]?.length > 0 && (
                       <>
                         <input
-                          onChange={() =>
+                          onChange={() => {
                             setResponseStudent({
                               Pregunta: pregunta?.PreguntaId || 0,
                               Respuesta: alphabet[index],
                               Prueba: pregunta?.IdPrueba || 0,
                               IdEstudiante: searchParams?.get("IdUser") || 0,
                               NombreCompetencia: pregunta?.CompetenciaNombre,
-                            })
-                          }
+                            });
+                            handleOptionChange(index);
+                          }}
                           type="radio"
                           name="pregunta"
                           id={`${index}`}
+                          checked={ResetChecked === index ? true : false} // Establece el estado del radio button
                         />
                         <b className="text-[#000236] pl-1">
                           {alphabet[index]}-{" "}
