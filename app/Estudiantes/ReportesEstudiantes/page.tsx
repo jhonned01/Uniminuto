@@ -5,7 +5,8 @@ import BodyComponent from "./BodyComponent";
 const RepPruebas = () => {
   return (
     <>
-      <Title title="Reporte de Prueba" />
+      <Title title="Reporte Resultado Prueba  Estudiantes " />
+
       <BodyComponent />
     </>
   );

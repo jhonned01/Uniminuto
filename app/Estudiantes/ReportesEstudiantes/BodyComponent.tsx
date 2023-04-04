@@ -1,14 +1,95 @@
 "use client";
-import { Page, PDFViewer, View, Text, StyleSheet } from "@react-pdf/renderer";
-import React from "react";
+// import { Page, PDFViewer, View, Text, StyleSheet, Document } from "@react-pdf/renderer";
+import React, { useEffect, useState } from "react";
+import { BlobProvider, Document, Page, Text } from "@react-pdf/renderer";
 import MyDocument from "./MyDocument";
+import { FaArrowCircleDown } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
+import ReactSelect from "react-select";
+import Loading from "@/app/loading";
 
 const BodyComponent = () => {
+  const searchParams = useSearchParams();
+
+  const [Data, setData] = useState({} as any);
+  const [IsLoading, setIsLoading] = useState(false as boolean);
+
+  console.log(Data, "data");
+
+  const GetData = async () => {
+    setIsLoading(true);
+    const SubSede = searchParams.get("SubSede");
+    const IdRol = searchParams.get("IdRol");
+    const IdUser = searchParams.get("IdUser");
+    const Doc = searchParams.get("Doc");
+
+    const Pruebas = await fetch(
+      `/api/Estudiantes/GetPruebasEstudiante?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&Doc=${Doc}`
+    ).then((res) => res.json());
+    // console.log("Pruebas", Pruebas)
+
+    console.log(Pruebas, "pruebas <---------------------------->");
+    setData({
+      Prueba: Pruebas?.pruebas || [],
+    });
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    GetData();
+  }, []);
   return (
     <>
-      <PDFViewer style={{ width: "100%", height: "100Vh" }}>
-        <MyDocument />
-      </PDFViewer>
+      <div className="md:w-[60%] lg:w-[40%] flex flex-col justify-center items-center bg-[#0c1790] mt-4 text-center p-3 rounded-lg gap-2 mx-4 md:mx-auto">
+        <h1 className="text-white lg:text-2xl font-medium">
+          Seleccione Prueba para ver el reporte
+        </h1>
+        <FaArrowCircleDown className="text-white text-2xl animate-bounce" />
+      </div>
+
+      <div className="flex flex-col mt-10 sm:justify-center items-center p-8">
+        {IsLoading ? (
+          <Loading />
+        ) : (
+          <div className="relative md:w-[60%] lg:w-[40%]">
+            <div className="card bg-blue-400 shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6" />
+            <div className="card bg-red-400 shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6" />
+            <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md border-2 border-gray-400">
+              <form>
+                <div className="mb-3">
+                  <label className="mb-2 block lg:text-base font-medium text-gray-800">
+                    Seleccione una Prueba{" "}
+                    <span className="text-red-900">(*)</span>
+                  </label>
+                  <ReactSelect
+                    className="dark:text-black"
+                    options={Data?.Prueba}
+                    getOptionLabel={(item: any) =>
+                      `${item.NombrePrograma} Prueba (# ${item.IdPrueba})`
+                    }
+                    placeholder="Seleccione una Opción"
+                  />
+                </div>
+
+                <BlobProvider document={<MyDocument />}>
+                  {({ blob, url, loading, error }: any) =>
+                    loading ? (
+                      "Loading document..."
+                    ) : (
+                      <a
+                        className=" bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+                        href={url}
+                        target="_blank"
+                      >
+                        Show
+                      </a>
+                    )
+                  }
+                </BlobProvider>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 };
