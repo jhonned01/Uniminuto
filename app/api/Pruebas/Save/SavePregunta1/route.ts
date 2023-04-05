@@ -35,16 +35,18 @@ export async function POST(req: NextRequest) {
     const [ingreso]: any = await connectionPool.query(
       `INSERT INTO preguntas_pruebas(tipo,pregunta,opciones,respuesta,punto,competencia,prueba,aprobo,IdDocente) VALUES(1, '${pregunta}', '${respuestasFormated}','${correcta}', ${punto},  '${competenciaFind[0]?.eje_id}', '${prueba}', 0,'${IdUser}')`
     );
-    const id = ingreso?.insertId;
-    let sql = "";
-    retro.map((ret: any, key: number) => {
-      let letra = abecedario[key];
-      sql += `('${id}','${letra}','${ret}'),`;
-    });
-    sql = sql.substring(0, sql.length - 1);
-    const [retroalimentacion] = await connectionPool.query(
-      `INSERT INTO retroalimentacionPregunta(pregunta, posicion, texto) VALUES ${sql}`
-    );
+    if (retro?.length > 0) {
+      const id = ingreso?.insertId;
+      let sql = "";
+      retro?.map((ret: any, key: number) => {
+        let letra = abecedario[key];
+        sql += `('${id}','${letra}','${ret}'),`;
+      });
+      sql = sql.substring(0, sql.length - 1);
+      const [retroalimentacion] = await connectionPool.query(
+        `INSERT INTO retroalimentacionPregunta(pregunta, posicion, texto) VALUES ${sql}`
+      );
+    }
     return NextResponse.json(
       { body: "La información fue ingresada con exito" },
       {
