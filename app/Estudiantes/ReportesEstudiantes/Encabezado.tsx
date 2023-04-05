@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Encabezado = () => (
+const Encabezado = ({ InfoPdf }: any) => (
   <View style={styles.marginDocument}>
     <View style={styles.table}>
       <View style={styles.tableRow}>

@@ -62,7 +62,7 @@ const data = [
   },
 ];
 
-const Tabla2 = () => {
+const Tabla2 = ({ InfoPdf }: any) => {
   return (
     <View style={styles.table}>
       <View style={styles.tableRow}>

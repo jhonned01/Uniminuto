@@ -65,31 +65,33 @@ const styles = StyleSheet.create({
   },
 });
 
-const MyDocument = () => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.marginDocument}>
-        <Encabezado />
-        <Text style={styles.title2}>Datos del Usuario</Text>
-        <DatosUser />
-        <Text style={styles.title}>Resultados</Text>
-        <ReporteResult />
-        <Text style={styles.subtitle2}>Módulo Competencias Genéricas</Text>
-        <Tabla1 />
-        <Tabla2 />
-      </View>
-    </Page>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.marginDocument}>
-        <Encabezado />
-        <Text style={styles.title}>Porcentaje </Text>
-        <Text style={styles.subtitle3}>Módulo de Competencias Genéricas</Text>
-        <Grafica2 />
-        <Text style={styles.subtitle}>Cómo Interpretar la Prueba</Text>
-        <Interpretacion />
-      </View>
-    </Page>
-  </Document>
-);
+const MyDocument = ({ InfoPdf }: any) => {
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.marginDocument}>
+          <Encabezado InfoPdf={InfoPdf} />
+          <Text style={styles.title2}>Datos del Usuario</Text>
+          <DatosUser InfoPdf={InfoPdf} />
+          <Text style={styles.title}>Resultados</Text>
+          <ReporteResult />
+          <Text style={styles.subtitle2}>Módulo Competencias Genéricas</Text>
+          <Tabla1 InfoPdf={InfoPdf} />
+          <Tabla2 InfoPdf={InfoPdf} />
+        </View>
+      </Page>
+      <Page size="A4" style={styles.page}>
+        <View style={styles.marginDocument}>
+          <Encabezado />
+          <Text style={styles.title}>Porcentaje </Text>
+          <Text style={styles.subtitle3}>Módulo de Competencias Genéricas</Text>
+          <Grafica2 InfoPdf={InfoPdf} />
+          <Text style={styles.subtitle}>Cómo Interpretar la Prueba</Text>
+          <Interpretacion />
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 export default MyDocument;
