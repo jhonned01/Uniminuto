@@ -46,10 +46,10 @@ function BodyComponent() {
             <div className="relative w-full rounded-3xl  px-6 py-4 bg-gray-100 shadow-md border-2 border-gray-400">
               <form>
                 <div className="mb-3">
-                  <label className="mb-2 block lg:text-base font-medium text-gray-800">
+                  {/* <label className="mb-2 block lg:text-base font-medium text-gray-800">
                     Seleccione una Prueba{" "}
                     <span className="text-red-900">(*)</span>
-                  </label>
+                  </label> */}
                   <ReactSelect
                     className="dark:text-black"
                     options={Data?.Prueba}

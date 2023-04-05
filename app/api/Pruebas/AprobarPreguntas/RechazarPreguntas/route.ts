@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     const [InsertNotificacion]: any = await connectionPool.query(`
       INSERT INTO notifications (Rol, user_id, message, Link) VALUES ('2', '${
         DocenteAsignado[0]?.IdDocente || 0
-      }', 'Se ha devuelto una pregunta revise la bandeja de preguntas y debe encontrase con color amarillo', '/Pruebas/IngresoPreguntas?SubSede=${
+      }', 'Se ha devuelto una pregunta, por favor revise la bandeja de preguntas la cual identificara con color rojo.', '/Pruebas/IngresoPreguntas?SubSede=${
       DocenteAsignado[0]?.subSedeId || 0
     }&IdRol=2&IdUser=${DocenteAsignado[0]?.IdDocente || 0}')`);
 

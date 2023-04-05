@@ -129,8 +129,6 @@ const PresentarPrueba = ({
     }
   };
 
-  console.log("DataSelected --------->", DataSelected);
-
   return (
     <>
       <div className="bg-[#000236]/100 transition duration-150 ease-in-out z-10 fixed top-0 right-0 bottom-0 left-0">
