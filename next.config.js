@@ -6,7 +6,7 @@ const nextConfig = {
   images: {
     domains: ["sygescol.uniminuto.sistemasivhorsnet.com"],
   },
-  // reactStrictMode: true,
+  reactStrictMode: true,
 };
 
 module.exports = nextConfig;

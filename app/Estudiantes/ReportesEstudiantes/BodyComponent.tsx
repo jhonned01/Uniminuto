@@ -13,8 +13,7 @@ const BodyComponent = () => {
 
   const [Data, setData] = useState({} as any);
   const [IsLoading, setIsLoading] = useState(false as boolean);
-
-  console.log(Data, "data");
+  const [Values, setValues] = useState({} as any);
 
   const GetData = async () => {
     setIsLoading(true);
@@ -24,11 +23,9 @@ const BodyComponent = () => {
     const Doc = searchParams.get("Doc");
 
     const Pruebas = await fetch(
-      `/api/Estudiantes/GetPruebasEstudiante?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&Doc=${Doc}`
+      `/api/Estudiantes/GetPruebasReporte?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&Doc=${Doc}`
     ).then((res) => res.json());
-    // console.log("Pruebas", Pruebas)
 
-    console.log(Pruebas, "pruebas <---------------------------->");
     setData({
       Prueba: Pruebas?.pruebas || [],
     });
@@ -37,6 +34,25 @@ const BodyComponent = () => {
   useEffect(() => {
     GetData();
   }, []);
+
+  useEffect(() => {
+    if (Values?.IdPrueba) {
+      const GetInfoPdf = async () => {
+        const SubSede = searchParams.get("SubSede");
+        const IdRol = searchParams.get("IdRol");
+        const IdUser = searchParams.get("IdUser");
+        const Doc = searchParams.get("Doc");
+
+        const Info = await fetch(
+          `/api/Estudiantes/ReportesPdf/InfoEstuPrueba?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&Doc=${Doc}&IdPrueba=${Values.IdPrueba}`
+        ).then((res) => res.json());
+
+        console.log(Info, "info");
+      };
+      GetInfoPdf();
+    }
+  }, [Values.IdPrueba]);
+
   return (
     <>
       <div className="md:w-[60%] lg:w-[40%] flex flex-col justify-center items-center bg-[#0c1790] mt-4 text-center p-3 rounded-lg gap-2 mx-4 md:mx-auto">
@@ -67,6 +83,12 @@ const BodyComponent = () => {
                       `${item.NombrePrograma} Prueba (# ${item.IdPrueba})`
                     }
                     placeholder="Seleccione una Opción"
+                    onChange={(e: any) => {
+                      setValues({
+                        ...Values,
+                        IdPrueba: e?.IdPrueba,
+                      });
+                    }}
                   />
                 </div>
 

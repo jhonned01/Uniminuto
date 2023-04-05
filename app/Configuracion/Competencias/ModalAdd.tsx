@@ -21,7 +21,7 @@ type Props = {
 
 const ModalAdd = ({ setShowModal, setCompetencias, InfoEditar }: Props) => {
   const [Values, setValues] = useState({
-    Nombre: InfoEditar?.Nombre || "",
+    NombreCompetencia: InfoEditar?.Nombre || "",
     Abreviatura: InfoEditar?.Abreviatura || "",
     TipoCompetencia: InfoEditar?.TipoCompetencia || "",
     Id: InfoEditar?.Id || "",
@@ -79,6 +79,8 @@ const ModalAdd = ({ setShowModal, setCompetencias, InfoEditar }: Props) => {
           alert("Por favor, llene todos los campos");
           return;
         }
+
+        console.log("values ---", Values);
 
         const sentDataRes = await fetch(
           `/api/Configuracion/Competencias/AddCompetencia`,
