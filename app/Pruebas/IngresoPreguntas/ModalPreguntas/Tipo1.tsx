@@ -167,11 +167,11 @@ function Tipo1({
         IdUser: searchParams?.get("IdUser") || 0,
       })
       .then((res) => {
-        if (res.status == 200) {
-          alert(res.data?.body);
-          setContador({ Contador: puntos || 0 });
-          setShowModal({ AddVisible: false });
-        }
+        console.log("res ---------------->");
+
+        alert(res.data?.body);
+        setContador({ Contador: puntos || 0 });
+        setShowModal({ AddVisible: false });
       });
   };
   useEffect(() => {
