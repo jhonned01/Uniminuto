@@ -77,7 +77,7 @@ const ModalRechazo = ({
                 });
               }}
               minLength={20}
-              title="El motivo del rechazo debe tener minimo 20 caracteres"
+              title="El motivo del rechazó debe tener minimo 20 caracteres"
             />
 
             <div className="flex justify-around mt-3 gap-2">

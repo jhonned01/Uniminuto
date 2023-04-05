@@ -6,7 +6,7 @@ import BodyComponent from "./BodyComponent";
 function page() {
   return (
     <>
-      <Title title="Reporte Resultados Prueba Saber para Estudiantes" />
+      <Title title="Reportes " />
       <div className="md:w-[60%] lg:w-[40%] flex flex-col justify-center items-center bg-[#0c1790] mt-4 text-center p-3 rounded-lg gap-2 mx-4 md:mx-auto">
         <h1 className="text-white lg:text-2xl font-medium">
           Seleccione Prueba para ver el reporte

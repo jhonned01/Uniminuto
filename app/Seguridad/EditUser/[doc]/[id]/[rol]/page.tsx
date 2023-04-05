@@ -12,7 +12,7 @@ type props = {
 const EditUser = ({ params }: props) => {
   return (
     <>
-      <Title title="Edita tu información " />
+      <Title title="Edición parcial  de información" />
       <BodyComponent params={params} />
     </>
   );
