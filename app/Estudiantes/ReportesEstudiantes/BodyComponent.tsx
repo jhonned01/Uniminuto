@@ -15,6 +15,8 @@ const BodyComponent = () => {
   const [IsLoading, setIsLoading] = useState(false as boolean);
   const [Values, setValues] = useState({} as any);
 
+  const [InfoPdf, setInfoPdf] = useState({} as any);
+
   const GetData = async () => {
     setIsLoading(true);
     const SubSede = searchParams.get("SubSede");
@@ -47,7 +49,11 @@ const BodyComponent = () => {
           `/api/Estudiantes/ReportesPdf/InfoEstuPrueba?SubSede=${SubSede}&IdRol=${IdRol}&IdUser=${IdUser}&Doc=${Doc}&IdPrueba=${Values.IdPrueba}`
         ).then((res) => res.json());
 
-        console.log(Info, "info");
+        setInfoPdf({
+          ...Info,
+        });
+
+        console.log(Info);
       };
       GetInfoPdf();
     }
@@ -92,21 +98,26 @@ const BodyComponent = () => {
                   />
                 </div>
 
-                <BlobProvider document={<MyDocument />}>
-                  {({ blob, url, loading, error }: any) =>
-                    loading ? (
-                      "Loading document..."
-                    ) : (
-                      <a
-                        className=" bg-blue-500 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
-                        href={url}
-                        target="_blank"
-                      >
-                        Show
-                      </a>
-                    )
-                  }
-                </BlobProvider>
+                {Object.keys(InfoPdf).length > 0 && (
+                  <>
+                    {" "}
+                    <BlobProvider document={<MyDocument InfoPdf={InfoPdf} />}>
+                      {({ blob, url, loading, error }: any) =>
+                        loading ? (
+                          "Loading document..."
+                        ) : (
+                          <a
+                            className=" bg-blue-500 px-10 w-full py-3 rounded-xl text-white shadow-xl hover:shadow-inner focus:outline-none transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
+                            href={url}
+                            target="_blank"
+                          >
+                            Ver Reporte
+                          </a>
+                        )
+                      }
+                    </BlobProvider>
+                  </>
+                )}
               </form>
             </div>
           </div>

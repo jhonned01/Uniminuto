@@ -55,7 +55,9 @@ const data = [
   },
 ];
 
-const DatosUser = () => {
+const DatosUser = ({ InfoPdf }: any) => {
+  const { InformacionEstudiante } = InfoPdf;
+
   return (
     <View style={styles.table}>
       <View style={styles.tableRow}>
@@ -72,22 +74,25 @@ const DatosUser = () => {
           <Text style={styles.tableCell}>FECHA DE LA PRUEBA</Text>
         </View>
       </View>
-      {data.map((item, index) => (
-        <View key={index} style={styles.tableRow}>
-          {/* <View style={styles.tableCol}>
+
+      <View style={styles.tableRow}>
+        {/* <View style={styles.tableCol}>
               <Text style={styles.tableCell}>{item.product}</Text>
             </View> */}
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.nombre}</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.document}</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.regist}</Text>
-          </View>
+        <View style={styles.tableCol}>
+          <Text style={styles.tableCell}>
+            {InformacionEstudiante.NombreCompleto}
+          </Text>
         </View>
-      ))}
+        <View style={styles.tableCol}>
+          <Text style={styles.tableCell}>
+            {InformacionEstudiante.NumeroDocumento}
+          </Text>
+        </View>
+        <View style={styles.tableCol}>
+          <Text style={styles.tableCell}>05/Mar/2023</Text>
+        </View>
+      </View>
     </View>
   );
 };

@@ -78,7 +78,7 @@ const data = [
   },
 ];
 
-const Tabla1 = () => {
+const Tabla1 = ({ InfoPdf }: any) => {
   return (
     <View style={styles.table}>
       <View style={styles.tableRow}>
@@ -95,19 +95,21 @@ const Tabla1 = () => {
           <Text style={styles.tableCell}>% POR PERCENTIL</Text>
         </View>
       </View>
-      {data.map((item, index) => (
+      {InfoPdf?.Competencias?.map((item: any, index: any) => (
         <View key={index} style={styles.tableRow}>
           {/* <View style={styles.tableCol}>
             <Text style={styles.tableCell}>{item.product}</Text>
           </View> */}
           <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.mod}</Text>
+            <Text style={styles.tableCell}>{item.CompetenciaNombre}</Text>
           </View>
           <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.porcent}</Text>
+            <Text style={styles.tableCell}>{item.TotalPuntos} / 300</Text>
           </View>
           <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.percent}</Text>
+            <Text style={styles.tableCell}>
+              {((item.TotalPuntos * 100) / 300).toFixed(2)}%
+            </Text>
           </View>
         </View>
       ))}

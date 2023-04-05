@@ -73,30 +73,38 @@ const styles = StyleSheet.create({
   },
 });
 
-const Encabezado = () => (
-  <View style={styles.marginDocument}>
-    <View style={styles.table}>
-      <View style={styles.tableRow}>
-        <View style={styles.tableColImage}>
-          <View style={styles.tableCell}>
-            <Image
-              src="/EscudoUniminuto.png"
-              style={{ width: 100, height: 100 }}
-            />
+const Encabezado = ({ InfoPdf }: any) => {
+  return (
+    <View style={styles.marginDocument}>
+      <View style={styles.table}>
+        <View style={styles.tableRow}>
+          <View style={styles.tableColImage}>
+            <View style={styles.tableCell}>
+              <Image
+                src="/EscudoUniminuto.png"
+                style={{ width: 100, height: 100 }}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.tableColText}>
-          <Text style={styles.tableCell}>
-            CORPORACIÓN UNIVERSITARIA MINUTO DE DIOS
-          </Text>
-          <Text style={styles.tableCell}>
-            Resolución de aprobación es 00002629 de 09 de noviembre de 2016
-          </Text>
-          <Text style={styles.tableCell}>NIT. 8001162172</Text>
+          <View style={styles.tableColText}>
+            <Text style={styles.tableCell}>
+              CORPORACIÓN UNIVERSITARIA MINUTO DE DIOS
+            </Text>
+            {/* <Text style={styles.tableCell}>
+              Resolución de aprobación es 00002629 de 09 de noviembre de 2016
+            </Text> */}
+            <Text style={styles.tableCell}>
+              {InfoPdf?.DatosUniversidad.siglaUniversidad || ""}
+            </Text>
+
+            <Text style={styles.tableCell}>
+              NIT. {InfoPdf?.DatosUniversidad.nit || ""}
+            </Text>
+          </View>
         </View>
       </View>
     </View>
-  </View>
-);
+  );
+};
 
 export default Encabezado;
