@@ -17,6 +17,10 @@ export async function GET(req: any) {
     const { programa, semestre, matri_id } = InfoMatriculaEstudiante[0];
 
     const [competenciasRes]: any = await connectionPool.query(`
+    SELECT preguntas_pruebas.id as PreguntaId,preguntas_pruebas.tipo as TipoPregunta,preguntas_pruebas.padre,pfc_ejes.eje_id idCompetencia, pfc_ejes.eje_nom CompetenciaNombre,punto,pfc_ejes.eje_tip as TipoCompetencia,preguntas_pruebas.respuesta,preguntas_pruebas.prueba as IdPrueba,asignacionPrueba.Hora,asignacionPrueba.Minutos FROM preguntas_pruebas LEFT JOIN asignacionPrueba ON (asignacionPrueba.prueba=preguntas_pruebas.prueba) INNER JOIN pfc_ejes ON pfc_ejes.eje_id=preguntas_pruebas.competencia WHERE preguntas_pruebas.prueba='${IdPrueba}' and preguntas_pruebas.aprobo=2 ORDER BY TipoCompetencia,RAND() desc
+    `);
+
+    console.log(`
     SELECT preguntas_pruebas.id as PreguntaId,preguntas_pruebas.tipo as TipoPregunta,preguntas_pruebas.padre,pfc_ejes.eje_id idCompetencia, pfc_ejes.eje_nom CompetenciaNombre,punto,pfc_ejes.eje_tip as TipoCompetencia,preguntas_pruebas.respuesta,preguntas_pruebas.prueba as IdPrueba,asignacionPrueba.Hora,asignacionPrueba.Minutos FROM preguntas_pruebas INNER JOIN pfc_ejes ON pfc_ejes.eje_id=preguntas_pruebas.competencia INNER JOIN asignacionPrueba ON (asignacionPrueba.competencia=pfc_ejes.eje_id) WHERE preguntas_pruebas.prueba='${IdPrueba}' and preguntas_pruebas.aprobo=2 ORDER BY TipoCompetencia,RAND() desc
     `);
 

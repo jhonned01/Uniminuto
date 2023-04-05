@@ -52,6 +52,8 @@ const BodyComponent = () => {
         setInfoPdf({
           ...Info,
         });
+
+        console.log(Info);
       };
       GetInfoPdf();
     }
