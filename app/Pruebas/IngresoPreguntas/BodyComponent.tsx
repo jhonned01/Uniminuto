@@ -286,7 +286,7 @@ const BodyComponent = () => {
                                 stroke="currentColor"
                                 className="cursor-pointer w-9 h-9 md:w-20 md:h-16 text-white hover:scale-110"
                               >
-                                <title>Visualizar Preguntas</title>
+                                <title>Ver Preguntas</title>
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -377,7 +377,7 @@ const BodyComponent = () => {
                                 stroke="currentColor"
                                 className="cursor-pointer w-9 h-9 md:w-20 md:h-16 text-white hover:scale-110"
                               >
-                                <title>Visualizar Preguntas</title>
+                                <title>Ver Preguntas</title>
                                 <path
                                   strokeLinecap="round"
                                   strokeLinejoin="round"

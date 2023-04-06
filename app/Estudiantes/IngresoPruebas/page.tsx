@@ -4,7 +4,7 @@ import BodyComponent from "./BodyComponent";
 const IngresoPruebas = () => {
   return (
     <>
-      <Title title="Presentar Prueba" />
+      <Title title="Presentación Pruebas" />
       <BodyComponent />
     </>
   );
