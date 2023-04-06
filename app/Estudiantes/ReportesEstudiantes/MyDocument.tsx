@@ -84,7 +84,11 @@ const MyDocument = ({ InfoPdf }: any) => {
         <View style={styles.marginDocument}>
           <Encabezado />
           <Text style={styles.title}>Porcentaje </Text>
-          <Text style={styles.subtitle3}>Módulo de Competencias Genéricas</Text>
+          {/* <Text style={styles.subtitle3}>Módulo de Competencias Genéricas</Text> */}
+          <Text style={styles.subtitle3}>
+            Comparativo del resultado individual, vs. promedio general del
+            programa{" "}
+          </Text>
           <Grafica2 InfoPdf={InfoPdf} />
           <Text style={styles.subtitle}>Cómo Interpretar la Prueba</Text>
           <Interpretacion />
