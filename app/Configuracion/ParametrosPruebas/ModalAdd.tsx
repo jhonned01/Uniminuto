@@ -299,7 +299,8 @@ const ModalAdd = ({
                     : " bg-[#151a8b]/40 text-white"
                 }`}
               >
-                Docentes
+                Formulación Preguntas
+                {/* Docentes */}
               </li>
               <li
                 onClick={() => {
@@ -317,7 +318,7 @@ const ModalAdd = ({
                     : " bg-[#151a8b]/40 text-white"
                 }`}
               >
-                Aprobación
+                Aprobación Preguntas
               </li>
               <li
                 onClick={() => {
@@ -335,7 +336,8 @@ const ModalAdd = ({
                     : " bg-[#151a8b]/40 text-white"
                 }`}
               >
-                Estudiantes
+                {/* Estudiantes */}
+                Presentación Prueba Estudiante
               </li>
               <li
                 onClick={() => {

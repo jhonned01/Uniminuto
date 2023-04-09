@@ -85,8 +85,11 @@ const BodyComponent = () => {
                   <ReactSelect
                     className="dark:text-black"
                     options={Data?.Prueba}
+                    // getOptionLabel={(item: any) =>
+                    //   `${item.NombrePrograma} Prueba (# ${item.IdPrueba})`
+                    // }
                     getOptionLabel={(item: any) =>
-                      `${item.NombrePrograma} Prueba (# ${item.IdPrueba})`
+                      `Saber Pro (# ${item.IdPrueba})`
                     }
                     placeholder="Seleccione una Opción"
                     onChange={(e: any) => {
