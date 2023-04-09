@@ -132,6 +132,35 @@ const ModalAsignarDocente = ({
                 </div>
               </div>
               <div>
+                <label
+                  htmlFor="Mooc"
+                  className="my-2 px-4 text-[15px] text-gray-700"
+                >
+                  Link Mooc:
+                </label>
+                <input
+                  placeholder="Ingrese link para reforzar la competencia"
+                  className="InputStyle"
+                  type="text"
+                  name="LinkMooc"
+                  id="Mooc"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setCompetenciaGenerica((prev: any) => {
+                      prev[Asignacion?.Competencia?.index] = {
+                        ...prev[Asignacion?.Competencia?.index],
+                        LinkMock: e.target.value,
+                      };
+
+                      return [...prev];
+                    });
+                  }}
+                  // expresion regular para validad que sea un link
+                  pattern="https?://.+"
+                />
+              </div>
+
+              <div>
                 <label className="my-2 px-4 text-[15px] text-gray-700">
                   Duración
                 </label>

@@ -46,7 +46,8 @@ const Aprobacion = ({
               htmlFor="InicioPrueba"
               className="mb-3 block text-base font-medium text-gray-800"
             >
-              Rango Fechas Profesores <span className="text-red-900">(*)</span>
+              Rango fechas para aprobación de preguntas
+              <span className="text-red-900">(*)</span>
             </label>
             <DateRange
               ranges={[selectionRangeDocentes]}

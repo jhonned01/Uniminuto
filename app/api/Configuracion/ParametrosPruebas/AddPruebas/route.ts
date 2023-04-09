@@ -17,11 +17,11 @@ export async function POST(req: NextRequest) {
       InfoPrueba,
     } = await req?.json();
 
-    console.log(CompetenciaEspecifica);
+    console.log(CompetenciaGenerica);
 
     let sqlParametrosPruebasBase = `INSERT INTO parametros_pruebas (subSedeId,tipo,semestre,programa,DateDocentesInicio,DateDocentesFin,DateEstudiantesInicio,DateEstudiantesFin,DataAprobacionInicio,DataAprobacionEnd) VALUES `;
 
-    let sqlAsignacionPruebaBase = `INSERT INTO asignacionPrueba (competencia,docente,prueba,Hora,Minutos) VALUES`;
+    let sqlAsignacionPruebaBase = `INSERT INTO asignacionPrueba (competencia,docente,prueba,Hora,Minutos,LinkMooc) VALUES`;
 
     let NotificationDocente = `INSERT INTO notifications (user_id,message,date_range_start,date_range_end,Rol,Link) VALUES`;
 
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
               element?.DocenteAsignado?.Id
             }', '${AddPrueba.insertId}','${element.Hora || 0}','${
               element.Minutos || 0
-            }'),`;
+            }','${element?.LinkMock || ""}'),`;
 
             NotificationDocente += `('${
               element?.DocenteAsignado?.Id
@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
               element?.DocenteAsignado?.Id
             }', '${AddPrueba.insertId}','${element.Hora || 0}','${
               element.Minutos || 0
-            }'),`;
+            }','${element?.LinkMock || ""}'),`;
 
             NotificationDocente += `('${
               element?.DocenteAsignado?.Id
