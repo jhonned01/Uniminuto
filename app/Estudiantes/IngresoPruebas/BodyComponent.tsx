@@ -73,7 +73,7 @@ const BodyComponent = () => {
                     options={data}
                     isDisabled={data?.length === 0}
                     getOptionLabel={(item: any) =>
-                      `${item.tipo} - ${item.NombrePrograma} (#${item.IdPrueba})`
+                      `Saber Pro (#${item.IdPrueba})`
                     }
                     getOptionValue={(item) => item.IdPrueba}
                     onChange={(item) => {

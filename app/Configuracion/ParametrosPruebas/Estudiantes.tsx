@@ -51,7 +51,8 @@ const Estudiantes = ({
               htmlFor="InicioPrueba"
               className="mb-3 block text-base font-medium text-gray-800"
             >
-              Rango Fechas Profesores <span className="text-red-900">(*)</span>
+              Rango fechas para presentar la prueba{" "}
+              <span className="text-red-900">(*)</span>
             </label>
             <DateRange
               ranges={[selectionRangeEstudiantes]}

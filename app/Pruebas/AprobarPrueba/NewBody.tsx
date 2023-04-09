@@ -39,11 +39,6 @@ const NewBody = () => {
     }
 
     if (ShowModal?.Show && ShowModal?.TipoPreguntas == "Pendientes") {
-      console.log(
-        "res?.Genericas?.Pendientes?.Preguntas",
-        res?.Genericas?.Pendientes?.Preguntas
-      );
-
       setShowModal({
         ...ShowModal,
         Questions: res?.Genericas?.Pendientes?.Preguntas,

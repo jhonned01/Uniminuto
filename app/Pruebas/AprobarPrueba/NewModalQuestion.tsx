@@ -37,8 +37,6 @@ const NewModalQuestion = ({ ShowModal, setShowModal, getData }: Props) => {
     "Dic",
   ];
 
-  console.log(ShowModal, "ShowModal");
-
   return (
     <>
       {ShowAllQuestions?.Show && ShowAllQuestions?.TypeSee == "Ver" && (
@@ -61,7 +59,7 @@ const NewModalQuestion = ({ ShowModal, setShowModal, getData }: Props) => {
               Preguntas {ShowModal?.TipoPreguntas}
             </h1>
 
-            <div className="grid grid-cols-2 justify-center gap-2 max-h-[33rem] overflow-auto ">
+            <div className="grid md:grid-cols-2 justify-center gap-2 max-h-[33rem] overflow-auto ">
               {ShowModal?.Questions?.map((question, key) => {
                 const fecha = new Date(question?.DateCreate);
 
@@ -72,10 +70,10 @@ const NewModalQuestion = ({ ShowModal, setShowModal, getData }: Props) => {
                 return (
                   <div
                     key={key}
-                    className="w-[28rem] h-64 flex mx-auto flex-col justify-between items-start bg-blue-300 rounded-lg border border-blue-300 mb-6 py-5 px-4"
+                    className="h-63 flex mx-auto flex-col flex-wrap justify-between items-start bg-blue-200 rounded-lg border border-blue-300 mb-6 py-2 px-4"
                   >
                     <div>
-                      <h4 className="text-gray-900 font-bold mb-3">
+                      <h4 className="text-gray-900 font-bold ">
                         {question?.NombreCompetencia || ""}
                       </h4>
 
@@ -90,7 +88,7 @@ const NewModalQuestion = ({ ShowModal, setShowModal, getData }: Props) => {
                       />
                     </div>
                     <div className="w-full flex flex-col items-start">
-                      <div className="mb-3 border border-[#151a8b] rounded-full px-3 py-1 text-gray-800 text-xs flex items-center">
+                      <div className=" border border-[#151a8b] rounded-full px-3 py-1 text-gray-800 text-xs flex items-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
