@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderLeftWidth: 0,
     borderTopWidth: 0,
+    backgroundColor: "#F3E555",
   },
   tableCell: {
     margin: "auto",

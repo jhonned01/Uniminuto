@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderLeftWidth: 0,
     borderTopWidth: 0,
+
+    backgroundColor: "#F3E555",
   },
   tableCell: {
     margin: "auto",
@@ -52,23 +54,23 @@ const data = [
   //   porcent: "De 300 puntos posibles, su puntaje es:",
   // },
   {
-    mod: "Comunicación Escrita",
+    mod: "COMUNICACIÓN ESCRITA",
     porcent: "CE",
   },
   {
-    mod: "Razonamiento Cuantitativo",
+    mod: "RAZONAMIENTO CUANTITATIVO",
     porcent: "RC",
   },
   {
-    mod: "Lectura Crítica",
+    mod: "LECTURA CRÍTICA",
     porcent: "LC",
   },
   {
-    mod: "Competencias Ciudadanas",
+    mod: "COMPETENCIAS CIUDADANAS",
     porcent: "CC",
   },
   {
-    mod: "Inglés",
+    mod: "INGLÉS",
     porcent: "ING",
   },
 ];
@@ -84,6 +86,7 @@ const Interpretacion = () => {
           <Text style={styles.tableCell}>SIGLAS DEL MÓDULO</Text>
         </View>
       </View>
+
       {data.map((item, index) => (
         <View key={index} style={styles.tableRow}>
           <View style={styles.tableCol}>

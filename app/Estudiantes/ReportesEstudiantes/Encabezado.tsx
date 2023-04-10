@@ -98,7 +98,7 @@ const Encabezado = ({ InfoPdf }: any) => {
             </Text>
 
             <Text style={styles.tableCell}>
-              NIT. {InfoPdf?.DatosUniversidad.nit || ""}
+              NIT. 8001162172 {InfoPdf?.DatosUniversidad.nit || ""}
             </Text>
           </View>
         </View>

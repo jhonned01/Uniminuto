@@ -7,6 +7,7 @@ import ReactPDF, {
   StyleSheet,
   Document,
 } from "@react-pdf/renderer";
+import { colors } from "react-select/dist/declarations/src/theme";
 
 const styles = StyleSheet.create({
   body: {
@@ -38,6 +39,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderLeftWidth: 0,
     borderTopWidth: 0,
+    // backgroundColor: "#CFD5E6",
+    backgroundColor: "#74A8D1",
   },
   tableCell: {
     margin: "auto",
