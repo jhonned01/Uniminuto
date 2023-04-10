@@ -85,7 +85,7 @@ const NewBody = () => {
             setShowModal={setShowModal}
           /> */}
 
-          <h2 className=" text-2xl font-bold pb-2">Especificas</h2>
+          <h2 className=" text-2xl font-bold pb-2">Específicas</h2>
 
           <BodyComponent />
         </>

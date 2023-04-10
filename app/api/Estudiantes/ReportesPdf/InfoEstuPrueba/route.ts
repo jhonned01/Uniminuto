@@ -45,7 +45,7 @@ export async function GET(req: any) {
           ItemRespuestaEstudiante.CompetenciaPregunta
         ) {
           let RespuestasCorrectas: any = [];
-          let PuntosCompetencia: any = 0;
+          let PuntosCompetencia: any = null;
 
           if (
             ItemRespuestaEstudiante?.RespuestaEstudiante?.toLowerCase() ==

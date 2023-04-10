@@ -121,6 +121,11 @@ const ShowQuestion = ({ SeeQuestion, setSeeQuestion }: Props) => {
                       ))}
                     </div>
                   </div>
+
+                  <p className="text-xl font-bold">
+                    Pregunta realizada por:{" "}
+                    <span>{SeeQuestion?.Pregunta?.NombreCompleto}</span>
+                  </p>
                 </div>
               </>
             )}
