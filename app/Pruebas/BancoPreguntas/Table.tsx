@@ -63,10 +63,6 @@ const Table = ({ info, setSeeQuestion }: props) => {
                     setSeeQuestion(() => ({
                       Show: true,
                       Pregunta: pregunta,
-                      // Retro: retro.filter((bus: any) => {
-                      //   // console.log(`${bus.pregunta} == ${row.id}`, row);
-                      //   return bus.pregunta == row.id;
-                      // }),
                     }));
                   }}
                   key={index}

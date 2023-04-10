@@ -63,7 +63,7 @@ const ModalAdd = ({
     },
     {
       value: 4,
-      label: "Un texto para respuesta Digitada por el estudiante",
+      label: "Un texto para respuesta digitada por el estudiante",
     },
   ];
   const getData = async () => {

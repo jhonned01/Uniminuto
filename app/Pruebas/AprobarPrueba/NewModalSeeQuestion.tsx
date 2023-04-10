@@ -19,11 +19,11 @@ const NewModalSeeQuestion = ({
   );
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
+  console.log("ShowAllQuestions", ShowAllQuestions);
+
   function createMarkup(pregunta: any) {
     return { __html: `${pregunta}` };
   }
-
-  console.log(ShowAllQuestions);
 
   return (
     <div className="bg-[#000236]/70 transition duration-150 ease-in-out z-20 fixed top-0 right-0 bottom-0 left-0">
@@ -34,9 +34,15 @@ const NewModalSeeQuestion = ({
               Pregunta Completa
             </h1>
           </div>
-
+          {ShowAllQuestions?.Questions?.MsnRechazo.length > 0 && (
+            <p>
+              <b className="text-[#000236]">Motivo de rechazo: </b>
+              {ShowAllQuestions?.Questions?.MsnRechazo}
+            </p>
+          )}
+          <br />
+          <hr />
           <FroalaEditorView model={ShowAllQuestions?.Questions?.pregunta} />
-
           <div className="col-span-2 dark:text-black">
             <h2 className="font-bold pb-2">Opciones de respuesta: </h2>
             <div className="grid md:grid-cols-2 items-center gap-2">
