@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
 //   );
 // };
 
-const Grafica2 = ({InfoPdf}:any) => {
+const Grafica2 = ({ InfoPdf }: any) => {
   // Ordena los datos por las ventas en orden ascendente
   // const sortedData = [...data].sort((a, b) => a.score - b.score);
   const sortedData = [...myData].sort((a, b) => a.score - b.score);

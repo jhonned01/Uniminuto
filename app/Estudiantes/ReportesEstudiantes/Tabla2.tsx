@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderLeftWidth: 0,
     borderTopWidth: 0,
+    backgroundColor: "#F3E555",
   },
   tableCell: {
     margin: "auto",
@@ -49,13 +50,13 @@ const styles = StyleSheet.create({
 
 const data = [
   {
-    mod: "Competencias Ciudadanas",
+    mod: "COMPETENCIAS CIUDADANAS",
     desemp: "4",
     carct:
       "Establece relaciones que hay entre dimensiones (política, económica, ambiental, cultural) presentes en una situación problemática e identifica conflictos entre estas dimensiones.",
   },
   {
-    mod: "Inglés",
+    mod: "INGLÉS",
     desemp: "B2",
     carct:
       "Comprende información en textos complejos que presentan hechos y opiniones, los cuales pueden ser de orden académico, profesional o de otra índole, haciendo un amplio uso del lenguaje. ",

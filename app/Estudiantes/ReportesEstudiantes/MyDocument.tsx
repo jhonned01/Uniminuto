@@ -21,7 +21,8 @@ import Grafica2 from "./Grafica2";
 const styles = StyleSheet.create({
   page: {
     flexDirection: "row",
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
+    backgroundColor: "#EFEFF0",
   },
 
   title: {
@@ -82,12 +83,11 @@ const MyDocument = ({ InfoPdf }: any) => {
       </Page>
       <Page size="A4" style={styles.page}>
         <View style={styles.marginDocument}>
-          <Encabezado />
+          <Encabezado InfoPdf={InfoPdf} />
           <Text style={styles.title}>Porcentaje </Text>
           {/* <Text style={styles.subtitle3}>Módulo de Competencias Genéricas</Text> */}
           <Text style={styles.subtitle3}>
-            Comparativo del resultado individual, vs. promedio general del
-            programa{" "}
+            Resultado Individual vs. Promedio General{" "}
           </Text>
           <Grafica2 InfoPdf={InfoPdf} />
           <Text style={styles.subtitle}>Cómo Interpretar la Prueba</Text>
