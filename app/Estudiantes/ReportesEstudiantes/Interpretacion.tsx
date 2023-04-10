@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
 
     backgroundColor: "#075695",
+    color: "white",
   },
   tableCol2: {
     width: "50%",
