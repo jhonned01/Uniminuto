@@ -41,6 +41,13 @@ const styles = StyleSheet.create({
 
     backgroundColor: "#F3E555",
   },
+  tableCol2: {
+    width: "50%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
+  },
   tableCell: {
     margin: "auto",
     marginTop: 5,
@@ -89,10 +96,10 @@ const Interpretacion = () => {
 
       {data.map((item, index) => (
         <View key={index} style={styles.tableRow}>
-          <View style={styles.tableCol}>
+          <View style={styles.tableCol2}>
             <Text style={styles.tableCell}>{item.mod}</Text>
           </View>
-          <View style={styles.tableCol}>
+          <View style={styles.tableCol2}>
             <Text style={styles.tableCell}>{item.porcent}</Text>
           </View>
         </View>

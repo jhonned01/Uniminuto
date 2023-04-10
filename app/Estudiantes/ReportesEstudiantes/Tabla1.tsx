@@ -40,6 +40,13 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     backgroundColor: "#F3E555",
   },
+  tableCol2: {
+    width: "33.3%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
+  },
   tableCell: {
     margin: "auto",
     marginTop: 5,
@@ -96,24 +103,28 @@ const Tabla1 = ({ InfoPdf }: any) => {
           <Text style={styles.tableCell}>% POR PERCENTIL</Text>
         </View>
       </View>
-      {InfoPdf?.Competencias?.map((item: any, index: any) => (
-        <View key={index} style={styles.tableRow}>
-          {/* <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.product}</Text>
-          </View> */}
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.CompetenciaNombre}</Text>
+      {InfoPdf?.Competencias?.map((item: any, index: any) => {
+        // quitarle un 0 a la derecha
+        let porcent = item.TotalPuntos.toString().substring(0, -1);
+        // convertir a numero
+
+        return (
+          <View key={index} style={styles.tableRow}>
+            {/* <View style={styles.tableCol}>
+          <Text style={styles.tableCell}>{item.product}</Text>
+        </View> */}
+            <View style={styles.tableCol2}>
+              <Text style={styles.tableCell}>{item.CompetenciaNombre}</Text>
+            </View>
+            <View style={styles.tableCol2}>
+              <Text style={styles.tableCell}>0 / 300</Text>
+            </View>
+            <View style={styles.tableCol2}>
+              <Text style={styles.tableCell}>0%</Text>
+            </View>
           </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>{item.TotalPuntos} / 300</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>
-              {((item.TotalPuntos * 100) / 300).toFixed(2)}%
-            </Text>
-          </View>
-        </View>
-      ))}
+        );
+      })}
     </View>
   );
 };

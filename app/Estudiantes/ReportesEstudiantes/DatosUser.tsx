@@ -33,14 +33,24 @@ const styles = StyleSheet.create({
     margin: "auto",
     flexDirection: "row",
   },
-  tableCol: {
+  tableColTitle: {
     width: "33.3%",
     borderStyle: "solid",
     borderWidth: 1,
     borderLeftWidth: 0,
     borderTopWidth: 0,
     // backgroundColor: "#CFD5E6",
-    backgroundColor: "#74A8D1",
+    backgroundColor: "#075695",
+    color: "white",
+  },
+  tableCol2: {
+    width: "33.3%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
+    // backgroundColor: "#CFD5E6",
+    // backgroundColor: "#74A8D1",
   },
   tableCell: {
     margin: "auto",
@@ -67,13 +77,13 @@ const DatosUser = ({ InfoPdf }: any) => {
         {/* <View style={styles.tableCol}>
             <Text style={styles.tableCell}>Product</Text>
           </View> */}
-        <View style={styles.tableCol}>
+        <View style={styles.tableColTitle}>
           <Text style={styles.tableCell}>NOMBRE Y APELLIDO</Text>
         </View>
-        <View style={styles.tableCol}>
+        <View style={styles.tableColTitle}>
           <Text style={styles.tableCell}>DOCUMENTO DE IDENTIDAD</Text>
         </View>
-        <View style={styles.tableCol}>
+        <View style={styles.tableColTitle}>
           <Text style={styles.tableCell}>FECHA DE LA PRUEBA</Text>
         </View>
       </View>
@@ -82,18 +92,18 @@ const DatosUser = ({ InfoPdf }: any) => {
         {/* <View style={styles.tableCol}>
               <Text style={styles.tableCell}>{item.product}</Text>
             </View> */}
-        <View style={styles.tableCol}>
+        <View style={styles.tableCol2}>
           <Text style={styles.tableCell}>
             {InformacionEstudiante.NombreCompleto}
           </Text>
         </View>
-        <View style={styles.tableCol}>
+        <View style={styles.tableCol2}>
           <Text style={styles.tableCell}>
             {InformacionEstudiante.NumeroDocumento}
           </Text>
         </View>
-        <View style={styles.tableCol}>
-          <Text style={styles.tableCell}>05/Mar/2023</Text>
+        <View style={styles.tableCol2}>
+          <Text style={styles.tableCell}>10/Abril/2023</Text>
         </View>
       </View>
     </View>

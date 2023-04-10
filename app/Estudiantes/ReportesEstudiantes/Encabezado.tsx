@@ -94,7 +94,7 @@ const Encabezado = ({ InfoPdf }: any) => {
               Resolución de aprobación es 00002629 de 09 de noviembre de 2016
             </Text> */}
             <Text style={styles.tableCell}>
-              {InfoPdf?.DatosUniversidad.siglaUniversidad || ""}
+              {InfoPdf?.DatosUniversidad?.siglaUniversidad || ""}
             </Text>
 
             <Text style={styles.tableCell}>
