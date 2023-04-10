@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderTopWidth: 0,
 
-    backgroundColor: "#F3E555",
+    backgroundColor: "#075695",
   },
   tableCol2: {
     width: "50%",
