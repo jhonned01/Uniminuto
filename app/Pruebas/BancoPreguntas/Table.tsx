@@ -44,7 +44,7 @@ const Table = ({ info, setSeeQuestion }: props) => {
     {
       name: "Competencia ",
       selector: (row: any) =>
-        (row.TipoCompetencia == "G" && "GENERAL") ||
+        (row.TipoCompetencia == "G" && "GENÉRICA") ||
         (row.TipoCompetencia == "E" && "ESPECÍFICA"),
       sortable: true,
       wrap: true,
