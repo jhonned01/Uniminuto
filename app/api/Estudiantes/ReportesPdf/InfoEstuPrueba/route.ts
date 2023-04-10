@@ -70,7 +70,7 @@ export async function GET(req: any) {
             ...ItemCompetencia,
             ...ItemRespuestaEstudiante,
             RespuestasCorrectas: RespuestasCorrectas,
-            PuntosCompetencia: PuntosCompetencia,
+            PuntosCompetencia: PuntosCompetencia || 0,
           });
         } else {
           DataNormalizada.push({
@@ -86,25 +86,25 @@ export async function GET(req: any) {
     // console.log("DataNormalizada", DataNormalizada);
 
     const DataOrganizada = DataNormalizada?.reduce((acc: any, item: any) => {
-      let key = `${item.CompetenciaNombre}`;
+      let key = `${item?.CompetenciaNombre}`;
       if (!acc[key]) {
         acc[key] = {
-          CompetenciaNombre: item.CompetenciaNombre,
-          TipoCompetencia: item.TipoCompetencia,
-          PuntosCompetencia: item.PuntosCompetencia,
-          RespuestasCorrectas: item.RespuestasCorrectas,
-          PreguntaId: item.PreguntaId,
-          TipoPregunta: item.TipoPregunta,
+          CompetenciaNombre: item?.CompetenciaNombre,
+          TipoCompetencia: item?.TipoCompetencia,
+          PuntosCompetencia: item?.PuntosCompetencia,
+          RespuestasCorrectas: item?.RespuestasCorrectas,
+          PreguntaId: item?.PreguntaId,
+          TipoPregunta: item?.TipoPregunta,
           Preguntas: [],
           TotalPuntos: 0,
         };
       }
       acc[key]?.Preguntas?.push(item);
-      acc[key].TotalPuntos += item.PuntosCompetencia;
+      acc[key].TotalPuntos += parseInt(item.PuntosCompetencia) || 0;
       return acc;
     }, {});
 
-    console.log("DataOrganizada");
+    // console.log("DataOrganizada", DataOrganizada);
 
     return NextResponse.json(
       {

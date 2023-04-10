@@ -39,7 +39,19 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderTopWidth: 0,
     // backgroundColor: "#CFD5E6",
-    backgroundColor: "#74A8D1",
+
+    backgroundColor: "#075695",
+    color: "white",
+  },
+
+  tableCol2: {
+    width: "50%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
+    // backgroundColor: "#CFD5E6",
+    // backgroundColor: "#74A8D1",
   },
   tableCell: {
     margin: "auto",
@@ -69,10 +81,10 @@ const ReporteResult = () => {
       </View>
       {data.map((item, index) => (
         <View key={index} style={styles.tableRow}>
-          <View style={styles.tableCol}>
+          <View style={styles.tableCol2}>
             <Text style={styles.tableCell}>{item.mod}</Text>
           </View>
-          <View style={styles.tableCol}>
+          <View style={styles.tableCol2}>
             <Text style={styles.tableCell}>{item.porcent}</Text>
           </View>
         </View>
